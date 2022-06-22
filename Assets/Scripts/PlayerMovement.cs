@@ -60,8 +60,12 @@ public class PlayerMovement : Character
                 CheckGround();
 
                 if(!isDead){
-                    if(Input.GetKey("space") ) {
+                    if(Input.GetKey("space")) {
                         Jump();
+                    } 
+
+                    if (Input.GetKeyUp("space")) {
+                        isJumping = false;
                     }
                     
                     float horizontalInput = Input.GetAxis("Horizontal");
@@ -72,6 +76,12 @@ public class PlayerMovement : Character
 
                     animator.SetBool("walking", horizontalInput != 0);
                     animator.SetBool("grounded", grounded);       
+                }
+
+                if(body.velocity.y < -0.1) {
+                    body.gravityScale = 5.0f;
+                } else {
+                    body.gravityScale = 2.8f;
                 }
             }else if(spawning){
                 float step = spawnPlatform.speed * Time.deltaTime;
@@ -134,10 +144,6 @@ public class PlayerMovement : Character
             } else {
                 isJumping = false;
             }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space)) {
-            isJumping = false;
         }
 
         grounded = false;

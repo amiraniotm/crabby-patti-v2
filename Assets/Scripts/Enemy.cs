@@ -65,6 +65,10 @@ public class Enemy : Character
         if(spawning) {
             body.gravityScale = 0.0f;
             body.velocity = new Vector2(walkSpeed / 3, 0);
+        } else if(!spawning && body.velocity.y < -0.1) {
+            body.gravityScale = 2.0f;
+        } else if(!spawning) {
+            body.gravityScale = 1.0f;
         }
 
         if(!screenWrapScript.isVisible && onGround){
