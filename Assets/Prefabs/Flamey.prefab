@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4742577209595566228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.17, y: -1.62, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 4, y: 4, z: 1.8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3687489427716195, guid: e703cf7ee681277c395f7152398e7d4a, type: 3}
+  m_Sprite: {fileID: -2782341204894616949, guid: b183357d193ffeb75b6b57755685ee62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -139,9 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36581511e1650a2468ea4c157217c320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 4
-  topJumpSpeed: 5
+  walkSpeed: 10
+  runSpeed: 15
+  topJumpSpeed: 6
   enemyCounter: {fileID: 0}
   isDead: 0
   flippedVertical: 0
@@ -167,8 +167,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.3750001, y: 0.2633109}
+  m_Offset: {x: 0.0018250785, y: -0.009125502}
+  m_Size: {x: 0.47356132, y: 0.36187184}
   m_Direction: 1
 --- !u!114 &-6343581261707943107
 MonoBehaviour:
@@ -184,6 +184,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GhostPrefab: {fileID: 2496966096221258697, guid: cd6393f0742eb87118c1a8ef95e4973c, type: 3}
   isVisible: 1
-  isWrappingX: 0
   screenWidth: 0
   screenHeight: 0

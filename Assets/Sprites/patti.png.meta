@@ -1,0 +1,768 @@
+fileFormatVersion: 2
+guid: 2a6d9b3382395ee77a1863f27510c70e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7971551059088962056
+    second: patti_idle1
+  - first:
+      213: -2320625978311190126
+    second: patti_walk1
+  - first:
+      213: 7299239166805028670
+    second: patti_jump1
+  - first:
+      213: 977898027259403043
+    second: patti_jump10
+  - first:
+      213: 1771784104369463345
+    second: patti_kick1
+  - first:
+      213: 4830048932348158476
+    second: patti_idle2
+  - first:
+      213: 4028488020887915921
+    second: patti_walk2
+  - first:
+      213: 1237562791431654346
+    second: patti_jump2
+  - first:
+      213: -5028384177243618983
+    second: patti_kick2
+  - first:
+      213: -6801458869430866380
+    second: patti_dead1
+  - first:
+      213: 7360452200417679279
+    second: patti_idle3
+  - first:
+      213: 3663849227819371102
+    second: patti_walk3
+  - first:
+      213: 8634289199709360473
+    second: patti_jump3
+  - first:
+      213: -5396367100404471218
+    second: patti_dead2
+  - first:
+      213: -815693531399325667
+    second: patti_idle4
+  - first:
+      213: -2937404696029191860
+    second: patti_walk4
+  - first:
+      213: 6626069358551421119
+    second: patti_jump4
+  - first:
+      213: 5020673809076748355
+    second: patti_idle5
+  - first:
+      213: 5233122809268294060
+    second: patti_jump5
+  - first:
+      213: -7181405807437818814
+    second: patti_idle6
+  - first:
+      213: -3724891143603432774
+    second: patti_jump6
+  - first:
+      213: -3603050998366879668
+    second: patti_idle7
+  - first:
+      213: -4070342502989948430
+    second: patti_jump7
+  - first:
+      213: -3872490818401003883
+    second: patti_idle8
+  - first:
+      213: 7468316793839986740
+    second: patti_jump8
+  - first:
+      213: -5108904213062717287
+    second: patti_idle9
+  - first:
+      213: -3620496377475650657
+    second: patti_jump9
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 60
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: patti_idle1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 530
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd0d1efb8c5f5190800000000000000
+      internalID: -7971551059088962056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_walk1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 530
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 299d73ac7fa7bcfd0800000000000000
+      internalID: -2320625978311190126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump1
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 530
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3f2804695b1c4560800000000000000
+      internalID: 7299239166805028670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump10
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 529
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32b1a5d1311329d00800000000000000
+      internalID: 977898027259403043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_kick1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 530
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13020af6144a69810800000000000000
+      internalID: 1771784104369463345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle2
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 465
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c02ed5cc9e7c70340800000000000000
+      internalID: 4830048932348158476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_walk2
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 466
+        width: 68
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19dc0fad28018e730800000000000000
+      internalID: 4028488020887915921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump2
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 465
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acb468a4dc4bc2110800000000000000
+      internalID: 1237562791431654346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_kick2
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 454
+        width: 77
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95103397b37973ab0800000000000000
+      internalID: -5028384177243618983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_dead1
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 467
+        width: 65
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ea425a13d5c91a0800000000000000
+      internalID: -6801458869430866380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 398
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa753286744952660800000000000000
+      internalID: 7360452200417679279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_walk3
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 402
+        width: 66
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5a43c6f57b98d230800000000000000
+      internalID: 3663849227819371102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump3
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 402
+        width: 65
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9511bacd74823d770800000000000000
+      internalID: 8634289199709360473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_dead2
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 398
+        width: 65
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a69ce96b04c15b0800000000000000
+      internalID: -5396367100404471218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 338
+        width: 66
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d18fb5f0e031ea4f0800000000000000
+      internalID: -815693531399325667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_walk4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 338
+        width: 62
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c41ad93fdfd3c37d0800000000000000
+      internalID: -2937404696029191860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump4
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 334
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb0de85a9f684fb50800000000000000
+      internalID: 6626069358551421119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 269
+        width: 66
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 340802b8a340da540800000000000000
+      internalID: 5020673809076748355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump5
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 261
+        width: 62
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca15e600879cf9840800000000000000
+      internalID: 5233122809268294060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle6
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 205
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244ddb38775865c90800000000000000
+      internalID: -7181405807437818814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump6
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 197
+        width: 65
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2d48e7d378e4cc0800000000000000
+      internalID: -3724891143603432774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 137
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c40c9bee4346ffdc0800000000000000
+      internalID: -3603050998366879668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump7
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 130
+        width: 64
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f91c132f0d3387c0800000000000000
+      internalID: -4070342502989948430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle8
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 68
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5961f353e16224ac0800000000000000
+      internalID: -3872490818401003883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump8
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 64
+        width: 62
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438aaee1e8ac4a760800000000000000
+      internalID: 7468316793839986740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_idle9
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 1
+        width: 66
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99076e4bfa68919b0800000000000000
+      internalID: -5108904213062717287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_jump9
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 1
+        width: 65
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ba9f51ab961cdc0800000000000000
+      internalID: -3620496377475650657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

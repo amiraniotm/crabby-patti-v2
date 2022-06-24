@@ -79,9 +79,9 @@ public class PlayerMovement : Character
                 }
 
                 if(body.velocity.y < -0.1) {
-                    body.gravityScale = 5.0f;
+                    body.gravityScale = 8.0f;
                 } else {
-                    body.gravityScale = 2.8f;
+                    body.gravityScale = 5.0f;
                 }
             }else if(spawning){
                 float step = spawnPlatform.speed * Time.deltaTime;
@@ -94,7 +94,7 @@ public class PlayerMovement : Character
 
     protected void SetInputVelocity(float horizontalInput)
     {
-        if(horizontalInput != 0 && !( transform.position.y > spawnEndPoint.y )) {
+        if(horizontalInput != 0 && !spawning) {
             HideRespawnPlatform();
         }
         
@@ -119,12 +119,12 @@ public class PlayerMovement : Character
     protected void FlipHorizontal(float horizontalInput)
     {
         // Flip player sprite when walking
-        if(horizontalInput > 0.01f && flippedHorizontal){
-            transform.localScale *= new Vector2(-1,1);
-            flippedHorizontal = false;
-        }else if(horizontalInput < -0.01f && !flippedHorizontal){
+        if(horizontalInput > 0.01f && !flippedHorizontal){
             transform.localScale *= new Vector2(-1,1);
             flippedHorizontal = true;
+        }else if(horizontalInput < -0.01f && flippedHorizontal){
+            transform.localScale *= new Vector2(-1,1);
+            flippedHorizontal = false;
         }
     }
 
@@ -150,7 +150,7 @@ public class PlayerMovement : Character
 
         animator.SetTrigger("jump");
 
-        if(!spawning && !(transform.position.y > spawnEndPoint.y)){
+        if(!spawning){
             HideRespawnPlatform();
         }
     }

@@ -53,7 +53,7 @@ public class TileManager : MonoBehaviour
     {
         
         BoxCollider2D flipbox = gameObject.AddComponent<BoxCollider2D>();
-        flipbox.transform.position = new Vector2(collision.contacts[0].point.x , collision.contacts[0].point.y + (tilemap.cellSize.y / 2) );
+        flipbox.transform.position = new Vector2(collision.contacts[0].point.x , collision.contacts[0].point.y + (tilemap.cellSize.y) );
         flipbox.size = new Vector2(playerCollider.size.x * 2.5f, playerCollider.size.y * 1.5f );
         
         StartCoroutine(FlipboxCoroutine(flipbox));        

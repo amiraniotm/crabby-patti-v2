@@ -9,7 +9,7 @@ public class PlayerSpawnPlatform : MonoBehaviour
     public float speed = 0.5f;
     public bool coroutineStarted;
     public Vector3 endPoint;
-    public float spawnGap = 4;
+    public float spawnGap = 14;
 
     private void Awake()
     {

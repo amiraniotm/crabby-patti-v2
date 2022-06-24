@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: charred_tile
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 6ec981d952329d856b33751ff2c936f4, type: 2}
+  - {fileID: 11400000, guid: 937948a0ec27dbba1b137f69e7e13f92, type: 2}
   speedMod: 0.75

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: city_tile
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: dd09b4bc5fb0654adbe0a9a9e506abb8, type: 2}
+  - {fileID: 11400000, guid: 7625c8f24a3b6797abd0c83d38de2b79, type: 2}
   speedMod: 1

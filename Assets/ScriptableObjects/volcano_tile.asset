@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: volcano_tile
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: 012d80f80de83ac67bc74ba2a37c72d3, type: 2}
+  - {fileID: 11400000, guid: 60378e07844e9749b87a646e06bc0055, type: 2}
   speedMod: 1

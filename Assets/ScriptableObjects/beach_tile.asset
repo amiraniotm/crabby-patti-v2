@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: beach_tile
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 11400000, guid: f365d324543da2916887e7c424fed66d, type: 2}
+  - {fileID: 11400000, guid: cea3a44558f87f52a9b86eb3da0a1f92, type: 2}
   speedMod: 1

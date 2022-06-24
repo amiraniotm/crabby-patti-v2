@@ -6,7 +6,7 @@ public class FlameWave : MonoBehaviour
 {
     private TileManager tileManager;
     public string direction = "right";
-    private float speed = 5.0f;
+    private float speed = 12.0f;
     protected PlatformCollision platforms;
     protected Rigidbody2D body;
     protected new BoxCollider2D collider;

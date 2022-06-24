@@ -8,6 +8,7 @@ public class ItemController : MonoBehaviour
     [SerializeField] LevelDisplay levelDisplay;
     [SerializeField] PauseController pauseController;
     [SerializeField] TileManager tileManager;
+    [SerializeField] LayerMask platformMask;
 
     private BoxCollider2D itemZone;
     public bool lifeSpawned = false;
@@ -17,8 +18,6 @@ public class ItemController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         itemZone = GetComponent<BoxCollider2D>();
-
-        InvokeRepeating("SpawnLife", 1f, 2f);
     }
 
     private void Update()
@@ -26,16 +25,6 @@ public class ItemController : MonoBehaviour
         if(levelDisplay.timeCount < (levelDisplay.currentLevel.levelTime / 2) && !lifeSpawned) {
             SpawnLife();
         }
-
-        /**Vector2 itemZoneTopRight = screenTopRight + new Vector2(-(itemZoneAdjust / 2), -(itemZoneAdjust / 2));
-        Vector2 itemZoneBottomLeft = screenBottomLeft + new Vector2((itemZoneAdjust / 2), (itemZoneAdjust / 2));
-        Vector2 itemZoneTopLeft = new Vector2(itemZoneTopRight.x - itemZoneWidth, itemZoneTopRight.y);
-        Vector2 itemZoneBottomRight = new Vector2(itemZoneBottomLeft.x + itemZoneWidth, itemZoneBottomLeft.y );
-
-        Debug.DrawLine(itemZoneTopRight, itemZoneTopLeft, Color.red);
-        Debug.DrawLine(itemZoneTopLeft, itemZoneBottomLeft, Color.red);
-        Debug.DrawLine(itemZoneBottomLeft, itemZoneBottomRight, Color.red);
-        Debug.DrawLine(itemZoneBottomRight, itemZoneTopRight, Color.red);**/
     }
 
     private void SpawnLife()
@@ -50,7 +39,7 @@ public class ItemController : MonoBehaviour
 
             Vector2 newItemPos = new Vector2(randomX, randomY);
 
-            bool isColliding = Physics.CheckSphere(newItemPos, 4f);
+            bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
 
             if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
                 Instantiate(itemPrefab, newItemPos,Quaternion.identity);

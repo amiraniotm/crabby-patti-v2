@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BeachLevel
   m_EditorClassIdentifier: 
   levelType: beach
-  levelTime: 20
-  enemyCount: 2
+  levelTime: 45
+  enemyCount: 0
