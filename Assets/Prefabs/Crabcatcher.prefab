@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 8
   runSpeed: 0
-  topJumpSpeed: 6
+  topJumpSpeed: 8
   enemyCounter: {fileID: 0}
   isDead: 0
   flippedVertical: 0

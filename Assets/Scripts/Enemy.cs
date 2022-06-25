@@ -13,7 +13,8 @@ public class Enemy : Character
     public SpawnPoint spawnPoint;
     public GameObject projectile;
     private Coroutine lastUnflipCoroutine;
-    private Coroutine lastShakeCoroutine; 
+    private Coroutine lastShakeCoroutine;
+    new private CapsuleCollider2D collider; 
     protected bool readyToBlow = false;
     protected bool change = false;
     protected bool getsMad = false;
@@ -30,6 +31,13 @@ public class Enemy : Character
     protected float madTime;
     protected float speedMultiplier;
 	protected float shakeMagnitude = 0.05f;
+    
+    new protected void Awake()
+    {
+        base.Awake();
+
+        collider = GetComponent<CapsuleCollider2D>();
+    }
 
     protected void Start()
     {      
@@ -66,7 +74,7 @@ public class Enemy : Character
             body.gravityScale = 0.0f;
             body.velocity = new Vector2(walkSpeed / 3, 0);
         } else if(!spawning && body.velocity.y < -0.1) {
-            body.gravityScale = 2.0f;
+            body.gravityScale = 3.5f;
         } else if(!spawning) {
             body.gravityScale = 1.0f;
         }
@@ -210,12 +218,8 @@ public class Enemy : Character
             StopShaking();
         }
 
-        CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
-
         isDead = true;
-
         collider.enabled = false;
-
         body.velocity = new Vector2(playerBody.velocity.x * 2, playerBody.velocity.y);
     }
 

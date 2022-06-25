@@ -22,6 +22,7 @@ public class PlayerMovement : Character
     protected float raycastMaxDistance;
     protected float adjustedWalkSpeed;
     public bool isJumping;
+    protected bool isFalling;
     
     private float spawnPlatformTimer = 3.0f;
     private float currentJumpTimer;
@@ -79,9 +80,11 @@ public class PlayerMovement : Character
                 }
 
                 if(body.velocity.y < -0.1) {
-                    body.gravityScale = 8.0f;
+                    body.gravityScale = 8.5f;
+                    isFalling = true;
                 } else {
                     body.gravityScale = 5.0f;
+                    isFalling = false;
                 }
             }else if(spawning){
                 float step = spawnPlatform.speed * Time.deltaTime;
@@ -89,6 +92,9 @@ public class PlayerMovement : Character
                 Hold();
                 transform.position = Vector2.MoveTowards(transform.position, spawnEndPoint, step);
             }
+
+            animator.SetBool("falling",isFalling);
+            animator.SetBool("dead",isDead);
         }  
     }
 
@@ -110,6 +116,7 @@ public class PlayerMovement : Character
     {
         if(!screenWrapScript.isVisible && isDead){
             levelDisplay.PlayerDied();
+            animator.SetTrigger("respawn");
             PlayerSpawn();
 
             return;
@@ -134,12 +141,9 @@ public class PlayerMovement : Character
             isJumping = true;
             currentJumpTimer = maxJumpTime;
             body.velocity = Vector2.up * adjustedJumpSpeed;
-        }
-
-        if(isJumping){
-
+        }else if(isJumping){
             if( currentJumpTimer > 0 ) {
-                body.velocity = Vector2.up * (adjustedJumpSpeed);
+                body.velocity = Vector2.up * (adjustedJumpSpeed) * 1.3f;
                 currentJumpTimer -= Time.deltaTime;
             } else {
                 isJumping = false;
@@ -167,12 +171,11 @@ public class PlayerMovement : Character
                 levelDisplay.AddPoints(collidingEnemy.bounty);
                 animator.SetTrigger("kick");
             }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
-                animator.SetBool("dead",true);
                 Die();
             }
         } else if ( collision.gameObject.tag == "Projectiles" ) {
             Die();
-            animator.SetBool("dead",true);
+            
         }
     }
 
@@ -194,12 +197,11 @@ public class PlayerMovement : Character
         spawning = true;
         spawned = false;
         isDead = false;
+        isFalling = false;
         transform.position = startPosition;
         collider.enabled = true;
         spawnPlatformObject.SetActive(true);
         spawnPlatform.coroutineStarted = false;
-        animator.SetTrigger("respawn");
-        animator.SetBool("dead",false);
     }
 
     protected void HideRespawnPlatform()

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4392901123670813531}
   - component: {fileID: 4781080553410813041}
   - component: {fileID: 1353883205929038035}
-  - component: {fileID: 3310613077133336024}
   - component: {fileID: 3177502673787851777}
+  - component: {fileID: 1021331722}
   m_Layer: 3
   m_Name: ReptAgent
   m_TagString: Enemies
@@ -154,22 +154,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!70 &3310613077133336024
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5381646757120596627}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.021260906, y: -0.008287239}
-  m_Size: {x: 0.71247166, y: 0.72332424}
-  m_Direction: 0
 --- !u!114 &3177502673787851777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +170,19 @@ MonoBehaviour:
   isVisible: 1
   screenWidth: 0
   screenHeight: 0
+--- !u!70 &1021331722
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381646757120596627}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.01708231, y: -0.05124712}
+  m_Size: {x: 0.4815626, y: 0.64750576}
+  m_Direction: 0

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: crabcatcher_dead
+  m_Name: patti_down
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -4253028335022237997, guid: b183357d193ffeb75b6b57755685ee62, type: 3}
-    - time: 0.6666667
-      value: {fileID: 1017871411792229582, guid: b183357d193ffeb75b6b57755685ee62, type: 3}
+      value: {fileID: -4070342502989948430, guid: 2a6d9b3382395ee77a1863f27510c70e, type: 3}
+    - time: 0.25
+      value: {fileID: 7468316793839986740, guid: 2a6d9b3382395ee77a1863f27510c70e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,19 +42,19 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -4253028335022237997, guid: b183357d193ffeb75b6b57755685ee62, type: 3}
-    - {fileID: 1017871411792229582, guid: b183357d193ffeb75b6b57755685ee62, type: 3}
+    - {fileID: -4070342502989948430, guid: 2a6d9b3382395ee77a1863f27510c70e, type: 3}
+    - {fileID: 7468316793839986740, guid: 2a6d9b3382395ee77a1863f27510c70e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.68333334
+    m_StopTime: 0.26666668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
