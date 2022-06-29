@@ -20,12 +20,12 @@ public class ItemController : MonoBehaviour
         itemZone = GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
+    /**private void Update()
     {
         if(levelDisplay.timeCount < (levelDisplay.currentLevel.levelTime / 2) && !lifeSpawned) {
             SpawnLife();
         }
-    }
+    }**/
 
     private void SpawnLife()
     {

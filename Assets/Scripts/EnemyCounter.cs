@@ -11,7 +11,7 @@ public class EnemyCounter : MonoBehaviour
     private LevelDisplay levelDisplay;
     public List<GameObject> currentEnemies = new List<GameObject>();
 
-    public float spawnInterval = 2.0f;
+    public float spawnInterval = 1.5f;
     public bool stillSpawing;
 
     private void Awake()

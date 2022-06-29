@@ -8,7 +8,6 @@ public class Enemy : Character
     [SerializeField] public string type;
     [SerializeField] public int bounty;
     
-    public Vector2 originPosition;
     protected Vector2 initialShakePosition;
     public SpawnPoint spawnPoint;
     public GameObject projectile;
@@ -77,6 +76,8 @@ public class Enemy : Character
             body.gravityScale = 3.5f;
         } else if(!spawning) {
             body.gravityScale = 1.0f;
+        } else if (isDead) {
+            body.gravityScale = 10.0f;
         }
 
         if(!screenWrapScript.isVisible && onGround){
@@ -123,10 +124,10 @@ public class Enemy : Character
 
     protected void Respawn()
     {
-        Hold();
-
-        onGround = false;
         transform.position = originPosition;
+        onGround = false;
+        
+        Hold();
 
         readyToSpawn = true;
     }
@@ -231,7 +232,7 @@ public class Enemy : Character
         flameScript.direction = "left";
         enemyCounter.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
-        
+        enemyCounter.EnemyDied();
     }
 
     private IEnumerator SpawnCoroutine()

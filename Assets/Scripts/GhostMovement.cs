@@ -47,6 +47,8 @@ public class GhostMovement : MonoBehaviour
             transform.rotation = originalObject.transform.rotation;
             transform.localScale = originalObject.transform.localScale;
             spriteRenderer.sprite = originalSpriteRenderer.sprite;
+        } else {
+            transform.position = originalObjectScript.originPosition;
         }
     }
 }

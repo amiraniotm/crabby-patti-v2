@@ -34,4 +34,14 @@ public class SoundController : MonoBehaviour
     {
         musicSource.Stop();
     }
+
+    public void PauseMusic()
+    {
+        musicSource.Pause();
+    }
+    
+    public void UnPauseMusic()
+    {
+        musicSource.UnPause();
+    }
 }

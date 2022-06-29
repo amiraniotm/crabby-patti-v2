@@ -6,6 +6,7 @@ using UnityEngine;
 public class PauseController : MonoBehaviour
 {
     [SerializeField] LevelDisplay levelDisplay;
+    [SerializeField] SoundController soundController;
 
     public bool gamePaused = false;
 
@@ -19,10 +20,12 @@ public class PauseController : MonoBehaviour
         if(Input.GetKeyDown("return")) {
             if(levelDisplay.levelStarted && !levelDisplay.gameOver && !gamePaused) {
                 levelDisplay.DisplayPause();
+                soundController.PauseMusic();
                 Time.timeScale = 0;
                 gamePaused = true;
             } else {
                 levelDisplay.HidePause();
+                soundController.UnPauseMusic();
                 Time.timeScale = 1;
                 gamePaused = false; 
             }

@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     protected Renderer mainRenderer;
     protected ScreenWrap screenWrapScript;
     protected float adjustedJumpSpeed;
+    public Vector2 originPosition;
 
     protected bool canJump;
     protected bool flippedHorizontal;

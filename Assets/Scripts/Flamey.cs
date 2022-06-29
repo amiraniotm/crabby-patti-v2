@@ -49,7 +49,6 @@ public class Flamey : Enemy
     {
         enemyCounter.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
-        enemyCounter.EnemyDied();
     }
 
     protected IEnumerator ChangeCoroutine()

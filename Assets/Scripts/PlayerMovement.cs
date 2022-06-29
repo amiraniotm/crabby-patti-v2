@@ -75,7 +75,7 @@ public class PlayerMovement : Character
 
                     FlipHorizontal(horizontalInput);
 
-                    animator.SetBool("walking", horizontalInput != 0);
+                    animator.SetBool("walking", horizontalInput != 0 && grounded);
                     animator.SetBool("grounded", grounded);       
                 }
 

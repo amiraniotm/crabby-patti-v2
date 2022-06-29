@@ -15,6 +15,7 @@ TagManager:
   - LevelDisplay
   - TileManager
   - SpawnPoint
+  - PlayerCamera
   layers:
   - Default
   - TransparentFX

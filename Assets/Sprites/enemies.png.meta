@@ -270,6 +270,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -427,7 +428,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 31cfd30b7f65b71d0800000000000000
-      internalID: -3351989875833439213
+      internalID: -8627639594875779657
       vertices: []
       indices: 
       edges: []
@@ -448,7 +449,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 937b2cd125905f5d0800000000000000
-      internalID: -3029504926045522119
+      internalID: 7979454500454236222
       vertices: []
       indices: 
       edges: []
@@ -637,7 +638,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3c8b1fd28b7a7ac00800000000000000
-      internalID: 911881859052452035
+      internalID: -3210598706827023736
       vertices: []
       indices: 
       edges: []
@@ -658,7 +659,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 61fe2d09de4628220800000000000000
-      internalID: 2486660915761704726
+      internalID: -3029504926045522119
       vertices: []
       indices: 
       edges: []
@@ -763,7 +764,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f570623d15204a670800000000000000
-      internalID: 8548960543114135391
+      internalID: -1252926324658700686
       vertices: []
       indices: 
       edges: []
@@ -973,7 +974,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 5866c4214a84b3a20800000000000000
-      internalID: 3043105842737735301
+      internalID: 646838312355142030
       vertices: []
       indices: 
       edges: []
@@ -1120,7 +1121,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 27ae9ef5cec2adb90800000000000000
-      internalID: -7216406059174729102
+      internalID: 7738945949662476166
       vertices: []
       indices: 
       edges: []
@@ -1351,7 +1352,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 6f03fb42318e146d0800000000000000
-      internalID: -3007867907188248330
+      internalID: 1348750972253026962
       vertices: []
       indices: 
       edges: []
@@ -1477,7 +1478,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 94c442be0223bce40800000000000000
-      internalID: 5677686872196009033
+      internalID: 4494741343667806417
       vertices: []
       indices: 
       edges: []
@@ -1666,7 +1667,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 114717cfa0fc569d0800000000000000
-      internalID: -2781589548739496943
+      internalID: 3234065963279137967
       vertices: []
       indices: 
       edges: []
@@ -1729,7 +1730,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7538609f8217439e0800000000000000
-      internalID: -1642563543292804265
+      internalID: -4575330992883707526
       vertices: []
       indices: 
       edges: []
@@ -1834,7 +1835,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: bf9779398c7d27470800000000000000
-      internalID: 8391006312214264315
+      internalID: -1813514118812437492
       vertices: []
       indices: 
       edges: []
@@ -1939,7 +1940,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a5ca6baee44f85fb0800000000000000
-      internalID: -4658705194732311462
+      internalID: -7156837500675214400
       vertices: []
       indices: 
       edges: []
@@ -2044,7 +2045,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4a3c819a3b1ca7b10800000000000000
-      internalID: 1980107963563033508
+      internalID: -3351989875833439213
       vertices: []
       indices: 
       edges: []
@@ -2080,6 +2081,89 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      reptbaby23: -7156837500675214400
+      flamey_dead2: 6139627816073109884
+      reptagent_walk1: 876784968147787122
+      crabcatcher_plus_dead1: 3444227713701507361
+      crabcatcher_plus_walk2: 5260237918008780845
+      flamey_explode4: 2093997543474720784
+      reptbaby3: 13176795997692230
+      crabcatcher_walk3: -6271420699411309263
+      reptbaby_dead: 4349874989898575965
+      reptbaby13: -8627639594875779657
+      reptbaby16: 646838312355142030
+      reptbaby17: 7738945949662476166
+      flamey_dead4: 7153525974244860219
+      crabcatcher_walk8: -8957942764683618044
+      flamey_dead1: 2271430137087916446
+      reptbaby6: -8033440846659449436
+      flamey_change1: -8813625427563929358
+      flamey2: -6812798382714016367
+      flamey_explode1: 6778329007797468826
+      flamey_explode2: 5956736000263300668
+      fire1: -8233567838285077381
+      crabcatcher_walk1: 2731795287329381114
+      crabcatcher_plus_walk1: -5571332060652782084
+      reptagent_hurt: -5078133620036087085
+      flamey_change3: -4535217547422562818
+      reptbaby14: -3210598706827023736
+      flamey_dead3: -8108438390446734492
+      reptbaby21: -4575330992883707526
+      flamey_change4: -8137250916114564832
+      reptbaby18: 1348750972253026962
+      flamey_dead6: 8203917247392330234
+      flamey_mad3: -5361717052220300765
+      reptbaby12: -9196151947971988510
+      crabcatcher_plus_walk6: 8941338507466572697
+      crabcatcher_plus_walk3: -5032397523261126367
+      flamey3: -1376865339905038310
+      flamey_explode3: 1051372748379046019
+      flamey_mad1: -2627461283470291371
+      crabcatcher_dead2: 1017871411792229582
+      reptagent_dead2: 133206962293129866
+      reptbaby24: -3351989875833439213
+      fire2: 3390846452439269905
+      reptbaby15: -1252926324658700686
+      crabcatcher_walk5: -8260159705139820125
+      crabcatcher_walk4: -7373728255155398809
+      crabcatcher_walk6: -2392329122036793305
+      flamey_change2: -7143632009852538275
+      reptbaby8: 9003728825699016929
+      flamey_change6: 6969128963623422457
+      flamey_mad2: 2756361045562162030
+      reptbaby11: -4906341681044172796
+      crabcatcher_walk2: -8384590935982494654
+      reptbaby2: -7994963395263852509
+      reptbaby7: 8163972999559841902
+      repatagent_mad1: -6401660212284299933
+      crabcatcher_plus_walk8: -3993904903862926201
+      reptbaby4: -574701310493481389
+      repatagent_mad2: 639755353174571365
+      reptbaby25: 7979454500454236222
+      flamey_change7: -194386637390385213
+      flamey_change8: -7994189068178414372
+      crabcatcher_plus_dead2: -8300600519577597338
+      crabcatcher_dead1: -4253028335022237997
+      reptbaby1: 1961183383047197949
+      flamey1: -2782341204894616949
+      crabcatcher_plus_walk7: -5460639910719108742
+      crabcatcher_plus_walk5: 209651141119902589
+      reptbaby26: -3029504926045522119
+      reptagent_walk2: 414078030284958077
+      reptbaby22: -1813514118812437492
+      crabcatcher_walk7: -8741287374936158881
+      fire3: -2320846476988604852
+      flamey_dead5: 8237017158513173956
+      reptbaby19: 4494741343667806417
+      crabcatcher_plus_walk4: -5009223088708221049
+      reptbaby10: -5662386000544405352
+      flamey_change5: -3690128099936111282
+      reptbaby5: -611867289277441295
+      reptagent_dead1: 7919937908647015373
+      reptbaby20: 3234065963279137967
+      reptbaby9: 5915931962354159084
+      spawn_point_new: -5204866754122809574
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
