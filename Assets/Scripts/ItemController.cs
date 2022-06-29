@@ -1,37 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] GameObject itemPrefab;
     [SerializeField] LevelDisplay levelDisplay;
     [SerializeField] PauseController pauseController;
     [SerializeField] TileManager tileManager;
     [SerializeField] LayerMask platformMask;
+    [SerializeField] GameObject[] itemPrefabs;
 
     private BoxCollider2D itemZone;
-    public bool lifeSpawned = false;
+    private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
+    private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
+    private float spawnTime = 5.0f;
+    private float vanishTime = 4.0f;
+    
+    public GameObject currentItem;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         itemZone = GetComponent<BoxCollider2D>();
+
+        itemWeights.Add("life", 90);
+        itemWeights.Add("time", 90);
+
+        InvokeRepeating("SpawnItem", 1.0f, spawnTime);
     }
 
-    /**private void Update()
-    {
-        if(levelDisplay.timeCount < (levelDisplay.currentLevel.levelTime / 2) && !lifeSpawned) {
-            SpawnLife();
-        }
-    }**/
-
-    private void SpawnLife()
-    {
-        lifeSpawned = true;
-        
+    private void SpawnItem()
+    {      
         bool itemSet = false;
+
+        int itemIndex = GetWeightedRandomItem();
 
         while(!itemSet){
             float randomX = Random.Range(itemZone.bounds.min.x, itemZone.bounds.max.x);
@@ -42,9 +46,73 @@ public class ItemController : MonoBehaviour
             bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
 
             if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
-                Instantiate(itemPrefab, newItemPos,Quaternion.identity);
+                currentItem = Instantiate(itemPrefabs[itemIndex], newItemPos,Quaternion.identity);
                 itemSet = true;
+                StartCoroutine(VanishItemCoroutine());
             }
+        }
+    }
+
+    public int GetWeightedRandomItem()
+    {    
+        List<float> weightList = new List<float>();
+
+        foreach(KeyValuePair<string, int> item in spawnedItems)
+        {
+            float weight = itemWeights[item.Key] / spawnedItems[item.Key]; 
+            weightList.Add(weight);
+        }
+        
+        float[] adjustedWeights = weightList.ToArray();
+        int[] weights = new int[itemWeights.Count];
+        itemWeights.Values.CopyTo(weights, 0);
+
+        int randomWeight = UnityEngine.Random.Range(0, weights.Sum());
+
+        while( randomWeight >= 0) {
+            for (int i = 0; i < weights.Length; ++i)
+            {
+                randomWeight -= weights[i];
+
+                if (randomWeight < 0)
+                {
+                    return i;
+                }
+            }        
+        }
+
+        return 0;
+    }
+
+    public void ItemGot(string type)
+    {
+        if(type == "life") {
+            levelDisplay.livesCount += 1;
+        } else if (type == "time") {
+            levelDisplay.timeCount += 30;
+        }
+
+        if(!spawnedItems.ContainsKey(type)){
+            spawnedItems.Add(type, 1);
+        } else {
+            spawnedItems[type] += 1;
+        }
+    }
+
+    public void FlushItems()
+    {
+        foreach(KeyValuePair<string, int> item in spawnedItems)
+        {
+            spawnedItems[item.Key] = 0;
+        }
+    }
+
+    private IEnumerator VanishItemCoroutine()
+    {
+        yield return new WaitForSeconds(vanishTime);
+
+        if(currentItem != null) {
+            Destroy(currentItem);
         }
     }
 

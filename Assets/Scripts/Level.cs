@@ -26,11 +26,11 @@ public class Level : ScriptableObject
         
         //TEST ENEMIES
         if(levelType == "beach") {
-            levelEnemies["Crabcatcher"] = 2;
-            levelEnemies["CrabcatcherPlus"] = 2;
-            levelEnemies["ReptAgent"] = 2;
-            levelEnemies["ReptBaby"] = 2;
-            levelEnemies["Flamey"] = 2;
+            levelEnemies["Crabcatcher"] = 3;
+            levelEnemies["CrabcatcherPlus"] = 0;
+            levelEnemies["ReptAgent"] = 0;
+            levelEnemies["ReptBaby"] = 0;
+            levelEnemies["Flamey"] = 0;
         } else if(levelType == "volcano") {
             levelEnemies["Crabcatcher"] = 2;
             levelEnemies["CrabcatcherPlus"] = 2;

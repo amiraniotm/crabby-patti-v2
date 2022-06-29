@@ -13,18 +13,19 @@ public class LevelDisplay : MonoBehaviour
     [SerializeField] private PlayerMovement player; 
     [SerializeField] private EnemyCounter enemyCounter; 
     [SerializeField] private TileManager tileManager; 
-    [SerializeField] SoundController soundController;
-    [SerializeField] PauseController pauseController;
-    [SerializeField] ItemController itemController;
+    [SerializeField] public SoundController soundController;
+    [SerializeField] public PauseController pauseController;
+    [SerializeField] public ItemController itemController;
     
     public Level currentLevel;
     public bool levelStarted;
     public bool gameOver = false;
     public int livesCount = 3;
-    private bool timeUp = false;
-    private int pointsCount = 0;    
     public int currentLevelKey = 0;
     public float timeCount;
+    
+    private bool timeUp = false;
+    private int pointsCount = 0;    
     private float levelChangeTime = 1.5f;
     private bool onGameOverScreen;
 
@@ -108,6 +109,7 @@ public class LevelDisplay : MonoBehaviour
         int numberToDisplay = currentLevelKey + 1;
         levelText.text = "Level " + numberToDisplay.ToString("0");
         timeCount = currentLevel.levelTime;
+        itemController.FlushItems();
     }
 
     public void CheckEnemies()
@@ -190,6 +192,13 @@ public class LevelDisplay : MonoBehaviour
         levelText.text = "";
     }
 
+    public void UpdateText()
+    {
+        livesText.text = livesCount.ToString("0");
+        timeText.text = TimeSpan.FromSeconds(timeCount).ToString("m\\'ss\\'ff");
+        pointsText.text = pointsCount.ToString("0");
+    }
+
     private IEnumerator NextLevelCoroutine()
     {
         float pauseEndTime = Time.realtimeSinceStartup + levelChangeTime;
@@ -205,12 +214,4 @@ public class LevelDisplay : MonoBehaviour
             gameOver = true;
         }
     }
-
-    public void UpdateText()
-    {
-        livesText.text = livesCount.ToString("0");
-        timeText.text = TimeSpan.FromSeconds(timeCount).ToString("ss\\'ff");
-        pointsText.text = pointsCount.ToString("0");
-    }
-
 }

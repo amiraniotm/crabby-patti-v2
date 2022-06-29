@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    //MANAGE PROPS THROUGH SCRIPTABLE OBJECT LATER!
-    private float activeTime = 2.0f;
-    public string itemType = "life";
-    private LevelDisplay levelDisplay; 
-    
-    void Start()
-    {
-        StartCoroutine(VanishCoroutine());
+    [SerializeField] public string itemType;
 
-        levelDisplay = GameObject.FindGameObjectWithTag("LevelDisplay").GetComponent<LevelDisplay>();
+    private ItemController itemController;
+    
+    private void Awake()
+    {
+        itemController = GameObject.FindGameObjectWithTag("ItemController").GetComponent<ItemController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Player") {
-            levelDisplay.livesCount += 1;
+            itemController.ItemGot(itemType);
             Vanish();
         }
     }
@@ -29,10 +26,4 @@ public class Item : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private IEnumerator VanishCoroutine()
-    {
-        yield return new WaitForSeconds(activeTime);
-
-        Vanish();
-    }
 }

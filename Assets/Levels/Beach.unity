@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 56411450}
   m_Layer: 0
   m_Name: ItemController
-  m_TagString: Untagged
+  m_TagString: ItemController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,14 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6297356d7b96740358b3f1ffb5a75b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 5359346625806874647, guid: bee1f8d053cdb5ca0bbf48761550f35b, type: 3}
   levelDisplay: {fileID: 1685492132}
   pauseController: {fileID: 1119685684}
   tileManager: {fileID: 497610894}
   platformMask:
     serializedVersion: 2
     m_Bits: 1
-  lifeSpawned: 0
+  itemPrefabs:
+  - {fileID: 5359346625806874647, guid: bee1f8d053cdb5ca0bbf48761550f35b, type: 3}
+  - {fileID: 4456523585740018412, guid: 5df5b49f2bca3166eba55ea443e4ac9d, type: 3}
+  currentItem: {fileID: 0}
 --- !u!4 &56411449
 Transform:
   m_ObjectHideFlags: 0
@@ -189,7 +191,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03497982, y: 0.68211555}
+  m_Offset: {x: -0.069337845, y: 1.7323928}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -200,7 +202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 16.741106, y: 9.85}
+  m_Size: {x: 57.946766, y: 35.18511}
   m_EdgeRadius: 0
 --- !u!1 &80857186
 GameObject:
@@ -237,8 +239,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.1125, y: -38.938484}
-  m_SizeDelta: {x: 120.7466, y: 51.0627}
+  m_AnchoredPosition: {x: -0.2951, y: -38.938484}
+  m_SizeDelta: {x: 158.2819, y: 51.0627}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &80857188
 MonoBehaviour:
@@ -782,8 +784,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000453, y: 0}
-  m_SizeDelta: {x: 245.6364, y: 100}
+  m_AnchoredPosition: {x: -0.000014782, y: 0}
+  m_SizeDelta: {x: 318.7336, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172597143
 MonoBehaviour:
