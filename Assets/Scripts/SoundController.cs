@@ -44,4 +44,9 @@ public class SoundController : MonoBehaviour
     {
         musicSource.UnPause();
     }
+
+    public void PlaySound(AudioClip sound, float volume = 1.0f)
+    {
+        sfxSource.PlayOneShot(sound, volume);
+    }
 }

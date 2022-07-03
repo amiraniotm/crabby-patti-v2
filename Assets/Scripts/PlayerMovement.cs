@@ -10,6 +10,7 @@ public class PlayerMovement : Character
     [SerializeField] private LevelDisplay levelDisplay;
     [SerializeField] private PauseController pauseController;
     [SerializeField] private float maxJumpTime;
+    [SerializeField] private AudioClip jumpSound;
     
     public Vector3 startPosition;
     public Vector3 spawnStartPoint;
@@ -138,6 +139,7 @@ public class PlayerMovement : Character
     new protected void Jump()
     {
         if( grounded && spawned ) {
+            levelDisplay.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
             body.velocity = Vector2.up * adjustedJumpSpeed;

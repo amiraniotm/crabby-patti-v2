@@ -707,6 +707,7 @@ MonoBehaviour:
   levelDisplay: {fileID: 1685492132}
   pauseController: {fileID: 1119685684}
   maxJumpTime: 0.2
+  jumpSound: {fileID: 8300000, guid: 910875895e65077f6841f45afd17664a, type: 3}
   startPosition: {x: 0, y: 0, z: 0}
   spawnStartPoint: {x: 0, y: 0, z: 0}
   spawnEndPoint: {x: 0, y: 0, z: 0}
@@ -958,7 +959,7 @@ GameObject:
   - component: {fileID: 402230653}
   m_Layer: 0
   m_Name: SoundController
-  m_TagString: Untagged
+  m_TagString: SoundController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1763,7 +1764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &616531967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1933,6 +1934,7 @@ GameObject:
   - component: {fileID: 665511683}
   - component: {fileID: 665511682}
   - component: {fileID: 665511681}
+  - component: {fileID: 665511684}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2006,6 +2008,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &665511684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665511680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8dc1134af80a7a5781f623184748833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerShake: 0
 --- !u!1 &722035415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,6 +2056,8 @@ MonoBehaviour:
   - {fileID: 3035361689050549211, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -588874106627402442, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -3818157907930065138, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  mainCamera: {fileID: 665511684}
+  powSound: {fileID: 8300000, guid: 67ad16cb36e2c2edaa402eebb50e0607, type: 3}
   powCount: 2
   spriteRenderer: {fileID: 0}
 --- !u!212 &722035417
@@ -2777,7 +2794,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3315,6 +3332,8 @@ MonoBehaviour:
   - {fileID: 3035361689050549211, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -588874106627402442, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -3818157907930065138, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  mainCamera: {fileID: 665511684}
+  powSound: {fileID: 8300000, guid: 67ad16cb36e2c2edaa402eebb50e0607, type: 3}
   powCount: 2
   spriteRenderer: {fileID: 0}
 --- !u!212 &1612498346
@@ -3594,9 +3613,10 @@ MonoBehaviour:
   player: {fileID: 129525982}
   enemyCounter: {fileID: 465526595}
   tileManager: {fileID: 497610894}
-  soundController: {fileID: 402230653}
   pauseController: {fileID: 1119685684}
   itemController: {fileID: 56411448}
+  convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
+  soundController: {fileID: 402230653}
   currentLevel: {fileID: 11400000, guid: a77e58f5132676cdd8a1805c06241cf9, type: 2}
   levelStarted: 0
   gameOver: 0

@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 665511683}
   - component: {fileID: 665511682}
   - component: {fileID: 665511681}
+  - component: {fileID: 665511684}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -539,6 +540,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &665511684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665511680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8dc1134af80a7a5781f623184748833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerShake: 0
 --- !u!1 &722035415
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +588,9 @@ MonoBehaviour:
   - {fileID: 3035361689050549211, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -588874106627402442, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -3818157907930065138, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  mainCamera: {fileID: 665511684}
+  soundController: {fileID: 0}
+  powSound: {fileID: 8300000, guid: 67ad16cb36e2c2edaa402eebb50e0607, type: 3}
   powCount: 2
   spriteRenderer: {fileID: 0}
 --- !u!212 &722035417
@@ -847,6 +864,9 @@ MonoBehaviour:
   - {fileID: 3035361689050549211, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -588874106627402442, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: -3818157907930065138, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  mainCamera: {fileID: 665511684}
+  soundController: {fileID: 0}
+  powSound: {fileID: 8300000, guid: 67ad16cb36e2c2edaa402eebb50e0607, type: 3}
   powCount: 2
   spriteRenderer: {fileID: 0}
 --- !u!212 &1612498346

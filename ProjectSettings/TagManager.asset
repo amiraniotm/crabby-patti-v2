@@ -16,6 +16,7 @@ TagManager:
   - TileManager
   - SpawnPoint
   - PlayerCamera
+  - SoundController
   layers:
   - Default
   - TransparentFX

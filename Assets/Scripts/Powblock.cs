@@ -5,7 +5,10 @@ using UnityEngine;
 public class Powblock : HittableBlock
 {
     [SerializeField] public List<Sprite> spriteList = new List<Sprite>();
+    [SerializeField] private ShakeCamera mainCamera;
+    [SerializeField] private AudioClip powSound;
     
+    private SoundController soundController;
     private EnemyCounter enemyCounter;
     public int powCount = 2;
     private PlayerMovement player;
@@ -13,6 +16,7 @@ public class Powblock : HittableBlock
 
     private void Awake()
     {
+        soundController = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
@@ -36,6 +40,8 @@ public class Powblock : HittableBlock
             if(collisionSide == "upper" && powCount >= 0) {
                 enemyCounter.FlipAll();
                 powCount -= 1;
+                mainCamera.TriggerShake();
+                soundController.PlaySound(powSound, 0.4f);
                 if(powCount >= 0){
                     ChangeSprite();
                 }

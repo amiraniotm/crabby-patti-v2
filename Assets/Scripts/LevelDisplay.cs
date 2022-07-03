@@ -13,9 +13,10 @@ public class LevelDisplay : MonoBehaviour
     [SerializeField] private PlayerMovement player; 
     [SerializeField] private EnemyCounter enemyCounter; 
     [SerializeField] private TileManager tileManager; 
-    [SerializeField] SoundController soundController;
-    [SerializeField] PauseController pauseController;
-    [SerializeField] ItemController itemController;
+    [SerializeField] private PauseController pauseController;
+    [SerializeField] private ItemController itemController;
+    [SerializeField] private AudioClip convertTimeSound;
+    [SerializeField] public SoundController soundController;
     
     public Level currentLevel;
     public bool levelStarted;
@@ -25,8 +26,8 @@ public class LevelDisplay : MonoBehaviour
     private int pointsCount = 0;    
     public int currentLevelKey = 0;
     public float timeCount;
-    private float levelChangeTime = 1.5f;
     private bool onGameOverScreen;
+    private int levelTransitionTime = 1;
 
     private void Awake()
     {
@@ -116,8 +117,10 @@ public class LevelDisplay : MonoBehaviour
             soundController.StopMusic();
             levelStarted = false;
             currentLevelKey += 1;
-            soundController.SetCurrentMusicClip();
-            Time.timeScale = 0;
+            if(availableLevels.Length > currentLevelKey) {
+                soundController.SetCurrentMusicClip();
+                Time.timeScale = 0;
+            }
             StartCoroutine(NextLevelCoroutine());
         }
     }
@@ -192,10 +195,26 @@ public class LevelDisplay : MonoBehaviour
 
     private IEnumerator NextLevelCoroutine()
     {
-        float pauseEndTime = Time.realtimeSinceStartup + levelChangeTime;
-
-        while (Time.realtimeSinceStartup < pauseEndTime)
+        while (timeCount > 1)
         {
+            float secondsCountFloat = 100 * Time.unscaledDeltaTime;
+            int secondsCountInt = (int) secondsCountFloat;
+            timeCount -= secondsCountInt;
+            pointsCount += secondsCountInt;
+            soundController.PlaySound(convertTimeSound, 0.05f);
+            
+            if(timeCount < 1) {
+                timeCount = 0;
+            }
+
+            UpdateText();
+
+            yield return 0;
+        }
+
+        float transitionEndTime = Time.realtimeSinceStartup + levelTransitionTime;
+
+        while(Time.realtimeSinceStartup < transitionEndTime) {
             yield return 0;
         }
 
@@ -209,7 +228,7 @@ public class LevelDisplay : MonoBehaviour
     public void UpdateText()
     {
         livesText.text = livesCount.ToString("0");
-        timeText.text = TimeSpan.FromSeconds(timeCount).ToString("ss\\'ff");
+        timeText.text = TimeSpan.FromSeconds(timeCount).ToString("m\\'ss\\'ff");
         pointsText.text = pointsCount.ToString("0");
     }
 

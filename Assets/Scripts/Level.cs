@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Level", menuName = "Levels")] 
 public class Level : ScriptableObject
 {
-    [SerializeField] private string levelType; 
+    [SerializeField] public string levelType; 
     [SerializeField] public float levelTime;
 
     public Dictionary<string,int> levelEnemies = new Dictionary<string, int>();
@@ -26,16 +26,16 @@ public class Level : ScriptableObject
         
         //TEST ENEMIES
         if(levelType == "beach") {
-            levelEnemies["Crabcatcher"] = 2;
+            levelEnemies["Crabcatcher"] = 1;
             levelEnemies["CrabcatcherPlus"] = 2;
-            levelEnemies["ReptAgent"] = 2;
-            levelEnemies["ReptBaby"] = 2;
-            levelEnemies["Flamey"] = 2;
+            levelEnemies["ReptAgent"] = 0;
+            levelEnemies["ReptBaby"] = 0;
+            levelEnemies["Flamey"] = 0;
         } else if(levelType == "volcano") {
-            levelEnemies["Crabcatcher"] = 2;
+            levelEnemies["Crabcatcher"] = 1;
             levelEnemies["CrabcatcherPlus"] = 2;
-            levelEnemies["ReptAgent"] = 2;
-            levelEnemies["Flamey"] = 1;
+            levelEnemies["ReptAgent"] = 0;
+            levelEnemies["Flamey"] = 0;
         } else if(levelType == "city") {
             levelEnemies["Crabcatcher"] = 2;
             levelEnemies["CrabcatcherPlus"] = 3;
