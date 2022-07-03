@@ -162,7 +162,10 @@ MonoBehaviour:
   itemPrefabs:
   - {fileID: 5359346625806874647, guid: bee1f8d053cdb5ca0bbf48761550f35b, type: 3}
   - {fileID: 4456523585740018412, guid: 5df5b49f2bca3166eba55ea443e4ac9d, type: 3}
+  - {fileID: 6986347612067343232, guid: 146ed436bc49db5b19bbbbe8394a7438, type: 3}
+  playerInventory: {fileID: 129525985}
   currentItem: {fileID: 0}
+  currentItemScript: {fileID: 0}
 --- !u!4 &56411449
 Transform:
   m_ObjectHideFlags: 0
@@ -560,6 +563,7 @@ GameObject:
   - component: {fileID: 129525983}
   - component: {fileID: 129525979}
   - component: {fileID: 129525984}
+  - component: {fileID: 129525985}
   m_Layer: 4
   m_Name: Player
   m_TagString: Player
@@ -749,6 +753,19 @@ MonoBehaviour:
   isVisible: 1
   screenWidth: 0
   screenHeight: 0
+--- !u!114 &129525985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129525977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a357ed1e2ba60cdc93f06074571b2af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentItem: {fileID: 0}
 --- !u!1 &172597141
 GameObject:
   m_ObjectHideFlags: 0

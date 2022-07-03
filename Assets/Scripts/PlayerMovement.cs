@@ -26,7 +26,8 @@ public class PlayerMovement : Character
     
     private float spawnPlatformTimer = 3.0f;
     private float currentJumpTimer;
-    private PlayerSpawnPlatform spawnPlatform; 
+    private PlayerSpawnPlatform spawnPlatform;
+    private Inventory inventory; 
     new private BoxCollider2D collider;
 
     new private void Awake()
@@ -36,6 +37,7 @@ public class PlayerMovement : Character
         DontDestroyOnLoad(gameObject);
         spawnPlatform = spawnPlatformObject.GetComponent<PlayerSpawnPlatform>();
         collider = GetComponent<BoxCollider2D>();
+        inventory = GetComponent<Inventory>();
         startPosition = transform.position;
     }
 
@@ -69,6 +71,10 @@ public class PlayerMovement : Character
                         isJumping = false;
                     }
                     
+                    if(Input.GetKeyDown(KeyCode.C)) {
+                        UseItem();
+                    }
+
                     float horizontalInput = Input.GetAxis("Horizontal");
 
                     SetInputVelocity(horizontalInput);
@@ -159,6 +165,13 @@ public class PlayerMovement : Character
         }
     }
 
+    private void UseItem()
+    {
+        if(inventory.currentItem != null) {
+            inventory.currentItem.onUse();
+        }
+    }
+
     new protected void OnCollisionEnter2D(Collision2D collision) 
     {
         base.OnCollisionEnter2D(collision);
@@ -167,8 +180,7 @@ public class PlayerMovement : Character
             Enemy collidingEnemy = collision.gameObject.GetComponent<Enemy>();
 
             if(collidingEnemy.flippedVertical) {
-                collidingEnemy.Die(body);
-                levelDisplay.AddPoints(collidingEnemy.bounty);
+                KillEnemy(collidingEnemy);
                 animator.SetTrigger("kick");
             }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
                 Die();
@@ -177,6 +189,12 @@ public class PlayerMovement : Character
             Die();
             
         }
+    }
+
+    public void KillEnemy(Enemy enemy)
+    {
+        enemy.Die(body);
+        levelDisplay.AddPoints(enemy.bounty);
     }
 
     public void Die()

@@ -21,7 +21,7 @@ public class ScreenWrap : MonoBehaviour
 
     void Start()
     {
-        characterScript = gameObject.GetComponent<Character>();
+        characterScript = GetComponent<Character>();
 
         cam = Camera.main;
         var screenBottomLeft = cam.ViewportToWorldPoint(new Vector2(0, 0));

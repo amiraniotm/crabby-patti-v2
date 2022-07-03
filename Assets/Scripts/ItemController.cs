@@ -10,14 +10,17 @@ public class ItemController : MonoBehaviour
     [SerializeField] TileManager tileManager;
     [SerializeField] LayerMask platformMask;
     [SerializeField] GameObject[] itemPrefabs;
+    [SerializeField] Inventory playerInventory;
 
     private BoxCollider2D itemZone;
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
     private float spawnTime = 5.0f;
     private float vanishTime = 4.0f;
+    private int itemLimit = 5;
     
     public GameObject currentItem;
+    public Item currentItemScript;
 
     private void Start()
     {
@@ -27,30 +30,42 @@ public class ItemController : MonoBehaviour
 
         itemWeights.Add("life", 90);
         itemWeights.Add("time", 90);
+        itemWeights.Add("pincer", 60);
 
         InvokeRepeating("SpawnItem", 1.0f, spawnTime);
     }
 
     private void SpawnItem()
-    {      
-        bool itemSet = false;
+    {    
+        if(itemLimit > 0) {
+            bool itemSet = false;
 
-        int itemIndex = GetWeightedRandomItem();
+            int itemIndex = GetWeightedRandomItem();
 
-        while(!itemSet){
-            float randomX = Random.Range(itemZone.bounds.min.x, itemZone.bounds.max.x);
-            float randomY = Random.Range(itemZone.bounds.min.y, itemZone.bounds.max.y);
+            while(!itemSet){
+                float randomX = Random.Range(itemZone.bounds.min.x, itemZone.bounds.max.x);
+                float randomY = Random.Range(itemZone.bounds.min.y, itemZone.bounds.max.y);
 
-            Vector2 newItemPos = new Vector2(randomX, randomY);
+                Vector2 newItemPos = new Vector2(randomX, randomY);
 
-            bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
+                bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
 
-            if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
-                currentItem = Instantiate(itemPrefabs[itemIndex], newItemPos,Quaternion.identity);
-                itemSet = true;
-                StartCoroutine(VanishItemCoroutine());
+                if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
+                    currentItem = Instantiate(itemPrefabs[itemIndex], newItemPos,Quaternion.identity);
+                    currentItemScript = currentItem.GetComponent<Item>();
+                    itemSet = true;
+                    itemLimit -= 1;
+
+                    if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
+                        spawnedItems.Add(currentItemScript.itemName, 1);
+                    } else {
+                        spawnedItems[currentItemScript.itemName] += 1;
+                    }
+
+                    StartCoroutine(VanishItemCoroutine());
+                }
             }
-        }
+        }  
     }
 
     public int GetWeightedRandomItem()
@@ -59,8 +74,10 @@ public class ItemController : MonoBehaviour
 
         foreach(KeyValuePair<string, int> item in spawnedItems)
         {
-            float weight = itemWeights[item.Key] / spawnedItems[item.Key]; 
-            weightList.Add(weight);
+            if(spawnedItems[item.Key] !=0) {
+                float weight = itemWeights[item.Key] / spawnedItems[item.Key]; 
+                weightList.Add(weight);
+            }
         }
         
         float[] adjustedWeights = weightList.ToArray();
@@ -84,34 +101,36 @@ public class ItemController : MonoBehaviour
         return 0;
     }
 
-    public void ItemGot(string type)
+    public void ItemGot(Item gotItem)
     {
-        if(type == "life") {
-            levelDisplay.livesCount += 1;
-        } else if (type == "time") {
-            levelDisplay.timeCount += 30;
+        if(gotItem.itemType == "consumable") {
+            ApplyItemEffect(gotItem.itemName);
+        } else if(gotItem.itemType == "weapon") {
+            playerInventory.currentItem = gotItem;
+            gotItem.onInventory = true;
         }
+    }
 
-        if(!spawnedItems.ContainsKey(type)){
-            spawnedItems.Add(type, 1);
-        } else {
-            spawnedItems[type] += 1;
+    public void ApplyItemEffect(string itemName) {
+        if(itemName == "life") {
+            levelDisplay.livesCount += 1;
+        } else if (itemName == "time") {
+            levelDisplay.timeCount += 30;
         }
     }
 
     public void FlushItems()
     {
-        foreach(KeyValuePair<string, int> item in spawnedItems)
-        {
-            spawnedItems[item.Key] = 0;
-        }
+        spawnedItems = new Dictionary<string, int>();
+        playerInventory.LoseItem();
+        itemLimit = 5;
     }
 
     private IEnumerator VanishItemCoroutine()
     {
         yield return new WaitForSeconds(vanishTime);
 
-        if(currentItem != null) {
+        if(currentItem != null && !currentItemScript.onInventory) {
             Destroy(currentItem);
         }
     }

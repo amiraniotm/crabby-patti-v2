@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4085764482839326136}
   - component: {fileID: 1182992375118626774}
-  - component: {fileID: 472486618493486871}
   - component: {fileID: 5109442506014276519}
+  - component: {fileID: 7788702261567994724}
   m_Layer: 8
   m_Name: LifePrefab
   m_TagString: Untagged
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &472486618493486871
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5359346625806874647}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.020095825}
-  serializedVersion: 2
-  m_Radius: 0.12210836
 --- !u!114 &5109442506014276519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,5 +98,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0f30fe6c729e71a92548c1061e2327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemController: {fileID: 0}
-  itemType: life
+  itemName: life
+  itemType: consumable
+  useCounter: 0
+  useTime: 0
+  onInventory: 0
+  player: {fileID: 0}
+--- !u!61 &7788702261567994724
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359346625806874647}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.29250002, y: 0.23875001}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.29250002, y: 0.23875001}
+  m_EdgeRadius: 0
