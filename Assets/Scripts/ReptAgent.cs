@@ -12,7 +12,19 @@ public class ReptAgent : Enemy
         canJump = false;
         unflipTime = 3.2f;
         getsMad = true;
-        madTime = 6f;     
+        madTime = 6f;
+        changeTime = 0.5f;
     }
-    
+
+    new protected void Update()
+    {
+        if(triggerChange){
+            change = true;
+            animator.SetBool("change",change);
+            triggerChange = false;
+            StartCoroutine(ChangeCoroutine());
+        }
+
+        base.Update();
+    }    
 }

@@ -8,12 +8,11 @@ public class Enemy : Character
     [SerializeField] public string type;
     [SerializeField] public int bounty;
     
-    protected Vector2 initialShakePosition;
-    public SpawnPoint spawnPoint;
-    public GameObject projectile;
     private Coroutine lastUnflipCoroutine;
     private Coroutine lastShakeCoroutine;
-    new private CapsuleCollider2D collider; 
+    new private BoxCollider2D collider; 
+    
+    protected Vector2 initialShakePosition;
     protected bool readyToBlow = false;
     protected bool change = false;
     protected bool getsMad = false;
@@ -31,11 +30,14 @@ public class Enemy : Character
     protected float speedMultiplier;
 	protected float shakeMagnitude = 0.05f;
     
+    public SpawnPoint spawnPoint;
+    public GameObject projectile;
+    
     new protected void Awake()
     {
         base.Awake();
 
-        collider = GetComponent<CapsuleCollider2D>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     protected void Start()
@@ -163,13 +165,9 @@ public class Enemy : Character
                 } else {
                     Unflip();
                 }
-            } else if(getsMad && !explodes) {
-                mad = true;
-                animator.SetBool("mad",mad);
-                StartCoroutine(CalmDownRoutine());
-            } else if(explodes){
+            } else if(getsMad) {
                 triggerChange = true;
-            }
+            } 
         }
     }
 
@@ -230,9 +228,23 @@ public class Enemy : Character
         GameObject flameL = Instantiate(projectile, transform.position, Quaternion.identity);
         FlameWave flameScript = flameL.GetComponent<FlameWave>();
         flameScript.direction = "left";
+        Vanish();
+    }
+
+    protected void Vanish()
+    {
         enemyCounter.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
         enemyCounter.EnemyDied();
+    }
+
+    protected void AdjustCollider()
+    {
+        Vector3 newSize = new Vector3 ( mainRenderer.bounds.size.x / Math.Abs(transform.localScale.x),
+                                        mainRenderer.bounds.size.y / Math.Abs(transform.localScale.y),
+                                        mainRenderer.bounds.size.z / Math.Abs(transform.localScale.z) );
+
+        collider.size = newSize;
     }
 
     private IEnumerator SpawnCoroutine()
@@ -267,7 +279,7 @@ public class Enemy : Character
         }
     }
 
-    protected IEnumerator CalmDownRoutine()
+    protected IEnumerator CalmDownCoroutine()
     {
         yield return new WaitForSeconds(madTime);
 
@@ -283,9 +295,27 @@ public class Enemy : Character
         }
     }
 
-    protected IEnumerator ExplodeCoroutine()
+    protected IEnumerator ChangeCoroutine()
     {
         yield return new WaitForSeconds(changeTime);
+
+        if(!mad){
+            mad = true;
+            triggerChange = false;
+            change = false;
+            body.gravityScale = 1.0f;
+            animator.SetBool("mad",mad);
+            animator.SetBool("change",change);
+            AdjustCollider();
+            StartCoroutine(CalmDownCoroutine());
+        } else if(mad && explodes) {
+            Vanish();
+        }
+    }
+
+    protected IEnumerator ExplodeCoroutine()
+    {
+        yield return new WaitForSeconds(changeTime / 4);
 
         Explode();
     }

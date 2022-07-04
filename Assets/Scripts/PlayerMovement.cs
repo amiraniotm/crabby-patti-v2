@@ -77,7 +77,7 @@ public class PlayerMovement : Character
                     FlipHorizontal(horizontalInput);
 
                     animator.SetBool("walking", horizontalInput != 0 && grounded);
-                    animator.SetBool("grounded", grounded);       
+                    animator.SetBool("grounded", grounded);    
                 }
 
                 if(body.velocity.y < -0.1) {
@@ -152,9 +152,9 @@ public class PlayerMovement : Character
             }
         }
 
-        grounded = false;
-
         animator.SetTrigger("jump");
+
+        grounded = false;
 
         if(!spawning){
             HideRespawnPlatform();

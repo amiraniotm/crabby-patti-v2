@@ -5,8 +5,8 @@ using UnityEngine;
 public class Powblock : HittableBlock
 {
     [SerializeField] public List<Sprite> spriteList = new List<Sprite>();
-    [SerializeField] private ShakeCamera mainCamera;
     [SerializeField] private AudioClip powSound;
+    [SerializeField] private ShakeCamera mainCamera;
     
     private SoundController soundController;
     private EnemyCounter enemyCounter;
@@ -20,6 +20,7 @@ public class Powblock : HittableBlock
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -50,7 +51,7 @@ public class Powblock : HittableBlock
 
     }
 
-    private void ChangeSprite()
+    public void ChangeSprite()
     {
         spriteRenderer.sprite = spriteList[powCount]; 
     }
