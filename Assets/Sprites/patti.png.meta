@@ -188,18 +188,18 @@ TextureImporter:
       name: patti_idle1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 530
+        x: 15
+        y: 536
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fd0d1efb8c5f5190800000000000000
+      spriteID: 8073953211f7e1aa0b55395c9e4ad495
       internalID: -7971551059088962056
       vertices: []
       indices: 
@@ -209,18 +209,18 @@ TextureImporter:
       name: patti_walk1
       rect:
         serializedVersion: 2
-        x: 116
-        y: 530
+        x: 128
+        y: 536
         width: 65
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 299d73ac7fa7bcfd0800000000000000
+      spriteID: fb93643b13e39faeb8ccc95bd3c52c18
       internalID: -2320625978311190126
       vertices: []
       indices: 
@@ -230,18 +230,18 @@ TextureImporter:
       name: patti_jump1
       rect:
         serializedVersion: 2
-        x: 228
-        y: 530
+        x: 240
+        y: 536
         width: 65
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3f2804695b1c4560800000000000000
+      spriteID: b760bc30588b0e02680db4376694bf0e
       internalID: 7299239166805028670
       vertices: []
       indices: 
@@ -251,18 +251,18 @@ TextureImporter:
       name: patti_jump10
       rect:
         serializedVersion: 2
-        x: 308
-        y: 529
+        x: 320
+        y: 535
         width: 65
-        height: 60
+        height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32b1a5d1311329d00800000000000000
+      spriteID: cd3785bb2a0d95e9f8cebb3b76331398
       internalID: 977898027259403043
       vertices: []
       indices: 
@@ -272,19 +272,40 @@ TextureImporter:
       name: patti_kick1
       rect:
         serializedVersion: 2
-        x: 420
-        y: 530
+        x: 432
+        y: 536
         width: 65
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13020af6144a69810800000000000000
+      spriteID: e077f81fd557301a6ae24bdcc369e1dc
       internalID: 1771784104369463345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: patti_dead1
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 536
+        width: 65
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69fb3a742a380bdfca14f11958a8988a
+      internalID: -6801458869430866380
       vertices: []
       indices: 
       edges: []
@@ -293,18 +314,18 @@ TextureImporter:
       name: patti_idle2
       rect:
         serializedVersion: 2
-        x: 3
-        y: 465
+        x: 15
+        y: 471
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c02ed5cc9e7c70340800000000000000
+      spriteID: d0fcc82fd6fe85b8b8fc320e8ecaa140
       internalID: 4830048932348158476
       vertices: []
       indices: 
@@ -314,18 +335,18 @@ TextureImporter:
       name: patti_walk2
       rect:
         serializedVersion: 2
-        x: 111
-        y: 466
+        x: 123
+        y: 472
         width: 68
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19dc0fad28018e730800000000000000
+      spriteID: 1cffa709429451cdab896b228ad0a13f
       internalID: 4028488020887915921
       vertices: []
       indices: 
@@ -335,18 +356,18 @@ TextureImporter:
       name: patti_jump2
       rect:
         serializedVersion: 2
-        x: 228
-        y: 465
+        x: 240
+        y: 471
         width: 65
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acb468a4dc4bc2110800000000000000
+      spriteID: df069d4bb2343f2c782641450a250477
       internalID: 1237562791431654346
       vertices: []
       indices: 
@@ -356,40 +377,40 @@ TextureImporter:
       name: patti_kick2
       rect:
         serializedVersion: 2
-        x: 422
-        y: 454
+        x: 434
+        y: 460
         width: 77
         height: 67
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95103397b37973ab0800000000000000
+      spriteID: d3a01e8011af3505688a6a7a08b3602d
       internalID: -5028384177243618983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: patti_dead1
+      name: patti_dead2
       rect:
         serializedVersion: 2
-        x: 532
-        y: 467
+        x: 544
+        y: 473
         width: 65
         height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43ea425a13d5c91a0800000000000000
-      internalID: -6801458869430866380
+      spriteID: f1376b2da289afd1b81ea8f81c113bc6
+      internalID: -5396367100404471218
       vertices: []
       indices: 
       edges: []
@@ -398,18 +419,18 @@ TextureImporter:
       name: patti_idle3
       rect:
         serializedVersion: 2
-        x: 2
-        y: 398
+        x: 14
+        y: 404
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa753286744952660800000000000000
+      spriteID: 3c9bcfd0e9b4e04cdac605c1f7b4998e
       internalID: 7360452200417679279
       vertices: []
       indices: 
@@ -419,18 +440,18 @@ TextureImporter:
       name: patti_walk3
       rect:
         serializedVersion: 2
-        x: 113
-        y: 402
+        x: 125
+        y: 408
         width: 66
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5a43c6f57b98d230800000000000000
+      spriteID: e05c340032c27a6be9f0909233b79eb0
       internalID: 3663849227819371102
       vertices: []
       indices: 
@@ -440,40 +461,40 @@ TextureImporter:
       name: patti_jump3
       rect:
         serializedVersion: 2
-        x: 228
-        y: 402
+        x: 240
+        y: 408
         width: 65
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9511bacd74823d770800000000000000
+      spriteID: 5f4ac95115455da9aafc3cbf28303bbb
       internalID: 8634289199709360473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: patti_dead2
+      name: patti_dead3
       rect:
         serializedVersion: 2
-        x: 531
-        y: 398
+        x: 543
+        y: 404
         width: 65
         height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4a69ce96b04c15b0800000000000000
-      internalID: -5396367100404471218
+      spriteID: d03a8fb4ff10fbb7dbb20ee90748c6db
+      internalID: 1432163319
       vertices: []
       indices: 
       edges: []
@@ -482,18 +503,18 @@ TextureImporter:
       name: patti_idle4
       rect:
         serializedVersion: 2
-        x: 1
-        y: 338
+        x: 13
+        y: 344
         width: 66
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d18fb5f0e031ea4f0800000000000000
+      spriteID: b18b2033d77f130b58b971f2315d186f
       internalID: -815693531399325667
       vertices: []
       indices: 
@@ -503,18 +524,18 @@ TextureImporter:
       name: patti_walk4
       rect:
         serializedVersion: 2
-        x: 117
-        y: 338
+        x: 129
+        y: 344
         width: 62
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c41ad93fdfd3c37d0800000000000000
+      spriteID: 8b96560d6d6e0dfea93888c75d8e9548
       internalID: -2937404696029191860
       vertices: []
       indices: 
@@ -524,18 +545,18 @@ TextureImporter:
       name: patti_jump4
       rect:
         serializedVersion: 2
-        x: 230
-        y: 334
+        x: 241
+        y: 341
         width: 62
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb0de85a9f684fb50800000000000000
+      spriteID: f497a8f7e36c40717970caf27fd58f46
       internalID: 6626069358551421119
       vertices: []
       indices: 
@@ -545,18 +566,18 @@ TextureImporter:
       name: patti_idle5
       rect:
         serializedVersion: 2
-        x: 2
-        y: 269
+        x: 14
+        y: 275
         width: 66
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 340802b8a340da540800000000000000
+      spriteID: 62014984c3a109976aa3f463dfecef09
       internalID: 5020673809076748355
       vertices: []
       indices: 
@@ -566,18 +587,18 @@ TextureImporter:
       name: patti_jump5
       rect:
         serializedVersion: 2
-        x: 229
-        y: 261
+        x: 241
+        y: 267
         width: 62
         height: 68
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca15e600879cf9840800000000000000
+      spriteID: 4e9e308722d5bb189b9da6ecf2f6588a
       internalID: 5233122809268294060
       vertices: []
       indices: 
@@ -587,18 +608,18 @@ TextureImporter:
       name: patti_idle6
       rect:
         serializedVersion: 2
-        x: 3
-        y: 205
+        x: 15
+        y: 211
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 244ddb38775865c90800000000000000
+      spriteID: 21ffeafc889f7a494b95c9c0f93b3ef8
       internalID: -7181405807437818814
       vertices: []
       indices: 
@@ -608,18 +629,18 @@ TextureImporter:
       name: patti_jump6
       rect:
         serializedVersion: 2
-        x: 226
-        y: 197
+        x: 238
+        y: 203
         width: 65
         height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab2d48e7d378e4cc0800000000000000
+      spriteID: e1b9d073ecf4dcc9a90f672700acb90e
       internalID: -3724891143603432774
       vertices: []
       indices: 
@@ -629,18 +650,18 @@ TextureImporter:
       name: patti_idle7
       rect:
         serializedVersion: 2
-        x: 4
-        y: 137
+        x: 16
+        y: 143
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c40c9bee4346ffdc0800000000000000
+      spriteID: 668651bb5f3f05d45a8276883283296b
       internalID: -3603050998366879668
       vertices: []
       indices: 
@@ -650,18 +671,18 @@ TextureImporter:
       name: patti_jump7
       rect:
         serializedVersion: 2
-        x: 227
-        y: 130
+        x: 239
+        y: 136
         width: 64
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f91c132f0d3387c0800000000000000
+      spriteID: fc024d6abb0a1dc648d804ddf65e43af
       internalID: -4070342502989948430
       vertices: []
       indices: 
@@ -671,18 +692,18 @@ TextureImporter:
       name: patti_idle8
       rect:
         serializedVersion: 2
-        x: 5
-        y: 68
+        x: 17
+        y: 74
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5961f353e16224ac0800000000000000
+      spriteID: eb071edf1c3c4dc12b34325c469d1689
       internalID: -3872490818401003883
       vertices: []
       indices: 
@@ -692,18 +713,18 @@ TextureImporter:
       name: patti_jump8
       rect:
         serializedVersion: 2
-        x: 228
-        y: 64
+        x: 240
+        y: 70
         width: 62
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 438aaee1e8ac4a760800000000000000
+      spriteID: 65e23fe62822384d3b1d66b02038a5d9
       internalID: 7468316793839986740
       vertices: []
       indices: 
@@ -713,18 +734,18 @@ TextureImporter:
       name: patti_idle9
       rect:
         serializedVersion: 2
-        x: 6
-        y: 1
+        x: 18
+        y: 7
         width: 66
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99076e4bfa68919b0800000000000000
+      spriteID: 16f8c2a64972677a08392aa950159a3d
       internalID: -5108904213062717287
       vertices: []
       indices: 
@@ -734,18 +755,18 @@ TextureImporter:
       name: patti_jump9
       rect:
         serializedVersion: 2
-        x: 229
-        y: 1
+        x: 240
+        y: 7
         width: 65
         height: 58
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9ba9f51ab961cdc0800000000000000
+      spriteID: 69b90fddb3d4cabcd9bfe1542cba6acd
       internalID: -3620496377475650657
       vertices: []
       indices: 
@@ -768,6 +789,7 @@ TextureImporter:
       patti_dead2: -5396367100404471218
       patti_idle3: 7360452200417679279
       patti_jump8: 7468316793839986740
+      patti_dead3: 1432163319
       patti_jump6: -3724891143603432774
       patti_idle4: -815693531399325667
       patti_jump5: 5233122809268294060
@@ -782,10 +804,10 @@ TextureImporter:
       patti_idle2: 4830048932348158476
       patti_jump2: 1237562791431654346
       patti_kick2: -5028384177243618983
-      patti_dead1: -6801458869430866380
+      patti_walk4: -2937404696029191860
       patti_walk3: 3663849227819371102
       patti_kick1: 1771784104369463345
-      patti_walk4: -2937404696029191860
+      patti_dead1: -6801458869430866380
       patti_jump9: -3620496377475650657
       patti_walk1: -2320625978311190126
       patti_idle5: 5020673809076748355

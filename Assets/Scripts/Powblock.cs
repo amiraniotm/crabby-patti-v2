@@ -20,7 +20,6 @@ public class Powblock : HittableBlock
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

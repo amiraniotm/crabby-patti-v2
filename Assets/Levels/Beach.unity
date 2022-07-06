@@ -672,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129525977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 25.62, z: 0}
+  m_LocalPosition: {x: 0.02, y: 25.63, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 2.1847706}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -783,8 +783,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000453, y: 0}
-  m_SizeDelta: {x: 245.6364, y: 100}
+  m_AnchoredPosition: {x: -2.5771, y: 0}
+  m_SizeDelta: {x: 311.2828, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172597143
 MonoBehaviour:
@@ -1896,7 +1896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &616531967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2926,7 +2926,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3054,7 +3054,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3616,9 +3616,6 @@ MonoBehaviour:
   pauseController: {fileID: 1119685684}
   itemController: {fileID: 56411448}
   convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
-  powblocks:
-  - {fileID: 722035416}
-  - {fileID: 369095863}
   soundController: {fileID: 402230653}
   currentLevel: {fileID: 11400000, guid: a77e58f5132676cdd8a1805c06241cf9, type: 2}
   levelStarted: 0

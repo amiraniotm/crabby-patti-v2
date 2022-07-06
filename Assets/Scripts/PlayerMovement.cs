@@ -80,8 +80,8 @@ public class PlayerMovement : Character
                     animator.SetBool("grounded", grounded);    
                 }
 
-                if(body.velocity.y < -0.1) {
-                    body.gravityScale = 8.5f;
+                if(body.velocity.y < -0.01) {
+                    body.gravityScale = 10f;
                     isFalling = true;
                 } else {
                     body.gravityScale = 5.0f;
