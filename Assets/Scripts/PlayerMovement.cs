@@ -10,6 +10,7 @@ public class PlayerMovement : Character
     [SerializeField] private LevelDisplay levelDisplay;
     [SerializeField] private PauseController pauseController;
     [SerializeField] private float maxJumpTime;
+    [SerializeField] private AudioClip jumpSound;
     
     public Vector3 startPosition;
     public Vector3 spawnStartPoint;
@@ -82,11 +83,11 @@ public class PlayerMovement : Character
                     FlipHorizontal(horizontalInput);
 
                     animator.SetBool("walking", horizontalInput != 0 && grounded);
-                    animator.SetBool("grounded", grounded);       
+                    animator.SetBool("grounded", grounded);    
                 }
 
-                if(body.velocity.y < -0.1) {
-                    body.gravityScale = 8.5f;
+                if(body.velocity.y < -0.01) {
+                    body.gravityScale = 10f;
                     isFalling = true;
                 } else {
                     body.gravityScale = 5.0f;
@@ -144,6 +145,7 @@ public class PlayerMovement : Character
     new protected void Jump()
     {
         if( grounded && spawned ) {
+            levelDisplay.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
             body.velocity = Vector2.up * adjustedJumpSpeed;
@@ -156,9 +158,9 @@ public class PlayerMovement : Character
             }
         }
 
-        grounded = false;
-
         animator.SetTrigger("jump");
+
+        grounded = false;
 
         if(!spawning){
             HideRespawnPlatform();
@@ -211,6 +213,9 @@ public class PlayerMovement : Character
     {
         StopCoroutine(SpawnPlatformCoroutine());
         
+        if(inventory.currentItem != null){
+            inventory.LoseItem();
+        }
         gameObject.layer = 4;
         spawning = true;
         spawned = false;

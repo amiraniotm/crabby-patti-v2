@@ -16,7 +16,6 @@ public class Flamey : Enemy
         explodes = true;
     }
     
-
     new protected void Update()
     {
         if(triggerChange && body.velocity.y < 0){
@@ -43,28 +42,5 @@ public class Flamey : Enemy
         }
 
         base.Update();
-    }
-
-    protected void Vanish()
-    {
-        enemyCounter.currentEnemies.Remove(gameObject);
-        Destroy(gameObject);
-    }
-
-    protected IEnumerator ChangeCoroutine()
-    {
-        yield return new WaitForSeconds(changeTime);
-
-        if(!mad){
-            mad = true;
-            triggerChange = false;
-            change = false;
-            body.gravityScale = 1.0f;
-            animator.SetBool("mad",mad);
-            animator.SetBool("change",change);
-            StartCoroutine(CalmDownRoutine());
-        } else {
-            Vanish();
-        }
     }
 }

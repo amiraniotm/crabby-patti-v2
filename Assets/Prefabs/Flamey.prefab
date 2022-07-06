@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4742577209595566231}
   - component: {fileID: 4742577209595566229}
   - component: {fileID: 23596550}
-  - component: {fileID: 1329789591}
   - component: {fileID: -6343581261707943107}
+  - component: {fileID: 4695031338362221171}
   m_Layer: 3
   m_Name: Flamey
   m_TagString: Enemies
@@ -32,6 +32,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.17, y: -1.62, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1.8}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,6 +48,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -110,7 +112,7 @@ Rigidbody2D:
   m_Constraints: 4
 --- !u!95 &4742577209595566229
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -123,6 +125,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -143,6 +146,7 @@ MonoBehaviour:
   runSpeed: 15
   topJumpSpeed: 6
   enemyCounter: {fileID: 0}
+  originPosition: {x: 0, y: 0}
   isDead: 0
   flippedVertical: 0
   grounded: 0
@@ -151,25 +155,8 @@ MonoBehaviour:
   spawning: 1
   type: Flamey
   bounty: 50
-  originPosition: {x: 0, y: 0}
   spawnPoint: {fileID: 0}
   projectile: {fileID: 1352143885917667049, guid: a82844bac308504028bb1fb40f2215c9, type: 3}
---- !u!70 &1329789591
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4742577209595566228}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0018250785, y: -0.009125502}
-  m_Size: {x: 0.47356132, y: 0.36187184}
-  m_Direction: 1
 --- !u!114 &-6343581261707943107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +173,29 @@ MonoBehaviour:
   isVisible: 1
   screenWidth: 0
   screenHeight: 0
+--- !u!61 &4695031338362221171
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4742577209595566228}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.45, y: 0.35}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.35}
+  m_EdgeRadius: 0

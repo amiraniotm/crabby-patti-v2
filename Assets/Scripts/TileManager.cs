@@ -82,9 +82,12 @@ public class TileManager : MonoBehaviour
         newTilePosition = new Vector3Int(touchPosition.x, touchPosition.y - 1, touchPosition.z);
         
         Vector3Int formerTilePosition = new Vector3Int(newTilePosition.x - 1, newTilePosition.y, newTilePosition.z);
+        
         if(tilemap.HasTile(newTilePosition)) {
             tilemap.SetTile(newTilePosition, charredTile);
             tilemap.SetTile(formerTilePosition, charredTile); 
+        } else if(tilemap.HasTile(touchPosition)) {
+            tilemap.SetTile(touchPosition, charredTile);
         }
     }
 
