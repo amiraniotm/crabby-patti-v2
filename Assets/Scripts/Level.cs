@@ -44,7 +44,7 @@ public class Level : ScriptableObject
             levelEnemies["Flamey"] = 2;
         }**/
 
-        CURRENT GAME ENEMIES
+        //CURRENT GAME ENEMIES
         if(levelType == "beach") {
             levelEnemies["Crabcatcher"] = 3;
             levelEnemies["CrabcatcherPlus"] = 3;
