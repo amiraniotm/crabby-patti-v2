@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1729303109399288578}
   - component: {fileID: 8295268722318471694}
-  - component: {fileID: 5397630762830169285}
   - component: {fileID: 65915630}
+  - component: {fileID: 1792391327366956574}
   m_Layer: 0
   m_Name: TimePrefab
   m_TagString: Untagged
@@ -86,24 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5397630762830169285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4456523585740018412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0f30fe6c729e71a92548c1061e2327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: time
-  itemType: consumable
-  useCounter: 0
-  useTime: 0
-  onInventory: 0
-  player: {fileID: 0}
 --- !u!61 &65915630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -130,3 +112,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2738713, y: 0.25566924}
   m_EdgeRadius: 0
+--- !u!114 &1792391327366956574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4456523585740018412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed166f3ca0c35e89b84387826662d400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: time
+  player: {fileID: 0}
+  timeAmount: 30

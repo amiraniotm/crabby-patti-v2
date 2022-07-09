@@ -547,7 +547,7 @@ TextureImporter:
         width: 59
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -555,6 +555,48 @@ TextureImporter:
       bones: []
       spriteID: f44819bf8fbbfec70800000000000000
       internalID: 9002620858183812175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: utility_box
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 185
+        width: 60
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d82611b2a4178cd4806f320cc35b46b
+      internalID: 295370107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: extra_life
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 127
+        width: 58
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0559b16b535add25aa0db1ba6b322274
+      internalID: -1844300679
       vertices: []
       indices: 
       edges: []
@@ -575,6 +617,7 @@ TextureImporter:
       spawn_platform: 9002620858183812175
       beach_background: 5770958956045166959
       powblock_fade5: -5883156277267749015
+      utility_box: 295370107
       powblock2: -588874106627402442
       powblock_fade6: -8901590981438018623
       powblock_fade1: -5247092446338092663
@@ -589,6 +632,7 @@ TextureImporter:
       city_background: 173538500886388945
       powblock_fade2: -3356990613430728209
       volcano_background: 3445910035351170775
+      extra_life: -1844300679
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

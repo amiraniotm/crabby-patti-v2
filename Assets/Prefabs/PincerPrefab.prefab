@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6545851058541492285}
   - component: {fileID: 8916173329898096827}
-  - component: {fileID: 3644682845638667971}
   - component: {fileID: 4791916487200272595}
+  - component: {fileID: 3527773537333861876}
   m_Layer: 0
   m_Name: PincerPrefab
   m_TagString: Untagged
@@ -86,24 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3644682845638667971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6986347612067343232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0f30fe6c729e71a92548c1061e2327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: pincer
-  itemType: weapon
-  useCounter: 5
-  useTime: 0.3
-  onInventory: 0
-  player: {fileID: 0}
 --- !u!61 &4791916487200272595
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -130,3 +112,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3125, y: 0.29375002}
   m_EdgeRadius: 0
+--- !u!114 &3527773537333861876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6986347612067343232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd5cbacaa94b3dda9ba2df6143a848b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: attack_pincer
+  player: {fileID: 0}
+  useCounter: 5
+  useTime: 0.3
+  onInventory: 0
+  playerInventory: {fileID: 0}

@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     [SerializeField] public string itemName;
-    [SerializeField] public string itemType;
-    [SerializeField] public int useCounter;
-    [SerializeField] public float useTime;
 
-    private ItemController itemController;
-    private Vector2 originalScale;
-    new private BoxCollider2D collider;
+    protected ItemController itemController;
+    protected Vector2 originalScale;
+    protected float vanishTime = 4.0f;
+    new protected BoxCollider2D collider;
 
-    public bool onInventory = false;
     public PlayerMovement player;
+    public Coroutine currentVanishCoroutine;
     
-    private void Awake()
+    protected virtual void Awake()
     {
         collider = GetComponent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
@@ -24,62 +22,19 @@ public class Item : MonoBehaviour
         originalScale = transform.localScale;
     }
 
-    private void LateUpdate()
-    {
-        if(onInventory) {
-            Vector3 newPos = new Vector3(
-                            player.gameObject.transform.position.x,
-                            player.gameObject.transform.position.y,
-                            player.gameObject.transform.position.z - 3
-                            );
+    protected abstract void OnTriggerEnter2D(Collider2D otherCollider);
 
-            transform.position = newPos;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D otherCollider)
+    protected virtual void Vanish()
     {
-        if(otherCollider.gameObject.tag == "Player" && !onInventory) {
-            itemController.ItemGot(this);
-            collider.enabled = false;
-            if(itemType == "consumable") {
-                Vanish();
-            }
-        }else if(otherCollider.gameObject.tag == "Enemies" && onInventory) {
-            Enemy enemyScript = otherCollider.gameObject.GetComponent<Enemy>();
-            player.KillEnemy(enemyScript);
-        }
-    }
-
-    public void onUse()
-    {
-        if(itemName == "pincer") {
-            collider.enabled = true;
-            transform.localScale *= 2f;
-            useCounter -= 1;
-            StartCoroutine(UsageCoroutine());
-        }
-    }
-    
-    private void CheckUses()
-    {
-        if(useCounter == 0) {
-            Vanish();
-        }
-    }
-
-    private void Vanish()
-    {
+        StopCoroutine(currentVanishCoroutine);
         Destroy(gameObject);
     }
 
-    private IEnumerator UsageCoroutine()
+    public virtual IEnumerator VanishCoroutine()
     {
-        yield return new WaitForSeconds(useTime);
+        yield return new WaitForSeconds(vanishTime);
 
-        transform.localScale = originalScale;
-        collider.enabled = false;
-        CheckUses();
+        Vanish();
     }
 
 }

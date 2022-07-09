@@ -16,7 +16,6 @@ public class ItemController : MonoBehaviour
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
     private float spawnTime = 5.0f;
-    private float vanishTime = 4.0f;
     private int itemLimit = 5;
     
     public GameObject currentItem;
@@ -30,7 +29,7 @@ public class ItemController : MonoBehaviour
 
         itemWeights.Add("life", 90);
         itemWeights.Add("time", 90);
-        itemWeights.Add("pincer", 60);
+        itemWeights.Add("attack_pincer", 60);
 
         InvokeRepeating("SpawnItem", 1.0f, spawnTime);
     }
@@ -62,7 +61,7 @@ public class ItemController : MonoBehaviour
                         spawnedItems[currentItemScript.itemName] += 1;
                     }
 
-                    StartCoroutine(VanishItemCoroutine());
+                    currentItemScript.currentVanishCoroutine = StartCoroutine(currentItemScript.VanishCoroutine());
                 }
             }
         }  
@@ -101,38 +100,10 @@ public class ItemController : MonoBehaviour
         return 0;
     }
 
-    public void ItemGot(Item gotItem)
-    {
-        if(gotItem.itemType == "consumable") {
-            ApplyItemEffect(gotItem.itemName);
-        } else if(gotItem.itemType == "weapon") {
-            playerInventory.currentItem = gotItem;
-            gotItem.onInventory = true;
-        }
-    }
-
-    public void ApplyItemEffect(string itemName) {
-        if(itemName == "life") {
-            levelDisplay.livesCount += 1;
-        } else if (itemName == "time") {
-            levelDisplay.timeCount += 30;
-        }
-    }
-
     public void FlushItems()
     {
         spawnedItems = new Dictionary<string, int>();
         playerInventory.LoseItem();
         itemLimit = 5;
     }
-
-    private IEnumerator VanishItemCoroutine()
-    {
-        yield return new WaitForSeconds(vanishTime);
-
-        if(currentItem != null && !currentItemScript.onInventory) {
-            Destroy(currentItem);
-        }
-    }
-
 }

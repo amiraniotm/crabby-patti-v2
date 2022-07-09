@@ -6,8 +6,8 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : Character
 {
     [SerializeField] public GameObject spawnPlatformObject;
+    [SerializeField] public LevelDisplay levelDisplay;
     [SerializeField] private TileManager tileManager;
-    [SerializeField] private LevelDisplay levelDisplay;
     [SerializeField] private PauseController pauseController;
     [SerializeField] private float maxJumpTime;
     [SerializeField] private AudioClip jumpSound;
@@ -70,10 +70,6 @@ public class PlayerMovement : Character
 
                     if (Input.GetKeyUp("space")) {
                         isJumping = false;
-                    }
-                    
-                    if(Input.GetKeyDown(KeyCode.C)) {
-                        UseItem();
                     }
 
                     float horizontalInput = Input.GetAxis("Horizontal");
@@ -167,13 +163,6 @@ public class PlayerMovement : Character
         }
     }
 
-    private void UseItem()
-    {
-        if(inventory.currentItem != null) {
-            inventory.currentItem.onUse();
-        }
-    }
-
     new protected void OnCollisionEnter2D(Collision2D collision) 
     {
         base.OnCollisionEnter2D(collision);
@@ -202,6 +191,7 @@ public class PlayerMovement : Character
     public void Die()
     {   
         isDead = true;
+        animator.SetTrigger("die");
 
         Hold();
         base.Jump();
