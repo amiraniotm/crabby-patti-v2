@@ -10,7 +10,6 @@ public class Enemy : Character
     
     private Coroutine lastUnflipCoroutine;
     private Coroutine lastShakeCoroutine;
-    new private BoxCollider2D collider; 
     
     protected Vector2 initialShakePosition;
     protected bool readyToBlow = false;

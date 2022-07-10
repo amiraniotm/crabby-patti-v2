@@ -27,6 +27,7 @@ public class Character : MonoBehaviour
     
     public bool onGround = false;
     public bool spawning = true;
+    new public BoxCollider2D collider;    
     
     protected void Awake()
     {

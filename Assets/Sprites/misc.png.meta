@@ -568,7 +568,7 @@ TextureImporter:
         width: 60
         height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -589,7 +589,7 @@ TextureImporter:
         width: 58
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -597,6 +597,111 @@ TextureImporter:
       bones: []
       spriteID: 0559b16b535add25aa0db1ba6b322274
       internalID: -1844300679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_time
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 33
+        width: 62
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149e3e2bd48c61295bc139263af04432
+      internalID: 131951250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_hard_shell
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 505
+        width: 65
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63404e8e46a03aa98578b05a2152835
+      internalID: -1031365378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_attack_pincer1
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 432
+        width: 60
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2b155fd854d870f3a3eff367b5e5b22
+      internalID: -1261215894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_attack_pincer2
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 359
+        width: 62
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0862e455562e2a36985fedff81f2bc27
+      internalID: -1177319536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_boomerang_pincer
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 299
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ed75965a9c005224a3ce2a26da96b10
+      internalID: 2111823395
       vertices: []
       indices: 
       edges: []
@@ -612,6 +717,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      item_hard_shell: -1031365378
       beach_platform_new: -9177418277584700315
       burnt_platform_new: 7637870703528583553
       spawn_platform: 9002620858183812175
@@ -621,13 +727,17 @@ TextureImporter:
       powblock2: -588874106627402442
       powblock_fade6: -8901590981438018623
       powblock_fade1: -5247092446338092663
+      item_attack_pincer1: -1261215894
+      item_boomerang_pincer: 2111823395
       volcano_platform_new: 8671351589016534120
       city_platform_new: -4076281113925471536
       powblock_fade8: 6600722327966685224
+      item_time: 131951250
       powblock_fade4: 4452512340041527070
       powblock1: -3818157907930065138
       powblock_fade3: 8307504999820893422
       powblock3: 3035361689050549211
+      item_attack_pincer2: -1177319536
       powblock_fade7: 8273318286620358799
       city_background: 173538500886388945
       powblock_fade2: -3356990613430728209

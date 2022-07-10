@@ -6,11 +6,17 @@ public abstract class UsableItem : Item
 {
     [SerializeField] public int useCounter;
     [SerializeField] public float useTime;
+    [SerializeField] public bool hasEffect;
+    [SerializeField] public string itemType;
 
     public bool onInventory = false;
+    public bool flippedHorizontal;
+    public bool onUse = false;
     public Inventory playerInventory;
+    
+    protected Animator animator;
 
-    public abstract void OnUse();
+    public abstract void UseEffect();
 
     protected abstract void LateUpdate();
 
@@ -19,6 +25,7 @@ public abstract class UsableItem : Item
         base.Awake();
 
         playerInventory = player.gameObject.GetComponent<Inventory>();
+        animator = GetComponent<Animator>();
     }
 
     protected override void OnTriggerEnter2D(Collider2D otherCollider)
@@ -44,21 +51,5 @@ public abstract class UsableItem : Item
         }
     }
 
-    protected virtual IEnumerator UsageCoroutine()
-    {
-        yield return new WaitForSeconds(useTime);
-
-        transform.localScale = originalScale;
-        collider.enabled = false;
-        CheckUses();
-    }
-
-    public override IEnumerator VanishCoroutine()
-    {
-        if(!onInventory){
-            base.VanishCoroutine();
-        }
-
-        yield return 0;
-    }
+    protected abstract IEnumerator UsageCoroutine();
 }

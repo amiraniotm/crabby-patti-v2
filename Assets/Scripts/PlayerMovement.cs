@@ -15,6 +15,7 @@ public class PlayerMovement : Character
     public Vector3 startPosition;
     public Vector3 spawnStartPoint;
     public Vector3 spawnEndPoint;
+    public bool shelled;
 
     protected float speedMod = 1.0f;
     protected RaycastHit2D groundHit;
@@ -29,7 +30,6 @@ public class PlayerMovement : Character
     private float currentJumpTimer;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
-    new private BoxCollider2D collider;
 
     new private void Awake()
     {
@@ -132,9 +132,17 @@ public class PlayerMovement : Character
         if(horizontalInput > 0.01f && !flippedHorizontal){
             transform.localScale *= new Vector2(-1,1);
             flippedHorizontal = true;
+            if(inventory.currentItem != null && inventory.currentItem.flippedHorizontal) {
+                inventory.currentItem.transform.localScale *= new Vector2(-1,1);
+                inventory.currentItem.flippedHorizontal = false;
+            }
         }else if(horizontalInput < -0.01f && flippedHorizontal){
             transform.localScale *= new Vector2(-1,1);
             flippedHorizontal = false;
+            if(inventory.currentItem != null && !inventory.currentItem.flippedHorizontal) {
+                inventory.currentItem.transform.localScale *= new Vector2(-1,1);
+                inventory.currentItem.flippedHorizontal = true;
+            }
         }
     }
 
@@ -174,7 +182,11 @@ public class PlayerMovement : Character
                 KillEnemy(collidingEnemy);
                 animator.SetTrigger("kick");
             }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
-                Die();
+                if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
+                    inventory.currentItem.UseEffect();
+                } else {
+                    Die();
+                }
             }
         } else if ( collision.gameObject.tag == "Projectiles" ) {
             Die();
@@ -203,9 +215,7 @@ public class PlayerMovement : Character
     {
         StopCoroutine(SpawnPlatformCoroutine());
         
-        if(inventory.currentItem != null){
-            inventory.LoseItem();
-        }
+        inventory.LoseItem();
         gameObject.layer = 4;
         spawning = true;
         spawned = false;

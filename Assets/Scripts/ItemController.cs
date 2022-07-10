@@ -15,8 +15,8 @@ public class ItemController : MonoBehaviour
     private BoxCollider2D itemZone;
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
-    private float spawnTime = 5.0f;
-    private int itemLimit = 5;
+    private float spawnTime = 3.0f;
+    private int itemLimit = 10;
     
     public GameObject currentItem;
     public Item currentItemScript;
@@ -27,9 +27,11 @@ public class ItemController : MonoBehaviour
 
         itemZone = GetComponent<BoxCollider2D>();
 
-        itemWeights.Add("life", 90);
-        itemWeights.Add("time", 90);
-        itemWeights.Add("attack_pincer", 60);
+        //itemWeights.Add("life", 90);
+        //itemWeights.Add("time", 90);
+        //itemWeights.Add("attack_pincer", 60);
+        itemWeights.Add("boomerang_pincer", 60);
+        //itemWeights.Add("hard_shell", 30);
 
         InvokeRepeating("SpawnItem", 1.0f, spawnTime);
     }
@@ -61,7 +63,7 @@ public class ItemController : MonoBehaviour
                         spawnedItems[currentItemScript.itemName] += 1;
                     }
 
-                    currentItemScript.currentVanishCoroutine = StartCoroutine(currentItemScript.VanishCoroutine());
+                    StartCoroutine(currentItemScript.VanishCoroutine());
                 }
             }
         }  

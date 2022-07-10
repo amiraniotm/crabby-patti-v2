@@ -14,14 +14,14 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C) && currentItem != null) {
-            currentItem.OnUse();
+        if(Input.GetKeyDown(KeyCode.C) && currentItem != null && !currentItem.onUse && currentItem.hasEffect) {
+            currentItem.UseEffect();
         }
     }
 
     public void LoseItem()
     {
-        if(playerScript.isDead && currentItem != null) {
+        if(currentItem != null) {
             Destroy(currentItem.gameObject);
         }
     }
