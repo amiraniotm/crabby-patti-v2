@@ -132,14 +132,14 @@ public class PlayerMovement : Character
         if(horizontalInput > 0.01f && !flippedHorizontal){
             transform.localScale *= new Vector2(-1,1);
             flippedHorizontal = true;
-            if(inventory.currentItem != null && inventory.currentItem.flippedHorizontal) {
+            if(inventory.currentItem != null && inventory.currentItem.flippedHorizontal && !inventory.currentItem.onUse) {
                 inventory.currentItem.transform.localScale *= new Vector2(-1,1);
                 inventory.currentItem.flippedHorizontal = false;
             }
         }else if(horizontalInput < -0.01f && flippedHorizontal){
             transform.localScale *= new Vector2(-1,1);
             flippedHorizontal = false;
-            if(inventory.currentItem != null && !inventory.currentItem.flippedHorizontal) {
+            if(inventory.currentItem != null && !inventory.currentItem.flippedHorizontal && !inventory.currentItem.onUse) {
                 inventory.currentItem.transform.localScale *= new Vector2(-1,1);
                 inventory.currentItem.flippedHorizontal = true;
             }

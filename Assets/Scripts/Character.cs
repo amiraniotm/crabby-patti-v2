@@ -10,7 +10,6 @@ public class Character : MonoBehaviour
     [SerializeField] public EnemyCounter enemyCounter;
 
     protected PlatformCollision platforms;
-    protected Rigidbody2D body;
     protected Animator animator;
     protected Renderer mainRenderer;
     protected ScreenWrap screenWrapScript;
@@ -27,7 +26,8 @@ public class Character : MonoBehaviour
     
     public bool onGround = false;
     public bool spawning = true;
-    new public BoxCollider2D collider;    
+    new public BoxCollider2D collider; 
+    public Rigidbody2D body;  
     
     protected void Awake()
     {

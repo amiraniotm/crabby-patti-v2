@@ -1,29 +1,114 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BoomerangPincer : UsableItem
 {
-    public override void OnUse()
+    private int speedMod;
+    private float currentThrowTime;
+    private float initialPlayerXVelocity;
+    private float throwSpeed = 8.0f;
+    private float holdTime = 0.15f;
+    private bool comeBack = false;
+    private bool hold = false;
+    private Rigidbody2D body;
+
+    protected override void Awake()
     {
-        collider.enabled = true;
-        transform.localScale *= 2f;
-        useCounter -= 1;
-        StartCoroutine(UsageCoroutine());
+        base.Awake();
+
+        body = GetComponent<Rigidbody2D>();
     }
 
-    //CHANGE FOR PARTICULAR ITEM
-    protected override void LateUpdate()
+    public override void UseEffect()
     {
-        if(onInventory) {
-            Vector3 newPos = new Vector3(
-                            player.gameObject.transform.position.x,
-                            player.gameObject.transform.position.y,
-                            player.gameObject.transform.position.z - 3
-                            );
+        currentThrowTime = useTime;
+        onUse = true;
+        if(Math.Abs(player.body.velocity.x) > 0.5f) {
+            initialPlayerXVelocity = Math.Abs(player.body.velocity.x * 1.3f);
+        } else {
+            initialPlayerXVelocity = throwSpeed;
+        }
+        animator.SetBool("attacking", true);
+        collider.enabled = true;
+        useCounter -= 1;
+    }
 
-            transform.position = newPos;
+    protected override void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        base.OnTriggerEnter2D(otherCollider);
+
+        if(otherCollider.gameObject.tag == "Player" && onUse && comeBack) {
+            EndEffect();
         }
     }
 
+    protected void Update()
+    {
+        if(onUse) {
+            currentThrowTime -= Time.deltaTime;
+            initialPlayerXVelocity -= 0.05f * Time.deltaTime;
+            
+            if(!comeBack && !hold) {
+                body.velocity = new Vector2(speedMod * (initialPlayerXVelocity + throwSpeed), body.velocity.y);
+            } else if(comeBack && !hold) { 
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.5f);
+            } else if(hold) {
+                body.velocity = Vector2.zero;
+            }
+        }
+    }
+
+    protected override void LateUpdate()
+    {
+        if(onInventory) {
+            animator.SetBool("flipped", flippedHorizontal);
+
+            if(flippedHorizontal) {
+                speedMod = -1;
+            } else {
+                speedMod = 1;
+            }
+            
+            if(!onUse && player != null){
+                Vector3 newPos = new Vector3(
+                            player.gameObject.transform.position.x - (player.collider.size.x * player.transform.localScale.x / 3),
+                            player.gameObject.transform.position.y + (player.collider.size.y * player.transform.localScale.y / 3),
+                            player.gameObject.transform.position.z - 3
+                        );
+                
+                transform.position = newPos;
+            } else {
+                if((currentThrowTime < (useTime / 2)) && !hold && !comeBack) {
+                    hold = true;
+                    StartCoroutine(ComebackCoroutine());
+                }
+            }
+            
+        }
+    }
+
+    private void EndEffect()
+    {
+        onUse = false;
+        collider.enabled = false;
+        comeBack = false;
+        hold = false;
+        animator.SetBool("attacking", false);
+        CheckUses();
+    }
+
+    protected override IEnumerator UsageCoroutine()
+    {
+        yield return 0;
+    }
+
+    protected IEnumerator ComebackCoroutine()
+    {
+        yield return new WaitForSeconds(holdTime);
+
+        comeBack = true;
+        hold = false;
+    }
 }

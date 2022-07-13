@@ -707,6 +707,7 @@ MonoBehaviour:
   onGround: 0
   spawning: 1
   collider: {fileID: 0}
+  body: {fileID: 0}
   spawnPlatformObject: {fileID: 1121343731}
   levelDisplay: {fileID: 1685492132}
   tileManager: {fileID: 497610894}
@@ -9138,6 +9139,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030518, y: -34}
+  m_AnchoredPosition: {x: 0.000030518, y: 68}
   m_SizeDelta: {x: 573.4797, y: 128.5746}
   m_Pivot: {x: 0.5, y: 0.5}
