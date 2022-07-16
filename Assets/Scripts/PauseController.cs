@@ -6,19 +6,23 @@ using UnityEngine;
 public class PauseController : MonoBehaviour
 {
     [SerializeField] LevelDisplay levelDisplay;
-    [SerializeField] SoundController soundController;
 
+    private MasterController masterController;
+    private SoundController soundController;
     public bool gamePaused = false;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);    
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        soundController = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
+        masterController.SetPauseController(this);
     }
 
     void Update()
     {
         if(Input.GetKeyDown("return")) {
-            if(levelDisplay.levelStarted && !levelDisplay.gameOver && !gamePaused) {
+            if(masterController.levelStarted && !masterController.gameOver && !gamePaused) {
                 levelDisplay.DisplayPause();
                 soundController.PauseMusic();
                 Time.timeScale = 0;

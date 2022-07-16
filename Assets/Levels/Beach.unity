@@ -177,7 +177,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &56411450
 BoxCollider2D:
@@ -2073,7 +2073,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &665511680
 GameObject:
@@ -2771,7 +2771,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDisplay: {fileID: 1685492132}
-  soundController: {fileID: 402230653}
   gamePaused: 0
 --- !u!4 &1119685685
 Transform:
@@ -2786,7 +2785,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1121343731
 GameObject:
@@ -3499,7 +3498,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3518,7 +3517,6 @@ RectTransform:
   - {fileID: 1294769379}
   - {fileID: 1035688091}
   - {fileID: 1108460552}
-  - {fileID: 616531967}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3544,28 +3542,10 @@ MonoBehaviour:
   pointsText: {fileID: 801996975}
   levelText: {fileID: 2010096625}
   finalScoreText: {fileID: 107172446}
-  availableLevels:
-  - {fileID: 11400000, guid: a77e58f5132676cdd8a1805c06241cf9, type: 2}
-  - {fileID: 11400000, guid: 7278ef86a914dc564996e942717f0120, type: 2}
-  - {fileID: 11400000, guid: 176ae2c6c69a423d4953eda5469e680b, type: 2}
   gameOverPanel: {fileID: 1108460551}
-  introPanel: {fileID: 616531966}
   pausePanel: {fileID: 1294769378}
   gameOverSign: {fileID: 517349620}
   youWonSign: {fileID: 848938477}
-  player: {fileID: 129525982}
-  enemyCounter: {fileID: 465526595}
-  tileManager: {fileID: 497610894}
-  pauseController: {fileID: 1119685684}
-  itemController: {fileID: 56411448}
-  convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
-  soundController: {fileID: 402230653}
-  currentLevel: {fileID: 11400000, guid: a77e58f5132676cdd8a1805c06241cf9, type: 2}
-  levelStarted: 0
-  gameOver: 0
-  livesCount: 3
-  currentLevelKey: 0
-  timeCount: 0
 --- !u!1 &1763811698
 GameObject:
   m_ObjectHideFlags: 0

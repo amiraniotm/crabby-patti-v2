@@ -13,7 +13,7 @@ public class Level : ScriptableObject
     public int enemyCount;
 
     public void SetEnemies()
-    {
+    {        
         enemyCount = 0;
 
         if( levelEnemies.Count == 0 ) {
@@ -26,7 +26,7 @@ public class Level : ScriptableObject
         
         //TEST ENEMIES
         if(levelType == "beach") {
-            levelEnemies["Crabcatcher"] = 3;
+            levelEnemies["Crabcatcher"] = 2;
             levelEnemies["CrabcatcherPlus"] = 0;
             levelEnemies["ReptAgent"] = 0;
             levelEnemies["ReptBaby"] = 0;
@@ -39,9 +39,9 @@ public class Level : ScriptableObject
         } else if(levelType == "city") {
             levelEnemies["Crabcatcher"] = 2;
             levelEnemies["CrabcatcherPlus"] = 3;
-            levelEnemies["ReptAgent"] = 2;
-            levelEnemies["ReptBaby"] = 2;
-            levelEnemies["Flamey"] = 2;
+            levelEnemies["ReptAgent"] = 0;
+            levelEnemies["ReptBaby"] = 0;
+            levelEnemies["Flamey"] = 0;
         }
 
         //CURRENT GAME ENEMIES

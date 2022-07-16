@@ -18,6 +18,8 @@ TagManager:
   - PlayerCamera
   - ItemController
   - SoundController
+  - MasterController
+  - ItemController
   layers:
   - Default
   - TransparentFX

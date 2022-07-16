@@ -30,6 +30,7 @@ public class PlayerMovement : Character
     private float currentJumpTimer;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
+    private MasterController masterController;
 
     new private void Awake()
     {
@@ -40,6 +41,8 @@ public class PlayerMovement : Character
         collider = GetComponent<BoxCollider2D>();
         inventory = GetComponent<Inventory>();
         startPosition = transform.position;
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        masterController.SetPlayer(this);
     }
 
     public void Start()
@@ -118,7 +121,7 @@ public class PlayerMovement : Character
     protected void CheckRespawnCondition()
     {
         if(!screenWrapScript.isVisible && isDead){
-            levelDisplay.PlayerDied();
+            masterController.PlayerDied();
             animator.SetTrigger("respawn");
             PlayerSpawn();
 
@@ -149,7 +152,7 @@ public class PlayerMovement : Character
     new protected void Jump()
     {
         if( grounded && spawned ) {
-            levelDisplay.soundController.PlaySound(jumpSound, 0.15f);
+            masterController.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
             body.velocity = Vector2.up * adjustedJumpSpeed;
@@ -197,7 +200,7 @@ public class PlayerMovement : Character
     public void KillEnemy(Enemy enemy)
     {
         enemy.Die(body);
-        levelDisplay.AddPoints(enemy.bounty);
+        masterController.AddPoints(enemy.bounty);
     }
 
     public void Die()
@@ -259,8 +262,8 @@ public class PlayerMovement : Character
 
     public void StartPlatformCoroutine()
     {
-        if(!levelDisplay.levelStarted) {
-            levelDisplay.levelStarted = true;
+        if(!masterController.levelStarted) {
+            masterController.levelStarted = true;
         }
         
         StartCoroutine(SpawnPlatformCoroutine());

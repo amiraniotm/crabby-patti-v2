@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioSource musicSource, sfxSource;
     [SerializeField] private AudioClip[] availableMusic;
-    [SerializeField] private LevelDisplay levelDisplay;
+    [SerializeField] private MasterController masterController;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
     
     private void Awake()
     {
@@ -21,7 +24,7 @@ public class SoundController : MonoBehaviour
 
     public void SetCurrentMusicClip()
     {
-        int currentMusicKey = levelDisplay.currentLevelKey + 1;
+        int currentMusicKey = masterController.currentLevelKey;
         musicSource.clip = availableMusic[currentMusicKey];
     }
 
@@ -48,5 +51,15 @@ public class SoundController : MonoBehaviour
     public void PlaySound(AudioClip sound, float volume = 1.0f)
     {
         sfxSource.PlayOneShot(sound, volume);
+    }
+    
+    public void AdjustMusicVolume()
+    {
+        musicSource.volume = musicSlider.value;
+    }
+
+    public void AdjustSfxVolume()
+    {
+        sfxSource.volume = sfxSlider.value;
     }
 }

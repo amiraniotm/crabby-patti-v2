@@ -10,6 +10,7 @@ public abstract class Item : MonoBehaviour
     protected Vector3 initialPosition;
     protected float vanishTime = 4.0f;
     new protected BoxCollider2D collider;
+    protected MasterController masterController; 
 
     public PlayerMovement player;
     
@@ -18,6 +19,7 @@ public abstract class Item : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         itemController = GameObject.FindGameObjectWithTag("ItemController").GetComponent<ItemController>();
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         initialPosition = transform.position;
     }
 
