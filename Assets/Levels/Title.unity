@@ -3152,7 +3152,6 @@ MonoBehaviour:
   availableButtons:
   - {fileID: 862198774}
   - {fileID: 1266801300}
-  - {fileID: 1761541708}
   soundController: {fileID: 402230653}
   masterController: {fileID: 1993788447}
 --- !u!1 &958503506
@@ -5179,7 +5178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1761541707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5832,10 +5831,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7278ef86a914dc564996e942717f0120, type: 2}
   - {fileID: 11400000, guid: 176ae2c6c69a423d4953eda5469e680b, type: 2}
   convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
+  pauseController: {fileID: 0}
   currentLevel: {fileID: 0}
   levelDisplay: {fileID: 0}
   enemyCounter: {fileID: 0}
   currentLevelKey: 0
+  changingLevel: 0
   levelStarted: 0
   gameOver: 0
   livesCount: 3
