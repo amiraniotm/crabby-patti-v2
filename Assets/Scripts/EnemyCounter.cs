@@ -8,7 +8,7 @@ public class EnemyCounter : MonoBehaviour
     
     
     private Level currentLevel;
-    private LevelDisplay levelDisplay;
+    private MasterController masterController;
     public List<GameObject> currentEnemies = new List<GameObject>();
 
     public float spawnInterval = 1.5f;
@@ -16,18 +16,16 @@ public class EnemyCounter : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);      
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        masterController.SetEnemyCounter(this);
     }
 
     public void Start()
     {
         stillSpawing = true;
-        
-        if(levelDisplay == null) {
-            levelDisplay = GameObject.FindGameObjectWithTag("LevelDisplay").GetComponent<LevelDisplay>();
-        }
-
-        currentLevel = levelDisplay.currentLevel;
+    
+        currentLevel = masterController.currentLevel;
         InvokeRepeating("NewEnemy", spawnInterval, spawnInterval);
 
         foreach(SpawnPoint spawnPt in spawnPoints) {
@@ -62,7 +60,7 @@ public class EnemyCounter : MonoBehaviour
 
     public void EnemyDied()
     {
-        levelDisplay.CheckEnemies();
+        masterController.CheckEnemies();
     }
 
     public void FlipAll()

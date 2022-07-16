@@ -7,7 +7,6 @@ public class PlayerMovement : Character
 {
     [SerializeField] public GameObject spawnPlatformObject;
     [SerializeField] private TileManager tileManager;
-    [SerializeField] private LevelDisplay levelDisplay;
     [SerializeField] private PauseController pauseController;
     [SerializeField] private float maxJumpTime;
     [SerializeField] private AudioClip jumpSound;
@@ -28,6 +27,7 @@ public class PlayerMovement : Character
     private float spawnPlatformTimer = 3.0f;
     private float currentJumpTimer;
     private PlayerSpawnPlatform spawnPlatform; 
+    private MasterController masterController;
     new private BoxCollider2D collider;
 
     new private void Awake()
@@ -38,6 +38,8 @@ public class PlayerMovement : Character
         spawnPlatform = spawnPlatformObject.GetComponent<PlayerSpawnPlatform>();
         collider = GetComponent<BoxCollider2D>();
         startPosition = transform.position;
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        masterController.SetPlayer(this);
     }
 
     public void Start()
@@ -116,7 +118,7 @@ public class PlayerMovement : Character
     protected void CheckRespawnCondition()
     {
         if(!screenWrapScript.isVisible && isDead){
-            levelDisplay.PlayerDied();
+            masterController.PlayerDied();
             animator.SetTrigger("respawn");
             PlayerSpawn();
 
@@ -139,7 +141,7 @@ public class PlayerMovement : Character
     new protected void Jump()
     {
         if( grounded && spawned ) {
-            levelDisplay.soundController.PlaySound(jumpSound, 0.15f);
+            masterController.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
             body.velocity = Vector2.up * adjustedJumpSpeed;
@@ -170,7 +172,7 @@ public class PlayerMovement : Character
 
             if(collidingEnemy.flippedVertical) {
                 collidingEnemy.Die(body);
-                levelDisplay.AddPoints(collidingEnemy.bounty);
+                masterController.AddPoints(collidingEnemy.bounty);
                 animator.SetTrigger("kick");
             }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
                 Die();
@@ -238,8 +240,8 @@ public class PlayerMovement : Character
 
     public void StartPlatformCoroutine()
     {
-        if(!levelDisplay.levelStarted) {
-            levelDisplay.levelStarted = true;
+        if(!masterController.levelStarted) {
+            masterController.levelStarted = true;
         }
         
         StartCoroutine(SpawnPlatformCoroutine());

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] GameObject itemPrefab;
-    [SerializeField] LevelDisplay levelDisplay;
     [SerializeField] PauseController pauseController;
     [SerializeField] TileManager tileManager;
     [SerializeField] LayerMask platformMask;
@@ -19,13 +18,6 @@ public class ItemController : MonoBehaviour
 
         itemZone = GetComponent<BoxCollider2D>();
     }
-
-    /**private void Update()
-    {
-        if(levelDisplay.timeCount < (levelDisplay.currentLevel.levelTime / 2) && !lifeSpawned) {
-            SpawnLife();
-        }
-    }**/
 
     private void SpawnLife()
     {

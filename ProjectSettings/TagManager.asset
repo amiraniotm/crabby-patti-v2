@@ -17,6 +17,8 @@ TagManager:
   - SpawnPoint
   - PlayerCamera
   - SoundController
+  - MasterController
+  - ItemController
   layers:
   - Default
   - TransparentFX
