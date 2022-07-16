@@ -16,7 +16,6 @@ TagManager:
   - TileManager
   - SpawnPoint
   - PlayerCamera
-  - ItemController
   - SoundController
   - MasterController
   - ItemController

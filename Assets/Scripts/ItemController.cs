@@ -27,11 +27,11 @@ public class ItemController : MonoBehaviour
 
         itemZone = GetComponent<BoxCollider2D>();
 
-        //itemWeights.Add("life", 90);
-        //itemWeights.Add("time", 90);
-        //itemWeights.Add("attack_pincer", 60);
-        itemWeights.Add("boomerang_pincer", 60);
-        //itemWeights.Add("hard_shell", 30);
+        itemWeights.Add("life", 90);
+        itemWeights.Add("time", 90);
+        itemWeights.Add("attack_pincer", 60);
+        itemWeights.Add("hard_shell", 600);
+        itemWeights.Add("boomerang_pincer", 30);
 
         InvokeRepeating("SpawnItem", 1.0f, spawnTime);
     }

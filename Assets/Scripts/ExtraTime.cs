@@ -8,6 +8,6 @@ public class ExtraTime : ConsumableItem
 
     protected override void ApplyEffect()
     {
-        player.levelDisplay.timeCount += timeAmount;
+        masterController.timeCount += timeAmount;
     }
 }

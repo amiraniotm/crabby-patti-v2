@@ -8,6 +8,6 @@ public class ExtraLife : ConsumableItem
 
     protected override void ApplyEffect()
     {
-        player.levelDisplay.livesCount += lifeAmount;
+        masterController.livesCount += lifeAmount;
     }
 }
