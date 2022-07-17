@@ -25,7 +25,7 @@ public class Level : ScriptableObject
         }
         
         //TEST ENEMIES
-        if(levelType == "beach") {
+        /**if(levelType == "beach") {
             levelEnemies["Crabcatcher"] = 2;
             levelEnemies["CrabcatcherPlus"] = 0;
             levelEnemies["ReptAgent"] = 0;
@@ -42,27 +42,27 @@ public class Level : ScriptableObject
             levelEnemies["ReptAgent"] = 0;
             levelEnemies["ReptBaby"] = 0;
             levelEnemies["Flamey"] = 0;
-        }
+        }**/
 
         //CURRENT GAME ENEMIES
-        /**if(levelType == "beach") {
-            levelEnemies["Crabcatcher"] = 3;
-            levelEnemies["CrabcatcherPlus"] = 3;
+        if(levelType == "beach") {
+            levelEnemies["Crabcatcher"] = 4;
+            levelEnemies["CrabcatcherPlus"] = 4;
             levelEnemies["ReptAgent"] = 0;
             levelEnemies["ReptBaby"] = 0;
             levelEnemies["Flamey"] = 0;
         } else if(levelType == "volcano") {
-            levelEnemies["Crabcatcher"] = 2;
-            levelEnemies["CrabcatcherPlus"] = 2;
-            levelEnemies["ReptAgent"] = 2;
-            levelEnemies["Flamey"] = 1;
-        } else if(levelType == "city") {
-            levelEnemies["Crabcatcher"] = 2;
+            levelEnemies["Crabcatcher"] = 3;
             levelEnemies["CrabcatcherPlus"] = 3;
             levelEnemies["ReptAgent"] = 2;
-            levelEnemies["ReptBaby"] = 2;
             levelEnemies["Flamey"] = 2;
-        }**/
+        } else if(levelType == "city") {
+            levelEnemies["Crabcatcher"] = 4;
+            levelEnemies["CrabcatcherPlus"] = 3;
+            levelEnemies["ReptAgent"] = 3;
+            levelEnemies["ReptBaby"] = 3;
+            levelEnemies["Flamey"] = 3;
+        }
 
         foreach(KeyValuePair<string,int> enemy in levelEnemies){
             enemyCount += enemy.Value;

@@ -31,6 +31,7 @@ public abstract class UsableItem : Item
     protected override void OnTriggerEnter2D(Collider2D otherCollider)
     {
         if(otherCollider.gameObject.tag == "Player" && !onInventory) {
+            itemController.ItemGot();
             if(playerInventory.currentItem != null) {
                 playerInventory.LoseItem();
             }
@@ -39,6 +40,7 @@ public abstract class UsableItem : Item
             onInventory = true;  
             collider.enabled = false;
         } else if(otherCollider.gameObject.tag == "Enemies" && onInventory) {
+            itemController.EnemyHit();
             Enemy enemyScript = otherCollider.gameObject.GetComponent<Enemy>();
             player.KillEnemy(enemyScript);
         }

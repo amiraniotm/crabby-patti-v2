@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: attack_pincer
   player: {fileID: 0}
-  useCounter: 5
+  useCounter: 3
   useTime: 0.3
   hasEffect: 1
   itemType: pincer

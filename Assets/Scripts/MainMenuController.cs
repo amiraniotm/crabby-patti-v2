@@ -11,6 +11,8 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private Button[] availableButtons;
     [SerializeField] private SoundController soundController;
     [SerializeField] private MasterController masterController;
+    [SerializeField] private AudioClip optionChangeSound;
+    [SerializeField] private AudioClip optionSelectSound;
 
     private Button activeButton;
     private TMP_Text activeText;
@@ -30,6 +32,7 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler
             } else {
                 selectedIndex = availableButtons.Length - 1;
             }
+            masterController.soundController.PlaySound(optionChangeSound, 0.2f);
             SetActiveButton();
         } else if(Input.GetKeyDown("down")) {
             if(selectedIndex < (availableButtons.Length - 1)) {
@@ -37,11 +40,13 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler
             } else {
                 selectedIndex = 0;
             }
+            masterController.soundController.PlaySound(optionChangeSound, 0.2f);
             SetActiveButton();
         }
 
         if(Input.GetKeyDown("return")) {
             activeButton.onClick.Invoke();
+            masterController.soundController.PlaySound(optionSelectSound, 0.2f);
         }
     }
 

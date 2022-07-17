@@ -11,6 +11,7 @@ public class PlayerMovement : Character
     [SerializeField] private PauseController pauseController;
     [SerializeField] private float maxJumpTime;
     [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip enemyCollisionSound;
     
     public Vector3 startPosition;
     public Vector3 spawnStartPoint;
@@ -28,6 +29,8 @@ public class PlayerMovement : Character
     
     private float spawnPlatformTimer = 3.0f;
     private float currentJumpTimer;
+    private float upwardGravity = 5.0f;
+    private float downwardGravity = 12.0f;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
     private MasterController masterController;
@@ -86,10 +89,10 @@ public class PlayerMovement : Character
                 }
 
                 if(body.velocity.y < -0.01) {
-                    body.gravityScale = 10f;
+                    body.gravityScale = downwardGravity;
                     isFalling = true;
                 } else {
-                    body.gravityScale = 5.0f;
+                    body.gravityScale = upwardGravity;
                     isFalling = false;
                 }
             }else if(spawning){
@@ -180,6 +183,7 @@ public class PlayerMovement : Character
         
         if( collision.gameObject.tag == "Enemies" ) {
             Enemy collidingEnemy = collision.gameObject.GetComponent<Enemy>();
+            masterController.soundController.PlaySound(enemyCollisionSound, 0.4f);
 
             if(collidingEnemy.flippedVertical) {
                 KillEnemy(collidingEnemy);

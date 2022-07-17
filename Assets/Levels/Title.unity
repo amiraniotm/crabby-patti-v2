@@ -3134,7 +3134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000076293945, y: -270}
+  m_AnchoredPosition: {x: -0.0000076293945, y: -305}
   m_SizeDelta: {x: 435.3019, y: 344.4682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &897950816
@@ -3154,6 +3154,8 @@ MonoBehaviour:
   - {fileID: 1266801300}
   soundController: {fileID: 402230653}
   masterController: {fileID: 1993788447}
+  optionChangeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
+  optionSelectSound: {fileID: 8300000, guid: 8f7da5254da3eded8a73520b96028945, type: 3}
 --- !u!1 &958503506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,7 +5331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000096325, y: 154}
+  m_AnchoredPosition: {x: 0.000096325, y: 119}
   m_SizeDelta: {x: 1079.534, y: 497.726}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1796366371

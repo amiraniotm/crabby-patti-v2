@@ -5,19 +5,23 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] LevelDisplay levelDisplay;
-    [SerializeField] PauseController pauseController;
-    [SerializeField] TileManager tileManager;
-    [SerializeField] LayerMask platformMask;
-    [SerializeField] GameObject[] itemPrefabs;
-    [SerializeField] Inventory playerInventory;
+    [SerializeField] private LevelDisplay levelDisplay;
+    [SerializeField] private PauseController pauseController;
+    [SerializeField] private TileManager tileManager;
+    [SerializeField] private LayerMask platformMask;
+    [SerializeField] private GameObject[] itemPrefabs;
+    [SerializeField] private Inventory playerInventory;
+    [SerializeField] private AudioClip itemGotSound;
+    [SerializeField] private AudioClip enemyCollisionSound;
+    [SerializeField] private AudioClip itemAppearSound;
 
     private BoxCollider2D itemZone;
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
-    private float spawnTime = 3.0f;
-    private int itemLimit = 10;
+    private MasterController masterController;
+    private float spawnTime = 12.0f;
     
+    public int itemLimit = 5;
     public GameObject currentItem;
     public Item currentItemScript;
 
@@ -26,14 +30,16 @@ public class ItemController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         itemZone = GetComponent<BoxCollider2D>();
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        masterController.SetItemController(this);
 
-        itemWeights.Add("life", 90);
-        itemWeights.Add("time", 90);
-        itemWeights.Add("attack_pincer", 60);
-        itemWeights.Add("hard_shell", 600);
-        itemWeights.Add("boomerang_pincer", 30);
+        itemWeights.Add("life", 80);
+        itemWeights.Add("time", 80);
+        itemWeights.Add("attack_pincer", 50);
+        itemWeights.Add("hard_shell", 50);
+        itemWeights.Add("boomerang_pincer", 40);
 
-        InvokeRepeating("SpawnItem", 1.0f, spawnTime);
+        InvokeRepeating("SpawnItem", 5.0f, spawnTime);
     }
 
     private void SpawnItem()
@@ -54,6 +60,7 @@ public class ItemController : MonoBehaviour
                 if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
                     currentItem = Instantiate(itemPrefabs[itemIndex], newItemPos,Quaternion.identity);
                     currentItemScript = currentItem.GetComponent<Item>();
+                    masterController.soundController.PlaySound(itemAppearSound, 0.3f);
                     itemSet = true;
                     itemLimit -= 1;
 
@@ -107,5 +114,15 @@ public class ItemController : MonoBehaviour
         spawnedItems = new Dictionary<string, int>();
         playerInventory.LoseItem();
         itemLimit = 5;
+    }
+
+    public void ItemGot()
+    {
+        masterController.soundController.PlaySound(itemGotSound, 0.2f);
+    }
+
+    public void EnemyHit()
+    {
+        masterController.soundController.PlaySound(enemyCollisionSound, 0.4f);
     }
 }

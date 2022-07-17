@@ -9,6 +9,7 @@ public abstract class ConsumableItem : Item
     protected override void OnTriggerEnter2D(Collider2D otherCollider)
     {
         if(otherCollider.gameObject.tag == "Player") {
+            itemController.ItemGot();
             ApplyEffect();
             Vanish();
         } 

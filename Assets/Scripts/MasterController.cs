@@ -15,6 +15,7 @@ public class MasterController : MonoBehaviour
     public Level currentLevel;
     public LevelDisplay levelDisplay;
     public EnemyCounter enemyCounter;
+    public ItemController itemController;
 
     public int currentLevelKey;
     public bool changingLevel = false;
@@ -113,6 +114,13 @@ public class MasterController : MonoBehaviour
         }
     }
 
+    public void SetItemController(ItemController ICRef)
+    {     
+        if(itemController == null) {
+            itemController = ICRef;
+        }
+    }
+
     public void StartLevel()
     {
         if(currentLevelKey < availableLevels.Length) { 
@@ -129,6 +137,7 @@ public class MasterController : MonoBehaviour
             if(currentLevelKey > 1) {
                 player.PlayerSpawn();
                 enemyCounter.Start();
+                itemController.itemLimit = 5;
             }
         } else if (currentLevelKey >= availableLevels.Length) {
             levelDisplay.ShowGameOverScreen();
@@ -174,7 +183,6 @@ public class MasterController : MonoBehaviour
         Destroy(soundController.gameObject);
         Destroy(levelDisplay.gameObject);
         GameObject tileManager = GameObject.FindGameObjectWithTag("TileManager");
-        GameObject itemController = GameObject.FindGameObjectWithTag("ItemController");
         Destroy(tileManager);
         Destroy(itemController.gameObject);
 
