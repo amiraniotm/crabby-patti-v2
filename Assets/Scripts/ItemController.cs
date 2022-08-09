@@ -62,7 +62,9 @@ public class ItemController : MonoBehaviour
                     currentItemScript = currentItem.GetComponent<Item>();
                     masterController.soundController.PlaySound(itemAppearSound, 0.3f);
                     itemSet = true;
-                    itemLimit -= 1;
+                    if(!masterController.practiceMode){
+                        itemLimit -= 1;
+                    }
 
                     if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
                         spawnedItems.Add(currentItemScript.itemName, 1);

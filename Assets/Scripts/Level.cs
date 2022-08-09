@@ -62,10 +62,32 @@ public class Level : ScriptableObject
             levelEnemies["ReptAgent"] = 3;
             levelEnemies["ReptBaby"] = 3;
             levelEnemies["Flamey"] = 3;
-        }
+        } else if(levelType == "practice") {
+            levelEnemies["Crabcatcher"] = 1;
+            levelEnemies["CrabcatcherPlus"] = 1;
+            levelEnemies["ReptAgent"] = 0;
+            levelEnemies["ReptBaby"] = 0;
+            levelEnemies["Flamey"] = 0;
+        } 
+
 
         foreach(KeyValuePair<string,int> enemy in levelEnemies){
             enemyCount += enemy.Value;
         }
-    }   
+    }  
+
+    public void SetPracticeEnemies(string newEnemyName)
+    {
+        Dictionary<string,int> enemiesCopy = new Dictionary<string, int>(levelEnemies);
+
+        foreach(KeyValuePair<string,int> enemy in enemiesCopy){
+            if(enemy.Value > 0) {
+                levelEnemies[enemy.Key] = 0;
+            }
+
+            if(enemy.Key == newEnemyName) {
+                levelEnemies[enemy.Key] = 1;
+            }
+        }
+    } 
 }

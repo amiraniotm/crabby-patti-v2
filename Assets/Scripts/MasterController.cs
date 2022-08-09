@@ -16,6 +16,7 @@ public class MasterController : MonoBehaviour
     public LevelDisplay levelDisplay;
     public EnemyCounter enemyCounter;
     public ItemController itemController;
+    public PracticeController practiceController;
 
     public int currentLevelKey;
     public bool changingLevel = false;
@@ -25,6 +26,7 @@ public class MasterController : MonoBehaviour
     public bool timeUp = false;
     public int pointsCount = 0;    
     public float timeCount;
+    public bool practiceMode = false;
     private int levelTransitionTime = 1;
 
     private void Awake()
@@ -36,14 +38,18 @@ public class MasterController : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown("escape")) {
-            if(instructionsPanel.activeSelf) {
-                HideInstructionsPanel();
-            } else if(optionsPanel.activeSelf) {
-                HideOptionsPanel();
+            if(!practiceMode) {
+                if(instructionsPanel.activeSelf) {
+                    HideInstructionsPanel();
+                } else if(optionsPanel.activeSelf) {
+                    HideOptionsPanel();
+                }
+            } else {
+                SceneManager.LoadScene(0);
             }
         }
 
-        if(levelStarted && !gameOver && pauseController != null && !pauseController.gamePaused) {
+        if(levelStarted && !gameOver && pauseController != null && !pauseController.gamePaused && !practiceMode) {
             timeCount -= 1 * Time.deltaTime;
 
             if(timeCount <= 0) {
@@ -53,7 +59,7 @@ public class MasterController : MonoBehaviour
                 player.isDead = true;
                 StartCoroutine(NextLevelCoroutine());
             }
-        } else if (gameOver) {
+        } else if (gameOver && !practiceMode) {
             levelDisplay.ShowGameOverScreen();
         }
     }
@@ -121,19 +127,35 @@ public class MasterController : MonoBehaviour
         }
     }
 
+    public void SetPracticeController(PracticeController PracticeRef)
+    {     
+        if(practiceController == null) {
+            practiceController = PracticeRef;
+        }
+    }
+
     public void StartLevel()
     {
         if(currentLevelKey < availableLevels.Length) { 
             levelStarted = false;
             Time.timeScale = 1;
-            currentLevelKey += 1;
-            SceneManager.LoadScene(currentLevelKey);
+
+            if(!practiceMode) {
+                SceneManager.LoadScene(currentLevelKey);
+                currentLevel = availableLevels[currentLevelKey - 1];
+                currentLevelKey += 1;
+            }else {
+                SceneManager.LoadScene("Practice");
+                int practiceLevelIndex = availableLevels.Length - 1;
+                currentLevel = availableLevels[practiceLevelIndex];
+            }
+
             soundController.StopMusic();
             soundController.SetCurrentMusicClip();
             soundController.PlayMusic();
-            currentLevel = availableLevels[currentLevelKey - 1];
             timeCount = currentLevel.levelTime;
             currentLevel.SetEnemies();
+            
             if(currentLevelKey > 1) {
                 player.PlayerSpawn();
                 enemyCounter.Start();
@@ -141,7 +163,13 @@ public class MasterController : MonoBehaviour
             }
         } else if (currentLevelKey >= availableLevels.Length) {
             levelDisplay.ShowGameOverScreen();
-        }
+        } 
+    }
+
+    public void StartPracticeMode()
+    {
+        practiceMode = true;
+        StartLevel();
     }
 
     public void AddPoints(int points)
@@ -163,11 +191,13 @@ public class MasterController : MonoBehaviour
 
     public void PlayerDied()
     {
-        livesCount -= 1;
-        
-        if(livesCount == 0){
-            gameOver = true;
-            soundController.StopMusic();
+        if(!practiceMode) {
+            livesCount -= 1;
+            
+            if(livesCount == 0){
+                gameOver = true;
+                soundController.StopMusic();
+            }
         }
     }
 
@@ -181,7 +211,6 @@ public class MasterController : MonoBehaviour
         Destroy(enemyCounter.gameObject);
         Destroy(pauseController.gameObject);
         Destroy(soundController.gameObject);
-        Destroy(levelDisplay.gameObject);
         GameObject tileManager = GameObject.FindGameObjectWithTag("TileManager");
         Destroy(tileManager);
         Destroy(itemController.gameObject);
@@ -189,9 +218,17 @@ public class MasterController : MonoBehaviour
         foreach(SpawnPoint spawnPt in enemyCounter.spawnPoints) {
             Destroy(spawnPt.gameObject);
         }
-
+        
         Time.timeScale = 1;
-        SceneManager.LoadScene(currentLevelKey);
+        if(!practiceMode) {
+            Destroy(levelDisplay.gameObject);
+            SceneManager.LoadScene(currentLevelKey);
+        } else {
+            Destroy(practiceController.gameObject);
+            SceneManager.LoadScene(0);
+            practiceMode = false;
+        }
+
         Destroy(gameObject);
     }
 

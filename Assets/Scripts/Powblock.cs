@@ -39,7 +39,9 @@ public class Powblock : HittableBlock
 
             if(collisionSide == "upper" && powCount >= 0) {
                 enemyCounter.FlipAll();
-                powCount -= 1;
+                if(!player.masterController.practiceMode){
+                    powCount -= 1;
+                }
                 mainCamera.TriggerShake();
                 soundController.PlaySound(powSound, 0.4f);
                 if(powCount >= 0){

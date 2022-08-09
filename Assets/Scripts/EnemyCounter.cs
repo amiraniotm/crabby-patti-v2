@@ -19,6 +19,11 @@ public class EnemyCounter : MonoBehaviour
         DontDestroyOnLoad(gameObject);      
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetEnemyCounter(this);
+        if(masterController.practiceMode) {
+            spawnInterval = 4.0f;
+        } else {
+            spawnInterval = 1.5f;
+        }
     }
 
     public void Start()
@@ -43,8 +48,10 @@ public class EnemyCounter : MonoBehaviour
                     if(keyValue.Value > 0) {
                         string enemyType = keyValue.Key;
                         spawnPoint.SpawnEnemy(enemyType);
-                        currentLevel.levelEnemies[keyValue.Key] = keyValue.Value - 1;
-                        currentLevel.enemyCount -= 1;
+                        if(!masterController.practiceMode){
+                            currentLevel.levelEnemies[keyValue.Key] = keyValue.Value - 1;
+                            currentLevel.enemyCount -= 1;
+                        }
                         
                         if(currentLevel.enemyCount == 0) {
                             stillSpawing = false;

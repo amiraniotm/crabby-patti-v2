@@ -33,7 +33,7 @@ public class PlayerMovement : Character
     private float downwardGravity = 12.0f;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
-    private MasterController masterController;
+    public MasterController masterController;
 
     new private void Awake()
     {

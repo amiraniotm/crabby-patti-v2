@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/City.unity
     guid: ee899fd18d655a5fea1aca36df501151
+  - enabled: 1
+    path: Assets/Levels/Practice.unity
+    guid: 3e4190c6d13c0c2b98a81bf58695d2c7
   m_configObjects: {}

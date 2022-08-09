@@ -79,6 +79,11 @@ public class MainMenuController : MonoBehaviour, IPointerEnterHandler
         masterController.ShowOptionsPanel();
     }
 
+    public void StartPractice()
+    {
+        masterController.StartPracticeMode();
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         Button overButton = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<Button>();

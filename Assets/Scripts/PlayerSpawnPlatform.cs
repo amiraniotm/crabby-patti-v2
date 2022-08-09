@@ -14,6 +14,9 @@ public class PlayerSpawnPlatform : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        if(player.masterController.practiceMode) {
+            spawnGap = 18;
+        }
         endPoint = new Vector3(transform.position.x, transform.position.y - spawnGap, transform.position.z);
     }
 

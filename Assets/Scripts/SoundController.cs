@@ -24,8 +24,13 @@ public class SoundController : MonoBehaviour
 
     public void SetCurrentMusicClip()
     {
-        int currentMusicKey = masterController.currentLevelKey;
-        musicSource.clip = availableMusic[currentMusicKey];
+        if(!masterController.practiceMode){
+            int currentMusicKey = masterController.currentLevelKey;
+            musicSource.clip = availableMusic[currentMusicKey];
+        } else {
+            int currentMusicKey = masterController.currentLevelKey + 1;
+            musicSource.clip = availableMusic[currentMusicKey];
+        }
     }
 
     public void PlayMusic()
