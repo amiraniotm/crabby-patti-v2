@@ -51,7 +51,6 @@ public class MasterController : MonoBehaviour
                 timeUp = true;
                 Time.timeScale = 0;
                 player.isDead = true;
-                StartCoroutine(NextLevelCoroutine());
             }
         } else if (gameOver) {
             levelDisplay.ShowGameOverScreen();

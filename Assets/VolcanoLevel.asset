@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: VolcanoLevel
   m_EditorClassIdentifier: 
   levelType: volcano
-  levelTime: 60
-  totalEnemies: 0
+  levelTime: 75
+  enemyCount: 0

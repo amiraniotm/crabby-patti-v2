@@ -8,7 +8,7 @@ public abstract class Item : MonoBehaviour
 
     protected ItemController itemController;
     protected Vector3 initialPosition;
-    protected float vanishTime = 4.0f;
+    protected float vanishTime = 5.0f;
     new protected BoxCollider2D collider;
     protected MasterController masterController; 
 

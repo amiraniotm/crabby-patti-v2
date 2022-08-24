@@ -31,6 +31,7 @@ public class PlayerMovement : Character
     private float currentJumpTimer;
     private float upwardGravity = 5.0f;
     private float downwardGravity = 12.0f;
+    private bool onIce;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
     private MasterController masterController;
@@ -113,19 +114,17 @@ public class PlayerMovement : Character
             HideRespawnPlatform();
         }
         
-        if(grounded) {
+        if(grounded && !onIce) {
             body.velocity = new Vector2(horizontalInput * adjustedWalkSpeed, body.velocity.y);
-        } else {
+        } else if (!grounded) {
             body.velocity = new Vector2(2 * horizontalInput * adjustedWalkSpeed / 3 , body.velocity.y);    
         }
-
     }
 
     protected void CheckRespawnCondition()
     {
         if(!screenWrapScript.isVisible && isDead){
             masterController.PlayerDied();
-            animator.SetTrigger("respawn");
             PlayerSpawn();
 
             return;
@@ -204,7 +203,6 @@ public class PlayerMovement : Character
     public void KillEnemy(Enemy enemy)
     {
         enemy.Die(body);
-        masterController.AddPoints(enemy.bounty);
     }
 
     public void Die()
@@ -232,6 +230,7 @@ public class PlayerMovement : Character
         collider.enabled = true;
         spawnPlatformObject.SetActive(true);
         spawnPlatform.coroutineStarted = false;
+        animator.SetTrigger("respawn");
     }
 
     protected void HideRespawnPlatform()
@@ -254,12 +253,15 @@ public class PlayerMovement : Character
         groundHit = Physics2D.Raycast(raycastOrigin, raycastDirection, raycastMaxDistance, LayerMask.GetMask("Platforms"));
         //Debug.DrawRay(raycastOrigin, raycastDirection * raycastMaxDistance, Color.red );
         if(groundHit){
-            GameObject objectHit = groundHit.transform.gameObject;
+            speedMod = tileManager.GetTileSpeedMod(groundHit.point);
 
-            speedMod = tileManager.GetTileSpeedMod(groundHit.point, objectHit);
-
-            adjustedWalkSpeed = walkSpeed * speedMod;
-            adjustedJumpSpeed = topJumpSpeed * speedMod;
+            if(speedMod > 0) {
+                adjustedWalkSpeed = walkSpeed * speedMod;
+                adjustedJumpSpeed = topJumpSpeed * speedMod;
+                onIce = false;
+            } else {
+                onIce = true;
+            }
         }
         
     }

@@ -15,3 +15,4 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: 7625c8f24a3b6797abd0c83d38de2b79, type: 2}
   speedMod: 1
+  frictionMod: 1

@@ -30,7 +30,6 @@ public class Enemy : Character
 	protected float shakeMagnitude = 0.05f;
     
     public SpawnPoint spawnPoint;
-    public GameObject projectile;
     
     new protected void Awake()
     {
@@ -46,7 +45,7 @@ public class Enemy : Character
         Spawn();
     }
 
-    protected void Spawn()
+    protected virtual void Spawn()
     {
         spawnPoint.spawning = true;
         readyToSpawn = false;
@@ -150,7 +149,7 @@ public class Enemy : Character
         transform.localScale *= new Vector2(-1,1);
     }   
 
-    public void FlipVertical()
+    public virtual void FlipVertical()
     {
         if(!isDead){
             Hold();
@@ -195,7 +194,7 @@ public class Enemy : Character
         shaking = false;
 	}
 
-    private void Unflip()
+    protected virtual void Unflip()
     {
         StopCoroutine(lastUnflipCoroutine);
         StopCoroutine(lastShakeCoroutine);
@@ -221,20 +220,12 @@ public class Enemy : Character
         body.velocity = new Vector2(playerBody.velocity.x * 2, playerBody.velocity.y);
     }
 
-    protected void Explode()
-    {
-        GameObject flameR = Instantiate(projectile, transform.position, Quaternion.identity);
-        GameObject flameL = Instantiate(projectile, transform.position, Quaternion.identity);
-        FlameWave flameScript = flameL.GetComponent<FlameWave>();
-        flameScript.direction = "left";
-        Vanish();
-    }
-
-    protected void Vanish()
+    public void Vanish()
     {
         enemyCounter.currentEnemies.Remove(gameObject);
         Destroy(gameObject);
         enemyCounter.EnemyDied();
+        enemyCounter.masterController.AddPoints(bounty);
     }
 
     protected void AdjustCollider()
@@ -310,12 +301,5 @@ public class Enemy : Character
         } else if(mad && explodes) {
             Vanish();
         }
-    }
-
-    protected IEnumerator ExplodeCoroutine()
-    {
-        yield return new WaitForSeconds(changeTime / 4);
-
-        Explode();
     }
 }

@@ -47,8 +47,8 @@ public class ScreenWrap : MonoBehaviour
         if(!isVisible){
             if(characterScript.isDead && gameObject.tag == "Enemies") {
                 characterScript.enemyCounter.currentEnemies.Remove(gameObject);
-                Destroy(gameObject);
-                characterScript.enemyCounter.EnemyDied();
+                Enemy enemyScript = GetComponent<Enemy>();
+                enemyScript.Vanish();
             } else if(!characterScript.isDead && !characterScript.onGround && !characterScript.spawning) {
                 GhostSwap();
             }

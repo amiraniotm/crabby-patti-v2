@@ -8,10 +8,10 @@ public class EnemyCounter : MonoBehaviour
     
     
     private Level currentLevel;
-    private MasterController masterController;
+    public MasterController masterController;
     public List<GameObject> currentEnemies = new List<GameObject>();
 
-    public float spawnInterval = 1.5f;
+    public float spawnInterval = 2.5f;
     public bool stillSpawing;
 
     private void Awake()

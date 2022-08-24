@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 56411449}
   - component: {fileID: 56411448}
   - component: {fileID: 56411450}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ItemController
   m_TagString: ItemController
   m_Icon: {fileID: 0}
@@ -457,6 +457,9 @@ MonoBehaviour:
   - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
   - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
   - {fileID: 4742577209595566228, guid: 272888606cec8fab1b4b430a5ea9ef85, type: 3}
+  - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
+  - {fileID: 4742577209595566228, guid: f1ce3bd564833dc3985c2e566de1d40b, type: 3}
+  - {fileID: 4742577209595566228, guid: 91b9f4bb94646eeb58c77775a6436ed1, type: 3}
   lastSpawned: 0
   spawning: 0
   readyToSpawn: 1
@@ -593,7 +596,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 048ea03decfd5005f95d72b80027f542, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -607,7 +610,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 129525977}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 048ea03decfd5005f95d72b80027f542, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1097,8 +1100,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -47, y: 1.1599121}
-  m_SizeDelta: {x: 207.63647, y: 130.32}
+  m_AnchoredPosition: {x: -34.766724, y: 1.1599121}
+  m_SizeDelta: {x: 219.8698, y: 130.32}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &374061962
 CanvasRenderer:
@@ -1220,8 +1223,9 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1918931165}
   - {fileID: 128820828}
+  masterController: {fileID: 0}
   currentEnemies: []
-  spawnInterval: 2
+  spawnInterval: 2.5
   stillSpawing: 1
 --- !u!4 &465526596
 Transform:
@@ -1532,13 +1536,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8da770421f105a579daa489a3a0af40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charredTile: {fileID: 11400000, guid: 937948a0ec27dbba1b137f69e7e13f92, type: 2}
   tileDatas:
   - {fileID: 11400000, guid: eeef907181f174436a0366633f9a88ad, type: 2}
   - {fileID: 11400000, guid: b5bd855e21811147f81af9fd034436f0, type: 2}
-  - {fileID: 11400000, guid: 467b9d86a284d8a3daf54aa6709bd4ff, type: 2}
   - {fileID: 11400000, guid: ed828a4569066fe079d97ec3919b8a41, type: 2}
   - {fileID: 11400000, guid: a895c6d03043a5762a7e184982d3bf74, type: 2}
+  - {fileID: 11400000, guid: 467b9d86a284d8a3daf54aa6709bd4ff, type: 2}
+  - {fileID: 11400000, guid: 23f8dbb07d63a6ebc932c118bcd7174f, type: 2}
   playerCollider: {fileID: 0}
 --- !u!4 &497610895
 Transform:
@@ -2295,8 +2299,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 161.00734, y: -65.16}
-  m_SizeDelta: {x: 93.2555, y: 50.3933}
+  m_AnchoredPosition: {x: 164.07169, y: -65.16}
+  m_SizeDelta: {x: 111.6067, y: 50.3933}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &801996975
 MonoBehaviour:
@@ -2556,7 +2560,7 @@ GameObject:
   - component: {fileID: 1046283833}
   - component: {fileID: 1046283832}
   - component: {fileID: 1046283831}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8177,7 +8181,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1763811698}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 048ea03decfd5005f95d72b80027f542, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
@@ -8443,7 +8447,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 048ea03decfd5005f95d72b80027f542, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -8561,6 +8565,9 @@ MonoBehaviour:
   - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
   - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
   - {fileID: 4742577209595566228, guid: 272888606cec8fab1b4b430a5ea9ef85, type: 3}
+  - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
+  - {fileID: 4742577209595566228, guid: f1ce3bd564833dc3985c2e566de1d40b, type: 3}
+  - {fileID: 4742577209595566228, guid: 91b9f4bb94646eeb58c77775a6436ed1, type: 3}
   lastSpawned: 0
   spawning: 0
   readyToSpawn: 1

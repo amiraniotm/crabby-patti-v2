@@ -120,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 4742577209595566228}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9c6842f4c0f8432ddb902a2e7f509812, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7ac89fd1d43c898d3ab274d244b7d578, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -153,6 +153,8 @@ MonoBehaviour:
   spawned: 0
   onGround: 0
   spawning: 1
+  collider: {fileID: 0}
+  body: {fileID: 0}
   type: Flamey
   bounty: 50
   spawnPoint: {fileID: 0}

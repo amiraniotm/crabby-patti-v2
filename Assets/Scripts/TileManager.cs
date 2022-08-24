@@ -5,11 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField]
-    private TileBase charredTile;
-
-    [SerializeField]
-    private List<TileData> tileDatas;
+    [SerializeField] private List<TileData> tileDatas;
 
     private Dictionary<TileBase,TileData> dataFromTiles;
 
@@ -75,23 +71,25 @@ public class TileManager : MonoBehaviour
         Destroy(flipbox);
     }
 
-    public void BurnTile(Vector2 firePosition, GameObject objectHit)
+    public void SwapTile(Vector2 wavePosition, TileBase tileToSwap)
     {
-        Vector3Int touchPosition = tilemap.WorldToCell(firePosition);
+        Vector3Int touchPosition = tilemap.WorldToCell(wavePosition);
 
         newTilePosition = new Vector3Int(touchPosition.x, touchPosition.y - 1, touchPosition.z);
         
         Vector3Int formerTilePosition = new Vector3Int(newTilePosition.x - 1, newTilePosition.y, newTilePosition.z);
         
         if(tilemap.HasTile(newTilePosition)) {
-            tilemap.SetTile(newTilePosition, charredTile);
-            tilemap.SetTile(formerTilePosition, charredTile); 
-        } else if(tilemap.HasTile(touchPosition)) {
-            tilemap.SetTile(touchPosition, charredTile);
+            tilemap.SetTile(newTilePosition, tileToSwap);
+            tilemap.SetTile(formerTilePosition, tileToSwap); 
+        } 
+        
+        if(tilemap.HasTile(touchPosition)) {
+            tilemap.SetTile(touchPosition, tileToSwap);
         }
     }
 
-    public float GetTileSpeedMod(Vector2 playerPosition, GameObject objectHit)
+    public float GetTileSpeedMod(Vector2 playerPosition)
     {
         Vector3Int tilePosition = tilemap.WorldToCell(playerPosition);
 

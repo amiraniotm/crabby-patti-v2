@@ -46,7 +46,13 @@ public class SpawnPoint : MonoBehaviour
             currentEnemyObject = Instantiate(enemyPrefabs[3],transform.position,Quaternion.identity);
         }else if(enemyType == "Flamey"){
             currentEnemyObject = Instantiate(enemyPrefabs[4],transform.position,Quaternion.identity);
-        }else{
+        }else if(enemyType == "ReptLizard"){
+            currentEnemyObject = Instantiate(enemyPrefabs[5],transform.position,Quaternion.identity);
+        }else if(enemyType == "Icey"){
+            currentEnemyObject = Instantiate(enemyPrefabs[6],transform.position,Quaternion.identity);
+        }else if(enemyType == "Gooey"){
+            currentEnemyObject = Instantiate(enemyPrefabs[7],transform.position,Quaternion.identity);
+        }else {
             return;
         }
 

@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     protected PlatformCollision platforms;
     protected Animator animator;
     protected Renderer mainRenderer;
+    protected SpriteRenderer spriteRenderer;
     protected ScreenWrap screenWrapScript;
     protected float adjustedJumpSpeed;
     public Vector2 originPosition;
@@ -37,6 +38,7 @@ public class Character : MonoBehaviour
         platforms = GameObject.FindGameObjectWithTag("Platforms").GetComponent<PlatformCollision>();
         adjustedJumpSpeed = topJumpSpeed;
         mainRenderer = GetComponent<Renderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected void Jump()
