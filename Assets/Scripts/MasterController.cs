@@ -9,6 +9,7 @@ public class MasterController : MonoBehaviour
     [SerializeField] private GameObject instructionsPanel, optionsPanel, titleSign, mainMenu;
     [SerializeField] private Level[] availableLevels; 
     [SerializeField] private AudioClip convertTimeSound;
+    [SerializeField] private CameraMovement cameraMovement;
     
     public PauseController pauseController;
     private PlayerMovement player;
@@ -152,11 +153,12 @@ public class MasterController : MonoBehaviour
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
             soundController.StopMusic();
-            levelStarted = false;
+            cameraMovement.TriggerPan();           
+            /**levelStarted = false;
             Time.timeScale = 0;
             changingLevel = true;
             
-            StartCoroutine(NextLevelCoroutine());
+            StartCoroutine(NextLevelCoroutine());**/
         }
     }
 

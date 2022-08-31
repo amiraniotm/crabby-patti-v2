@@ -2223,7 +2223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dc1134af80a7a5781f623184748833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerShake: 0
+  panSpeed: 10
+  panDuration: 10
 --- !u!1 &667485755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,7 +3566,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5833,6 +5834,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7278ef86a914dc564996e942717f0120, type: 2}
   - {fileID: 11400000, guid: 176ae2c6c69a423d4953eda5469e680b, type: 2}
   convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
+  cameraMovement: {fileID: 665511684}
   pauseController: {fileID: 0}
   currentLevel: {fileID: 0}
   levelDisplay: {fileID: 0}

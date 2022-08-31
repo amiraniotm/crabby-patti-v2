@@ -6,13 +6,13 @@ public class Powblock : HittableBlock
 {
     [SerializeField] public List<Sprite> spriteList = new List<Sprite>();
     [SerializeField] private AudioClip powSound;
-    [SerializeField] private ShakeCamera mainCamera;
     
     private SoundController soundController;
     private EnemyCounter enemyCounter;
     public int powCount = 2;
     private PlayerMovement player;
     public SpriteRenderer spriteRenderer;
+    private CameraMovement mainCamera;
 
     private void Awake()
     {
@@ -20,6 +20,7 @@ public class Powblock : HittableBlock
         spriteRenderer = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
     }
 
     private void Update()

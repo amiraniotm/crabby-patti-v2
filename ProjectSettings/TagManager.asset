@@ -19,6 +19,8 @@ TagManager:
   - SoundController
   - MasterController
   - ItemController
+  - FloatingPlatform
+  - Background
   layers:
   - Default
   - TransparentFX

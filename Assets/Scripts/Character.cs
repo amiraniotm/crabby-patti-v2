@@ -54,7 +54,7 @@ public class Character : MonoBehaviour
     
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Platforms" || collision.gameObject.tag == "SpawnPlatform"){
+        if(collision.gameObject.tag == "Platforms" || collision.gameObject.tag == "SpawnPlatform" || collision.gameObject.tag == "FloatingPlatform"){
             
             string collisionSide = platforms.DetectCollisionDirection(collision);
 
