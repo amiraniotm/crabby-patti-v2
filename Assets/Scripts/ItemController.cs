@@ -112,7 +112,6 @@ public class ItemController : MonoBehaviour
     public void FlushItems()
     {
         spawnedItems = new Dictionary<string, int>();
-        playerInventory.LoseItem();
         itemLimit = 5;
     }
 

@@ -21,6 +21,9 @@ TagManager:
   - ItemController
   - FloatingPlatform
   - Background
+  - PowBlock
+  - Walls
+  - TileGrid
   layers:
   - Default
   - TransparentFX

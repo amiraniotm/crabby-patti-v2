@@ -209,6 +209,7 @@ public class PlayerMovement : Character
     {   
         isDead = true;
         animator.SetTrigger("die");
+        inventory.LoseItem();
 
         Hold();
         base.Jump();
@@ -220,7 +221,6 @@ public class PlayerMovement : Character
     {
         StopCoroutine(SpawnPlatformCoroutine());
         
-        inventory.LoseItem();
         gameObject.layer = 4;
         spawning = true;
         spawned = false;

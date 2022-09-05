@@ -9,7 +9,9 @@ public class MasterController : MonoBehaviour
     [SerializeField] private GameObject instructionsPanel, optionsPanel, titleSign, mainMenu;
     [SerializeField] private Level[] availableLevels; 
     [SerializeField] private AudioClip convertTimeSound;
-    [SerializeField] private CameraMovement cameraMovement;
+    [SerializeField] private CameraMovement mainCamera;
+    [SerializeField] private FloatingPlatformController floatPlatController;
+    [SerializeField] public List<Sprite> bgList = new List<Sprite>();
     
     public PauseController pauseController;
     private PlayerMovement player;
@@ -17,16 +19,22 @@ public class MasterController : MonoBehaviour
     public LevelDisplay levelDisplay;
     public EnemyCounter enemyCounter;
     public ItemController itemController;
+    private GameObject entryPoint;
+    public GameObject walls;
+    public TileManager tileManager;
+    public GameObject backgroundObject;
+    public SpriteRenderer backgroundRenderer;
 
-    public int currentLevelKey;
     public bool changingLevel = false;
     public bool levelStarted;
     public bool gameOver = false;
-    public int livesCount = 1;
     public bool timeUp = false;
+    public bool scrollPhase = false;
+    public int currentLevelKey;
+    public int livesCount = 1;
     public int pointsCount = 0;    
-    public float timeCount;
     private int levelTransitionTime = 1;
+    public float timeCount;
 
     private void Awake()
     {
@@ -53,6 +61,11 @@ public class MasterController : MonoBehaviour
                 Time.timeScale = 0;
                 player.isDead = true;
             }
+
+            if(mainCamera.currentPanTime > 0f) {
+                MoveWalls();
+            } 
+
         } else if (gameOver) {
             levelDisplay.ShowGameOverScreen();
         }
@@ -121,24 +134,38 @@ public class MasterController : MonoBehaviour
         }
     }
 
+    public void SetTileManager(TileManager TMRef)
+    {     
+        if(tileManager == null) {
+            tileManager = TMRef;
+        }
+    }
+
     public void StartLevel()
     {
         if(currentLevelKey < availableLevels.Length) { 
             levelStarted = false;
             Time.timeScale = 1;
             currentLevelKey += 1;
-            SceneManager.LoadScene(currentLevelKey);
             soundController.StopMusic();
             soundController.SetCurrentMusicClip();
             soundController.PlayMusic();
             currentLevel = availableLevels[currentLevelKey - 1];
             timeCount = currentLevel.levelTime;
             currentLevel.SetEnemies();
-            if(currentLevelKey > 1) {
+            mainCamera.GetBackgroundImage();
+            floatPlatController.GetSpawnPoint();
+            entryPoint = null;
+            if(currentLevelKey > 1) {    
+                backgroundRenderer.sprite = bgList[currentLevelKey - 1];
+                tileManager.SetLevelTiles(currentLevelKey - 1);
                 player.PlayerSpawn();
                 enemyCounter.Start();
-                itemController.itemLimit = 5;
+                itemController.FlushItems();
+            } else {
+                SceneManager.LoadScene(currentLevelKey);
             }
+            StartCoroutine(SetLevelObjectsCoroutine());
         } else if (currentLevelKey >= availableLevels.Length) {
             levelDisplay.ShowGameOverScreen();
         }
@@ -153,12 +180,31 @@ public class MasterController : MonoBehaviour
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
             soundController.StopMusic();
-            cameraMovement.TriggerPan();           
-            /**levelStarted = false;
+            /**
+            //FROM HERE, MAP DISPLACEMENT STUFF
+            scrollPhase = true;
+            mainCamera.TriggerPan();
+            entryPoint.SetActive(false);
+            walls.SetActive(true);
+
+            GameObject[] powBlocks = GameObject.FindGameObjectsWithTag ("PowBlock");
+ 
+            foreach(GameObject PB in powBlocks)
+            {
+                PB.SetActive(false);
+            }
+
+            foreach(SpawnPoint spawnPt in enemyCounter.spawnPoints) {
+                spawnPt.gameObject.SetActive(false);
+            }
+            floatPlatController.TriggerPlatforms();
+            //MAP DISPLACEMENT END
+            **/
+            levelStarted = false;
             Time.timeScale = 0;
             changingLevel = true;
             
-            StartCoroutine(NextLevelCoroutine());**/
+            StartCoroutine(NextLevelCoroutine());
         }
     }
 
@@ -183,9 +229,9 @@ public class MasterController : MonoBehaviour
         Destroy(pauseController.gameObject);
         Destroy(soundController.gameObject);
         Destroy(levelDisplay.gameObject);
-        GameObject tileManager = GameObject.FindGameObjectWithTag("TileManager");
-        Destroy(tileManager);
+        Destroy(tileManager.gameObject);
         Destroy(itemController.gameObject);
+        Destroy(mainCamera.gameObject);
 
         foreach(SpawnPoint spawnPt in enemyCounter.spawnPoints) {
             Destroy(spawnPt.gameObject);
@@ -194,6 +240,20 @@ public class MasterController : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(currentLevelKey);
         Destroy(gameObject);
+    }
+
+    public void MoveWalls()
+    {
+        Vector3 newWallPos = new Vector3(walls.transform.position.x,
+                                        mainCamera.gameObject.transform.position.y,
+                                        walls.transform.position.z);
+
+        walls.transform.position = newWallPos;
+    }
+
+    public void MoveStage()
+    {
+
     }
 
     private IEnumerator NextLevelCoroutine()
@@ -225,6 +285,19 @@ public class MasterController : MonoBehaviour
         } else {
             gameOver = true;
         }
+    }
+
+    private IEnumerator SetLevelObjectsCoroutine()
+    {
+        while(entryPoint == null || walls == null) {
+            entryPoint = GameObject.FindGameObjectWithTag("EntryPoint");
+            walls = GameObject.FindGameObjectWithTag("Walls");
+            backgroundObject = GameObject.FindGameObjectWithTag("Background");
+            yield return 0;
+        }
+
+        walls.SetActive(false);
+        backgroundRenderer = backgroundObject.GetComponent<SpriteRenderer>();
     }
 
 }

@@ -6,11 +6,13 @@ using UnityEngine.Tilemaps;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] private List<TileData> tileDatas;
+    [SerializeField] private List<TileBase> availableLevelTiles;
 
     private Dictionary<TileBase,TileData> dataFromTiles;
-
+    
+    public MasterController masterController;
     public BoxCollider2D playerCollider;
-    private Tilemap tilemap; 
+    private Tilemap platformsTileMap; 
     private float unflipCounter = 0.15f;
     private Vector3Int newTilePosition;
     
@@ -18,18 +20,20 @@ public class TileManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        masterController.SetTileManager(this);
     }
 
     private void Update()
     {
-        if (tilemap == null) {
+        if (platformsTileMap == null) {
             SetTileMap();
         }
     }
 
     public void SetTileMap()
     {
-        tilemap = GameObject.FindGameObjectWithTag("Platforms").GetComponent<Tilemap>();
+        platformsTileMap = GameObject.FindGameObjectWithTag("Platforms").GetComponent<Tilemap>();
         RefreshTileList();
     }
 
@@ -49,7 +53,7 @@ public class TileManager : MonoBehaviour
     {
         
         BoxCollider2D flipbox = gameObject.AddComponent<BoxCollider2D>();
-        flipbox.transform.position = new Vector2(collision.contacts[0].point.x , collision.contacts[0].point.y + (tilemap.cellSize.y) );
+        flipbox.transform.position = new Vector2(collision.contacts[0].point.x , collision.contacts[0].point.y + (platformsTileMap.cellSize.y) );
         flipbox.size = new Vector2(playerCollider.size.x * 2.5f, playerCollider.size.y * 1.5f );
         
         StartCoroutine(FlipboxCoroutine(flipbox));        
@@ -73,30 +77,30 @@ public class TileManager : MonoBehaviour
 
     public void SwapTile(Vector2 wavePosition, TileBase tileToSwap)
     {
-        Vector3Int touchPosition = tilemap.WorldToCell(wavePosition);
+        Vector3Int touchPosition = platformsTileMap.WorldToCell(wavePosition);
 
         newTilePosition = new Vector3Int(touchPosition.x, touchPosition.y - 1, touchPosition.z);
         
         Vector3Int formerTilePosition = new Vector3Int(newTilePosition.x - 1, newTilePosition.y, newTilePosition.z);
         
-        if(tilemap.HasTile(newTilePosition)) {
-            tilemap.SetTile(newTilePosition, tileToSwap);
-            tilemap.SetTile(formerTilePosition, tileToSwap); 
+        if(platformsTileMap.HasTile(newTilePosition)) {
+            platformsTileMap.SetTile(newTilePosition, tileToSwap);
+            platformsTileMap.SetTile(formerTilePosition, tileToSwap); 
         } 
         
-        if(tilemap.HasTile(touchPosition)) {
-            tilemap.SetTile(touchPosition, tileToSwap);
+        if(platformsTileMap.HasTile(touchPosition)) {
+            platformsTileMap.SetTile(touchPosition, tileToSwap);
         }
     }
 
     public float GetTileSpeedMod(Vector2 playerPosition)
     {
-        Vector3Int tilePosition = tilemap.WorldToCell(playerPosition);
+        Vector3Int tilePosition = platformsTileMap.WorldToCell(playerPosition);
 
         newTilePosition = new Vector3Int(tilePosition.x, tilePosition.y - 1, tilePosition.z);
 
-        if(tilemap.HasTile(newTilePosition)) {
-            TileBase tile = tilemap.GetTile(newTilePosition);
+        if(platformsTileMap.HasTile(newTilePosition)) {
+            TileBase tile = platformsTileMap.GetTile(newTilePosition);
 
             if(tile == null){
                 return 1.0f;
@@ -110,8 +114,24 @@ public class TileManager : MonoBehaviour
 
     public bool CheckForTile(Vector2 worldPosition)
     {
-        Vector3Int tilePosition = tilemap.WorldToCell(worldPosition);
+        Vector3Int tilePosition = platformsTileMap.WorldToCell(worldPosition);
 
-        return tilemap.HasTile(tilePosition);
+        return platformsTileMap.HasTile(tilePosition);
+    }
+
+    public void SetLevelTiles(int levelKey)
+    {
+        Tilemap[] levelTileMaps = FindObjectsOfType<Tilemap>();
+        
+        foreach(Tilemap map in levelTileMaps) {
+            BoundsInt bounds = map.cellBounds;
+            TileBase[] allTiles = map.GetTilesBlock(bounds);
+
+            foreach(TileBase tile in allTiles) {
+                if(tile != null) {
+                    map.SwapTile(tile, availableLevelTiles[levelKey]);
+                }
+            }
+        }
     }
 }

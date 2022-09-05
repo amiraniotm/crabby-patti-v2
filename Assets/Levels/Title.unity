@@ -2223,8 +2223,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dc1134af80a7a5781f623184748833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 10
-  panDuration: 10
+  panSpeed: 8
+  panDuration: 20
+  masterController: {fileID: 1993788447}
+  currentPanTime: 0
+  screenWidth: 0
+  screenHeight: 0
 --- !u!1 &667485755
 GameObject:
   m_ObjectHideFlags: 0
@@ -5163,6 +5167,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740965185}
   m_CullTransparentMesh: 1
+--- !u!1 &1741144685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741144687}
+  - component: {fileID: 1741144686}
+  m_Layer: 0
+  m_Name: FloatingPlatformController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1741144686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741144685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7c1c914591e2cdaa6be8d03df6f076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platPrefab: {fileID: 7999476940603648421, guid: 5c71f917087a0a2dc8436e41a38ed5b4, type: 3}
+  spawnInterval: 1.5
+  mainCamera: {fileID: 665511684}
+--- !u!4 &1741144687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741144685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5659814, y: 5.6952524, z: 1.0706292}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761541706
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,18 +5885,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7278ef86a914dc564996e942717f0120, type: 2}
   - {fileID: 11400000, guid: 176ae2c6c69a423d4953eda5469e680b, type: 2}
   convertTimeSound: {fileID: 8300000, guid: 3aff886cb7553e57cb1d6e4696113a91, type: 3}
-  cameraMovement: {fileID: 665511684}
+  mainCamera: {fileID: 665511684}
+  floatPlatController: {fileID: 1741144686}
+  bgList:
+  - {fileID: 5770958956045166959, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  - {fileID: 3445910035351170775, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  - {fileID: 173538500886388945, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
+  backgroundRenderer: {fileID: 0}
   pauseController: {fileID: 0}
   currentLevel: {fileID: 0}
   levelDisplay: {fileID: 0}
   enemyCounter: {fileID: 0}
   itemController: {fileID: 0}
-  currentLevelKey: 0
+  walls: {fileID: 0}
+  tileManager: {fileID: 0}
   changingLevel: 0
   levelStarted: 0
   gameOver: 0
-  livesCount: 3
   timeUp: 0
+  scrollPhase: 0
+  currentLevelKey: 0
+  livesCount: 3
   pointsCount: 0
   timeCount: 0
 --- !u!4 &1993788448

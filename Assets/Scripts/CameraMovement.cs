@@ -6,16 +6,22 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float panSpeed;
     [SerializeField] private float panDuration;
+    [SerializeField] private MasterController masterController;
     
     private Vector3 initialPosition;
+    private float panDistance;
     private float shakeDuration = 0.3f;
     private float currentShakeTime = 0f;
-    private float currentPanTime = 0f;
+    public float currentPanTime = 0f;
     private float shakeMagnitude = 0.7f;
     private float dampingSpeed = 1.0f;
     private Camera cam;
-    private float screenWidth;
-    private float screenHeight;
+    private Renderer backgroundRenderer;
+    public float screenWidth;
+    public float screenHeight;
+    private GameObject backgroundImage;
+    private GameObject nextBackground;
+    private bool nextImageSet = false;
 
     private void Start()
     {
@@ -34,6 +40,8 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
+        panDistance = transform.position.y - initialPosition.y;
+
         if(currentShakeTime != 0f) {
             Shake();
         }
@@ -71,8 +79,41 @@ public class CameraMovement : MonoBehaviour
             nextCameraPos.y += panSpeed * Time.deltaTime;
             transform.position = nextCameraPos;
             currentPanTime -= Time.deltaTime;
+            if(panDistance > 0) {
+                SetNextBackground();
+                Vector3 newInitialPos = new Vector3(initialPosition.x, initialPosition.y + backgroundRenderer.bounds.size.y, initialPosition.z);
+                initialPosition = newInitialPos;                
+            } 
         } else {
             currentPanTime = 0f;
+            masterController.scrollPhase = false;
         }
+    }
+
+    public void GetBackgroundImage()
+    {
+        backgroundImage = null;
+        StartCoroutine(BackgroundImageCoroutine());
+    }
+    
+    private void SetNextBackground()
+    {
+        nextBackground = Instantiate(backgroundImage,
+                                    new Vector3(backgroundImage.transform.position.x, 
+                                                backgroundImage.transform.position.y + backgroundRenderer.bounds.size.y,
+                                                backgroundImage.transform.position.z ),
+                                    Quaternion.identity);
+        backgroundImage = nextBackground;
+        nextImageSet = true;
+    }
+
+    private IEnumerator BackgroundImageCoroutine() 
+    {
+        while(backgroundImage == null) {
+            backgroundImage = GameObject.FindGameObjectWithTag("Background");
+            yield return 0;
+        }
+        
+        backgroundRenderer = backgroundImage.GetComponent<Renderer>();
     }
 }
