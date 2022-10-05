@@ -12,6 +12,7 @@ public class FloatingPlatformController : MonoBehaviour
     private PlayerSpawnPlatform spawnPlat;
     private GameObject spawnPlatObject;
     private GameObject latestPlat;
+    private List<GameObject> spawnedPlats = new List<GameObject>();
     private bool initialPlat = true;
     private float platWidth;
     private float platHeight;
@@ -45,6 +46,8 @@ public class FloatingPlatformController : MonoBehaviour
             Vector3 newPlatPos = GetRandomPlatPos();
             latestPlat = Instantiate(platPrefab, newPlatPos, Quaternion.identity);
         }
+
+        spawnedPlats.Add(latestPlat);
     }
 
     private Vector3 GetRandomPlatPos()
@@ -53,9 +56,9 @@ public class FloatingPlatformController : MonoBehaviour
                                     latestPlat.transform.position.x + (3 * platWidth));
         
         if(randX < -(mainCamera.screenWidth / 2)) {
-            randX = -mainCamera.screenWidth / 2;
+            randX = (-mainCamera.screenWidth / 2) + platWidth;
         } else if (randX > (mainCamera.screenWidth / 2) ) {
-            randX = mainCamera.screenWidth / 2;
+            randX = (mainCamera.screenWidth / 2) - platWidth;
         }
 
         float currentCameraY = mainCamera.gameObject.transform.position.y;
@@ -64,6 +67,14 @@ public class FloatingPlatformController : MonoBehaviour
         Vector3 randPos = new Vector3(randX, randY, latestPlat.transform.position.z);
         
         return randPos;
+    }
+
+    public void StopPlatforms()
+    {
+        CancelInvoke();
+        foreach(GameObject plat in spawnedPlats) {
+            Destroy(plat);
+        }
     }
 
     private IEnumerator GetSPawnPointCoroutine()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float panSpeed;
-    [SerializeField] private float panDuration;
+    [SerializeField] private float panMultiplier;
     [SerializeField] private MasterController masterController;
     
     private Vector3 initialPosition;
@@ -22,6 +22,8 @@ public class CameraMovement : MonoBehaviour
     private GameObject backgroundImage;
     private GameObject nextBackground;
     private bool nextImageSet = false;
+    public Vector3 panningEndPoint;
+    private bool doPanUp;
 
     private void Start()
     {
@@ -36,6 +38,8 @@ public class CameraMovement : MonoBehaviour
         
         screenWidth = screenTopRight.x - screenBottomLeft.x;
         screenHeight = screenTopRight.y - screenBottomLeft.y;
+
+        panningEndPoint = transform.position;
     }
 
     private void Update()
@@ -46,7 +50,7 @@ public class CameraMovement : MonoBehaviour
             Shake();
         }
 
-        if(currentPanTime != 0f) {
+        if(doPanUp) {
             PanUp();
         }
     }
@@ -69,24 +73,25 @@ public class CameraMovement : MonoBehaviour
 
     public void TriggerPan()
     {
-        currentPanTime = panDuration;
+        doPanUp = true;
+        panningEndPoint = new Vector3(transform.position.x, transform.position.y + (panMultiplier * screenHeight), transform.position.z);
     }
 
     private void PanUp()
     {
-        if(currentPanTime > 0) {
-            Vector3 nextCameraPos = transform.position;
-            nextCameraPos.y += panSpeed * Time.deltaTime;
-            transform.position = nextCameraPos;
-            currentPanTime -= Time.deltaTime;
+        float step = panSpeed * Time.deltaTime;
+
+        if(panningEndPoint != transform.position) {
+            transform.position = Vector3.MoveTowards(transform.position, panningEndPoint, step);
             if(panDistance > 0) {
                 SetNextBackground();
                 Vector3 newInitialPos = new Vector3(initialPosition.x, initialPosition.y + backgroundRenderer.bounds.size.y, initialPosition.z);
                 initialPosition = newInitialPos;                
             } 
         } else {
-            currentPanTime = 0f;
-            masterController.scrollPhase = false;
+            doPanUp = false;
+            panningEndPoint = transform.position;
+            masterController.EndScrollPhase();
         }
     }
 

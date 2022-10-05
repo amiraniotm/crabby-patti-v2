@@ -2224,11 +2224,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 8
-  panDuration: 20
+  panMultiplier: 5.5
   masterController: {fileID: 1993788447}
   currentPanTime: 0
   screenWidth: 0
   screenHeight: 0
+  panningEndPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &667485755
 GameObject:
   m_ObjectHideFlags: 0
@@ -5179,7 +5180,7 @@ GameObject:
   - component: {fileID: 1741144686}
   m_Layer: 0
   m_Name: FloatingPlatformController
-  m_TagString: Untagged
+  m_TagString: FloatController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5891,14 +5892,17 @@ MonoBehaviour:
   - {fileID: 5770958956045166959, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: 3445910035351170775, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
   - {fileID: 173538500886388945, guid: 34f23386faa244c6c8ff8769690b102c, type: 3}
-  backgroundRenderer: {fileID: 0}
   pauseController: {fileID: 0}
   currentLevel: {fileID: 0}
   levelDisplay: {fileID: 0}
   enemyCounter: {fileID: 0}
   itemController: {fileID: 0}
+  entryPoint: {fileID: 0}
   walls: {fileID: 0}
+  backgroundObject: {fileID: 0}
+  playerObject: {fileID: 0}
   tileManager: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
   changingLevel: 0
   levelStarted: 0
   gameOver: 0

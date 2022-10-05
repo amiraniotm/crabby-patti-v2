@@ -7,18 +7,23 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private List<TileData> tileDatas;
     [SerializeField] private List<TileBase> availableLevelTiles;
+    [SerializeField] private GameObject platformObject;
+    [SerializeField] private MapDisplacementController mapDisController;
 
     private Dictionary<TileBase,TileData> dataFromTiles;
+    private Renderer[] platformRenderers;
     
     public MasterController masterController;
     public BoxCollider2D playerCollider;
     private Tilemap platformsTileMap; 
     private float unflipCounter = 0.15f;
     private Vector3Int newTilePosition;
+    public bool platformsMoved;
     
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        platformRenderers = platformObject.GetComponentsInChildren<Renderer>();
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetTileManager(this);
@@ -28,6 +33,18 @@ public class TileManager : MonoBehaviour
     {
         if (platformsTileMap == null) {
             SetTileMap();
+        }
+        
+
+        if(masterController.scrollPhase) {
+            bool platformsVisible = ArePlatformsVisible();
+
+            if(!platformsVisible && !platformsMoved) {
+                platformsMoved = true;
+                mapDisController.MoveStage();
+            } else if(platformsVisible && platformsMoved) {
+                platformsMoved = false;
+            }
         }
     }
 
@@ -66,13 +83,6 @@ public class TileManager : MonoBehaviour
 
             enemy.FlipVertical();
         }
-    }
-
-    private IEnumerator FlipboxCoroutine(BoxCollider2D flipbox)
-    {
-        yield return new WaitForSeconds(unflipCounter);
-
-        Destroy(flipbox);
     }
 
     public void SwapTile(Vector2 wavePosition, TileBase tileToSwap)
@@ -133,5 +143,25 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool ArePlatformsVisible()
+    {
+        foreach(var renderer in platformRenderers)
+        {
+            if(renderer.isVisible)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private IEnumerator FlipboxCoroutine(BoxCollider2D flipbox)
+    {
+        yield return new WaitForSeconds(unflipCounter);
+
+        Destroy(flipbox);
     }
 }

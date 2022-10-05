@@ -19,11 +19,10 @@ public class MasterController : MonoBehaviour
     public LevelDisplay levelDisplay;
     public EnemyCounter enemyCounter;
     public ItemController itemController;
-    private GameObject entryPoint;
-    public GameObject walls;
+    public GameObject entryPoint, walls, backgroundObject, playerObject, MDCObject;
     public TileManager tileManager;
-    public GameObject backgroundObject;
     public SpriteRenderer backgroundRenderer;
+    private MapDisplacementController mapDisController;
 
     public bool changingLevel = false;
     public bool levelStarted;
@@ -61,11 +60,6 @@ public class MasterController : MonoBehaviour
                 Time.timeScale = 0;
                 player.isDead = true;
             }
-
-            if(mainCamera.currentPanTime > 0f) {
-                MoveWalls();
-            } 
-
         } else if (gameOver) {
             levelDisplay.ShowGameOverScreen();
         }
@@ -110,13 +104,6 @@ public class MasterController : MonoBehaviour
     {             
         if(enemyCounter == null) {
             enemyCounter = ECRef;
-        }
-    }
-
-    public void SetPlayer(PlayerMovement playerRef)
-    {
-        if(player == null) {
-            player = playerRef;
         }
     }
 
@@ -180,31 +167,15 @@ public class MasterController : MonoBehaviour
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
             soundController.StopMusic();
+            mapDisController.StartDisplacement();
             /**
-            //FROM HERE, MAP DISPLACEMENT STUFF
-            scrollPhase = true;
-            mainCamera.TriggerPan();
-            entryPoint.SetActive(false);
-            walls.SetActive(true);
-
-            GameObject[] powBlocks = GameObject.FindGameObjectsWithTag ("PowBlock");
- 
-            foreach(GameObject PB in powBlocks)
-            {
-                PB.SetActive(false);
-            }
-
-            foreach(SpawnPoint spawnPt in enemyCounter.spawnPoints) {
-                spawnPt.gameObject.SetActive(false);
-            }
-            floatPlatController.TriggerPlatforms();
-            //MAP DISPLACEMENT END
-            **/
+            //FROM HERE, CURRENT LEVEL TRANS
             levelStarted = false;
             Time.timeScale = 0;
             changingLevel = true;
             
             StartCoroutine(NextLevelCoroutine());
+            **/
         }
     }
 
@@ -242,18 +213,11 @@ public class MasterController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void MoveWalls()
+    public void EndScrollPhase()
     {
-        Vector3 newWallPos = new Vector3(walls.transform.position.x,
-                                        mainCamera.gameObject.transform.position.y,
-                                        walls.transform.position.z);
-
-        walls.transform.position = newWallPos;
-    }
-
-    public void MoveStage()
-    {
-
+        scrollPhase = false;
+        floatPlatController.StopPlatforms();
+        mapDisController.EndDisplacement();
     }
 
     private IEnumerator NextLevelCoroutine()
@@ -289,15 +253,21 @@ public class MasterController : MonoBehaviour
 
     private IEnumerator SetLevelObjectsCoroutine()
     {
-        while(entryPoint == null || walls == null) {
+        while(entryPoint == null || walls == null || backgroundObject == null || playerObject == null || MDCObject == null) {
             entryPoint = GameObject.FindGameObjectWithTag("EntryPoint");
             walls = GameObject.FindGameObjectWithTag("Walls");
             backgroundObject = GameObject.FindGameObjectWithTag("Background");
+            playerObject = GameObject.FindGameObjectWithTag("Player");
+            MDCObject = GameObject.FindGameObjectWithTag("DisplacementController");
+
             yield return 0;
         }
 
         walls.SetActive(false);
         backgroundRenderer = backgroundObject.GetComponent<SpriteRenderer>();
+        player = playerObject.GetComponent<PlayerMovement>();
+        mapDisController = MDCObject.GetComponent<MapDisplacementController>();
+        mapDisController.SetDisplacementObjects(this);
     }
 
 }

@@ -24,6 +24,9 @@ TagManager:
   - PowBlock
   - Walls
   - TileGrid
+  - FloatController
+  - DisplacementController
+  - PlayArea
   layers:
   - Default
   - TransparentFX

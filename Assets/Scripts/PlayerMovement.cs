@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -34,7 +35,6 @@ public class PlayerMovement : Character
     private bool onIce;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
-    private MasterController masterController;
 
     new private void Awake()
     {
@@ -45,8 +45,6 @@ public class PlayerMovement : Character
         collider = GetComponent<BoxCollider2D>();
         inventory = GetComponent<Inventory>();
         startPosition = transform.position;
-        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
-        masterController.SetPlayer(this);
     }
 
     public void Start()
@@ -110,14 +108,14 @@ public class PlayerMovement : Character
 
     protected void SetInputVelocity(float horizontalInput)
     {
-        if(horizontalInput != 0 && !spawning) {
+        if(horizontalInput != 0 && !spawning && !spawned) {
             HideRespawnPlatform();
         }
         
         if(grounded && !onIce) {
             body.velocity = new Vector2(horizontalInput * adjustedWalkSpeed, body.velocity.y);
         } else if (!grounded) {
-            body.velocity = new Vector2(2 * horizontalInput * adjustedWalkSpeed / 3 , body.velocity.y);    
+            body.velocity = new Vector2(2 * horizontalInput * adjustedWalkSpeed / 2.0f , body.velocity.y);    
         }
     }
 
@@ -157,10 +155,10 @@ public class PlayerMovement : Character
             masterController.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
-            body.velocity = Vector2.up * adjustedJumpSpeed;
+            body.velocity = Vector2.up * (adjustedJumpSpeed + (0.3f * Math.Abs(body.velocity.x)));
         }else if(isJumping){
             if( currentJumpTimer > 0 ) {
-                body.velocity = Vector2.up * (adjustedJumpSpeed) * 1.3f;
+                body.velocity = Vector2.up * adjustedJumpSpeed * 1.3f;
                 currentJumpTimer -= Time.deltaTime;
             } else {
                 isJumping = false;
@@ -171,7 +169,7 @@ public class PlayerMovement : Character
 
         grounded = false;
 
-        if(!spawning){
+        if(!spawning && !spawned){
             HideRespawnPlatform();
         }
     }
@@ -220,8 +218,9 @@ public class PlayerMovement : Character
     public void PlayerSpawn() 
     {
         StopCoroutine(SpawnPlatformCoroutine());
-        
-        gameObject.layer = 4;
+
+        int waterLayer = LayerMask.NameToLayer("Water");  
+        SetLayer(waterLayer);
         spawning = true;
         spawned = false;
         isDead = false;
@@ -238,7 +237,6 @@ public class PlayerMovement : Character
         spawned = true;
         spawnPlatformObject.SetActive(false);
         spawnPlatformObject.transform.position = spawnStartPoint;
-        gameObject.layer = 0;
     }
 
     protected void SetGroundRaycast()
@@ -273,6 +271,21 @@ public class PlayerMovement : Character
         }
         
         StartCoroutine(SpawnPlatformCoroutine());
+    }
+
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        Debug.Log(otherCollider.gameObject.tag);
+        if(otherCollider.gameObject.tag == "PlayArea") {
+            int defaultLayer = LayerMask.NameToLayer("Default"); 
+            SetLayer(defaultLayer);
+        }
+    }
+
+    public void SetLayer(int layer)
+    {
+        Debug.Log(layer);
+        gameObject.layer = layer;
     }
 
     public IEnumerator SpawnPlatformCoroutine()

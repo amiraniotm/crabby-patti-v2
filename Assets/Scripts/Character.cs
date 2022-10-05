@@ -15,6 +15,7 @@ public class Character : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected ScreenWrap screenWrapScript;
     protected float adjustedJumpSpeed;
+    public MasterController masterController;
     public Vector2 originPosition;
 
     protected bool canJump;
@@ -39,6 +40,7 @@ public class Character : MonoBehaviour
         adjustedJumpSpeed = topJumpSpeed;
         mainRenderer = GetComponent<Renderer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
     }
 
     protected void Jump()

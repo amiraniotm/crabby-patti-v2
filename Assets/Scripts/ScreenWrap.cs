@@ -49,9 +49,13 @@ public class ScreenWrap : MonoBehaviour
                 characterScript.enemyCounter.currentEnemies.Remove(gameObject);
                 Enemy enemyScript = GetComponent<Enemy>();
                 enemyScript.Vanish();
-            } else if(!characterScript.isDead && !characterScript.onGround && !characterScript.spawning) {
+            } else if(gameObject.transform.position.y < (cam.gameObject.transform.position.y - (screenHeight / 2)) && gameObject.tag == "Player") {
+                PlayerMovement playerScript = GetComponent<PlayerMovement>();
+                playerScript.Die();
+            } else if(!characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
                 GhostSwap();
             }
+            
         }
     }
 

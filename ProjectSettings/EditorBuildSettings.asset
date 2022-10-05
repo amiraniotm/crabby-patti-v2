@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/Beach.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Levels/Volcano.unity
-    guid: 6927a2b71cb06c24bb7c5c30082e11d6
-  - enabled: 1
-    path: Assets/Levels/City.unity
-    guid: ee899fd18d655a5fea1aca36df501151
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
