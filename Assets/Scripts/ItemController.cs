@@ -19,7 +19,7 @@ public class ItemController : MonoBehaviour
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
     private MasterController masterController;
-    private float spawnTime = 12.0f;
+    private float spawnTime = 10.0f;
     
     public int itemLimit = 5;
     public GameObject currentItem;
@@ -27,8 +27,6 @@ public class ItemController : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
-
         itemZone = GetComponent<BoxCollider2D>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetItemController(this);
@@ -39,7 +37,7 @@ public class ItemController : MonoBehaviour
         itemWeights.Add("hard_shell", 50);
         itemWeights.Add("boomerang_pincer", 40);
 
-        InvokeRepeating("SpawnItem", 5.0f, spawnTime);
+        StartItems(5.0f);
     }
 
     private void SpawnItem()
@@ -123,5 +121,15 @@ public class ItemController : MonoBehaviour
     public void EnemyHit()
     {
         masterController.soundController.PlaySound(enemyCollisionSound, 0.4f);
+    }
+
+    public void StartItems(float startTime)
+    {
+        InvokeRepeating("SpawnItem", startTime, spawnTime);
+    }
+
+    public void StopItems()
+    {
+        CancelInvoke();
     }
 }

@@ -34,7 +34,7 @@ public class Powblock : HittableBlock
     {
         GameObject collidingObject = collision.gameObject;
 
-        if(collidingObject.tag == "Player" && player.spawned){
+        if(collidingObject.tag == "Player" && player.spawned && !player.masterController.scrollPhase){
 
             string collisionSide = DetectCollisionDirection(collision);
 

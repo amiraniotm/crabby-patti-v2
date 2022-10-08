@@ -14,7 +14,6 @@ public class LevelDisplay : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetLevelDisplay(this);
     }

@@ -13,11 +13,6 @@ public class SpawnPoint : MonoBehaviour
     public float readyTime;
     private GameObject currentEnemyObject;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     public void Start()
     {
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();

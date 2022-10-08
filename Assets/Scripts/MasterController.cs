@@ -10,7 +10,6 @@ public class MasterController : MonoBehaviour
     [SerializeField] private Level[] availableLevels; 
     [SerializeField] private AudioClip convertTimeSound;
     [SerializeField] private CameraMovement mainCamera;
-    [SerializeField] private FloatingPlatformController floatPlatController;
     [SerializeField] public List<Sprite> bgList = new List<Sprite>();
     
     public PauseController pauseController;
@@ -52,7 +51,7 @@ public class MasterController : MonoBehaviour
         }
 
         if(levelStarted && !gameOver && pauseController != null && !pauseController.gamePaused) {
-            timeCount -= 1 * Time.deltaTime;
+            timeCount -= Time.deltaTime;
 
             if(timeCount <= 0) {
                 timeCount = 0;
@@ -141,7 +140,6 @@ public class MasterController : MonoBehaviour
             timeCount = currentLevel.levelTime;
             currentLevel.SetEnemies();
             mainCamera.GetBackgroundImage();
-            floatPlatController.GetSpawnPoint();
             entryPoint = null;
             if(currentLevelKey > 1) {    
                 backgroundRenderer.sprite = bgList[currentLevelKey - 1];
@@ -167,6 +165,8 @@ public class MasterController : MonoBehaviour
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
             soundController.StopMusic();
+            scrollPhase = true;
+            itemController.StopItems();
             mapDisController.StartDisplacement();
             /**
             //FROM HERE, CURRENT LEVEL TRANS
@@ -216,7 +216,7 @@ public class MasterController : MonoBehaviour
     public void EndScrollPhase()
     {
         scrollPhase = false;
-        floatPlatController.StopPlatforms();
+        itemController.StartItems(5.0f);
         mapDisController.EndDisplacement();
     }
 

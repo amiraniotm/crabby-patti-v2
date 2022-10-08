@@ -15,7 +15,6 @@ public class PlayerMovement : Character
     [SerializeField] private AudioClip enemyCollisionSound;
     
     public Vector3 startPosition;
-    public Vector3 spawnStartPoint;
     public Vector3 spawnEndPoint;
     public bool shelled;
 
@@ -40,7 +39,6 @@ public class PlayerMovement : Character
     {
         base.Awake();
 
-        DontDestroyOnLoad(gameObject);
         spawnPlatform = spawnPlatformObject.GetComponent<PlayerSpawnPlatform>();
         collider = GetComponent<BoxCollider2D>();
         inventory = GetComponent<Inventory>();
@@ -52,7 +50,6 @@ public class PlayerMovement : Character
         canJump = true;
         adjustedWalkSpeed = walkSpeed;
         
-        spawnStartPoint = spawnPlatformObject.transform.position;
         spawnEndPoint = new Vector3(transform.position.x, transform.position.y - spawnPlatform.spawnGap, transform.position.z);
 
         PlayerSpawn();
@@ -98,6 +95,7 @@ public class PlayerMovement : Character
                 float step = spawnPlatform.speed * Time.deltaTime;
 
                 Hold();
+                
                 transform.position = Vector2.MoveTowards(transform.position, spawnEndPoint, step);
             }
 
@@ -151,7 +149,7 @@ public class PlayerMovement : Character
 
     new protected void Jump()
     {
-        if( grounded && spawned ) {
+        if( grounded && (spawned || masterController.scrollPhase) ) {
             masterController.soundController.PlaySound(jumpSound, 0.15f);
             isJumping = true;
             currentJumpTimer = maxJumpTime;
@@ -228,6 +226,7 @@ public class PlayerMovement : Character
         transform.position = startPosition;
         collider.enabled = true;
         spawnPlatformObject.SetActive(true);
+        spawnPlatform.respawning = true;
         spawnPlatform.coroutineStarted = false;
         animator.SetTrigger("respawn");
     }
@@ -235,8 +234,10 @@ public class PlayerMovement : Character
     protected void HideRespawnPlatform()
     {
         spawned = true;
+        spawnPlatform.respawning = false;
+        spawnPlatform.currentRespawnTime = 0.0f;
         spawnPlatformObject.SetActive(false);
-        spawnPlatformObject.transform.position = spawnStartPoint;
+        spawnPlatformObject.transform.position = spawnPlatform.startPoint;
     }
 
     protected void SetGroundRaycast()
@@ -275,7 +276,6 @@ public class PlayerMovement : Character
 
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        Debug.Log(otherCollider.gameObject.tag);
         if(otherCollider.gameObject.tag == "PlayArea") {
             int defaultLayer = LayerMask.NameToLayer("Default"); 
             SetLayer(defaultLayer);
@@ -284,7 +284,6 @@ public class PlayerMovement : Character
 
     public void SetLayer(int layer)
     {
-        Debug.Log(layer);
         gameObject.layer = layer;
     }
 

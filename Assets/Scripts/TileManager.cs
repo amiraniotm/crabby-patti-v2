@@ -22,7 +22,6 @@ public class TileManager : MonoBehaviour
     
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         platformRenderers = platformObject.GetComponentsInChildren<Renderer>();
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
@@ -44,6 +43,7 @@ public class TileManager : MonoBehaviour
                 mapDisController.MoveStage();
             } else if(platformsVisible && platformsMoved) {
                 platformsMoved = false;
+                mapDisController.StopPlatforms();
             }
         }
     }

@@ -82,10 +82,6 @@ public class ScreenWrap : MonoBehaviour
             GhostMovement newGhost = ghosts[i].GetComponent<GhostMovement>();
             newGhost.originalObject = gameObject;
             newGhost.screenWrapScript = this;
-            
-            if(gameObject.tag == "Player") {
-                DontDestroyOnLoad(ghosts[i]);
-            }
         }
 
         PositionGhosts();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private float panSpeed;
+    [SerializeField] public float panSpeed;
     [SerializeField] private float panMultiplier;
     [SerializeField] private MasterController masterController;
     
@@ -24,6 +24,7 @@ public class CameraMovement : MonoBehaviour
     private bool nextImageSet = false;
     public Vector3 panningEndPoint;
     private bool doPanUp;
+    public float panAdjDist;
 
     private void Start()
     {
@@ -40,6 +41,7 @@ public class CameraMovement : MonoBehaviour
         screenHeight = screenTopRight.y - screenBottomLeft.y;
 
         panningEndPoint = transform.position;
+        panAdjDist = panMultiplier * screenHeight;
     }
 
     private void Update()
@@ -74,7 +76,7 @@ public class CameraMovement : MonoBehaviour
     public void TriggerPan()
     {
         doPanUp = true;
-        panningEndPoint = new Vector3(transform.position.x, transform.position.y + (panMultiplier * screenHeight), transform.position.z);
+        panningEndPoint = new Vector3(transform.position.x, transform.position.y + panAdjDist, transform.position.z);
     }
 
     private void PanUp()

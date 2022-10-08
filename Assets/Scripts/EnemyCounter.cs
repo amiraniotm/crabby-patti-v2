@@ -16,7 +16,6 @@ public class EnemyCounter : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);      
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetEnemyCounter(this);
     }
