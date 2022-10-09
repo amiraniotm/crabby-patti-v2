@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        initialPosition = transform.position;
+        SetInitialShakePos();
 
         cam = GetComponent<Camera>();
 
@@ -112,6 +112,11 @@ public class CameraMovement : MonoBehaviour
                                     Quaternion.identity);
         backgroundImage = nextBackground;
         nextImageSet = true;
+    }
+
+    public void SetInitialShakePos()
+    {
+        initialPosition = transform.position;
     }
 
     private IEnumerator BackgroundImageCoroutine() 

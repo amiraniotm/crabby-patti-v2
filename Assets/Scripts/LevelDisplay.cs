@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LevelDisplay : MonoBehaviour
 {
     [SerializeField] private Text livesText, timeText, pointsText, levelText, finalScoreText;
-    [SerializeField] public GameObject gameOverPanel, pausePanel, gameOverSign, youWonSign;
+    [SerializeField] public GameObject gameOverPanel, pausePanel, gameOverSign, youWonSign, timePanel;
     
     private MasterController masterController;
     private bool onGameOverScreen;
@@ -77,8 +77,9 @@ public class LevelDisplay : MonoBehaviour
         if(masterController.timeUp) {
             levelText.text = "Time's up!";
         } else if(!masterController.levelStarted && !masterController.changingLevel) {
-            int numberToDisplay = masterController.currentLevelKey;
-            levelText.text = "Level " + numberToDisplay.ToString("0");
+            int levelToDisplay = masterController.currentLevelKey;
+            int phaseToDisplay = masterController.currentPhaseKey;
+            levelText.text = "Level " + levelToDisplay.ToString("0") + " - " + phaseToDisplay.ToString("0");
         } else if(masterController.pauseController.gamePaused) {
             levelText.text = "PAUSE";
         } else {

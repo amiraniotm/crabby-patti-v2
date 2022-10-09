@@ -29,20 +29,24 @@ public class MasterController : MonoBehaviour
     public bool timeUp = false;
     public bool scrollPhase = false;
     public int currentLevelKey;
+    public int currentPhaseKey;
     public int livesCount = 1;
     public int pointsCount = 0;    
     private int levelTransitionTime = 1;
+    private float phaseChangeDuration = 1.5f;    
+    private float phaseChangeTimer;
     public float timeCount;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         currentLevelKey = 0;
+        currentPhaseKey = 0;
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown("escape")) {
+        if(Input.GetKeyDown("escape") && SceneManager.GetActiveScene().name == "Title") {
             if(instructionsPanel.activeSelf) {
                 HideInstructionsPanel();
             } else if(optionsPanel.activeSelf) {
@@ -50,7 +54,7 @@ public class MasterController : MonoBehaviour
             }
         }
 
-        if(levelStarted && !gameOver && pauseController != null && !pauseController.gamePaused) {
+        if(levelStarted && !gameOver && pauseController != null && !pauseController.gamePaused && !scrollPhase) {
             timeCount -= Time.deltaTime;
 
             if(timeCount <= 0) {
@@ -133,6 +137,7 @@ public class MasterController : MonoBehaviour
             levelStarted = false;
             Time.timeScale = 1;
             currentLevelKey += 1;
+            currentPhaseKey = 1;
             soundController.StopMusic();
             soundController.SetCurrentMusicClip();
             soundController.PlayMusic();
@@ -164,18 +169,20 @@ public class MasterController : MonoBehaviour
     public void CheckEnemies()
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
-            soundController.StopMusic();
-            scrollPhase = true;
-            itemController.StopItems();
-            mapDisController.StartDisplacement();
-            /**
-            //FROM HERE, CURRENT LEVEL TRANS
-            levelStarted = false;
-            Time.timeScale = 0;
-            changingLevel = true;
-            
-            StartCoroutine(NextLevelCoroutine());
-            **/
+            if(currentPhaseKey < currentLevel.levelPhases) {
+                scrollPhase = true;
+                itemController.StopItems();
+                levelDisplay.timePanel.SetActive(false);
+                mapDisController.StartDisplacement();
+                currentPhaseKey += 1;
+            } else {
+                soundController.StopMusic();
+                levelStarted = false;
+                Time.timeScale = 0;
+                changingLevel = true;
+                
+                StartCoroutine(NextLevelCoroutine());
+            }
         }
     }
 
@@ -217,7 +224,16 @@ public class MasterController : MonoBehaviour
     {
         scrollPhase = false;
         itemController.StartItems(5.0f);
+        levelDisplay.timePanel.SetActive(true);
+        //EXTRA TIME PER PHASE
+        timeCount += 30;
         mapDisController.EndDisplacement();
+        enemyCounter.Start();
+
+        Time.timeScale = 0;
+        phaseChangeTimer = phaseChangeDuration;
+        levelStarted = false;
+        StartCoroutine(NextPhaseCoroutine());
     }
 
     private IEnumerator NextLevelCoroutine()
@@ -268,6 +284,20 @@ public class MasterController : MonoBehaviour
         player = playerObject.GetComponent<PlayerMovement>();
         mapDisController = MDCObject.GetComponent<MapDisplacementController>();
         mapDisController.SetDisplacementObjects(this);
+    }
+
+    private IEnumerator NextPhaseCoroutine()
+    {
+        while (phaseChangeTimer > 0)
+        {
+            phaseChangeTimer -= Time.unscaledDeltaTime;
+            
+            yield return 0;
+        }
+
+        Time.timeScale = 1;
+        levelStarted = true;
+        phaseChangeTimer = 0.0f;
     }
 
 }

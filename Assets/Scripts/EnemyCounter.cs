@@ -8,6 +8,7 @@ public class EnemyCounter : MonoBehaviour
     
     
     private Level currentLevel;
+    private int currentPhase;
     public MasterController masterController;
     public List<GameObject> currentEnemies = new List<GameObject>();
 
@@ -25,6 +26,7 @@ public class EnemyCounter : MonoBehaviour
         stillSpawing = true;
     
         currentLevel = masterController.currentLevel;
+        currentPhase = masterController.currentPhaseKey - 1;
         InvokeRepeating("NewEnemy", spawnInterval, spawnInterval);
 
         foreach(SpawnPoint spawnPt in spawnPoints) {
@@ -38,14 +40,14 @@ public class EnemyCounter : MonoBehaviour
             if(spawnPoint.lastSpawned){
                 spawnPoint.lastSpawned = !spawnPoint.lastSpawned;
             }else{
-                foreach(KeyValuePair<string,int> keyValue in currentLevel.levelEnemies) {
+                foreach(KeyValuePair<string,int> keyValue in currentLevel.levelEnemies[currentPhase]) {
                     if(keyValue.Value > 0) {
                         string enemyType = keyValue.Key;
                         spawnPoint.SpawnEnemy(enemyType);
-                        currentLevel.levelEnemies[keyValue.Key] = keyValue.Value - 1;
-                        currentLevel.enemyCount -= 1;
+                        currentLevel.levelEnemies[currentPhase][keyValue.Key] = keyValue.Value - 1;
+                        currentLevel.enemyCount[currentPhase] -= 1;
                         
-                        if(currentLevel.enemyCount == 0) {
+                        if(currentLevel.enemyCount[currentPhase] == 0) {
                             stillSpawing = false;
                             CancelInvoke();
                         }

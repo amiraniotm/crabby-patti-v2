@@ -7,15 +7,15 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] private List<TileData> tileDatas;
     [SerializeField] private List<TileBase> availableLevelTiles;
-    [SerializeField] private GameObject platformObject;
+    [SerializeField] private GameObject platformObject, wallObject;
     [SerializeField] private MapDisplacementController mapDisController;
+    [SerializeField] private Tilemap platformsTileMap; 
 
     private Dictionary<TileBase,TileData> dataFromTiles;
     private Renderer[] platformRenderers;
     
     public MasterController masterController;
     public BoxCollider2D playerCollider;
-    private Tilemap platformsTileMap; 
     private float unflipCounter = 0.15f;
     private Vector3Int newTilePosition;
     public bool platformsMoved;
@@ -26,15 +26,11 @@ public class TileManager : MonoBehaviour
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetTileManager(this);
+        RefreshTileList();
     }
 
     private void Update()
-    {
-        if (platformsTileMap == null) {
-            SetTileMap();
-        }
-        
-
+    {     
         if(masterController.scrollPhase) {
             bool platformsVisible = ArePlatformsVisible();
 
@@ -46,12 +42,6 @@ public class TileManager : MonoBehaviour
                 mapDisController.StopPlatforms();
             }
         }
-    }
-
-    public void SetTileMap()
-    {
-        platformsTileMap = GameObject.FindGameObjectWithTag("Platforms").GetComponent<Tilemap>();
-        RefreshTileList();
     }
 
     public void RefreshTileList()
@@ -131,6 +121,8 @@ public class TileManager : MonoBehaviour
 
     public void SetLevelTiles(int levelKey)
     {
+        wallObject.SetActive(true);
+
         Tilemap[] levelTileMaps = FindObjectsOfType<Tilemap>();
         
         foreach(Tilemap map in levelTileMaps) {
@@ -143,6 +135,8 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
+
+        wallObject.SetActive(false);
     }
 
     public bool ArePlatformsVisible()

@@ -83,6 +83,8 @@ public class MapDisplacementController : MonoBehaviour
         foreach(GameObject plat in spawnedPlats) {
             Destroy(plat);
         }
+
+        initialPlat = true;
     }
 
     private void Update()
@@ -117,6 +119,7 @@ public class MapDisplacementController : MonoBehaviour
 
         spawnPlatObject.transform.position = Vector3.MoveTowards(spawnPlatObject.transform.position, CalculateAdjPos(spawnPlatObject.transform.position), step);
         spawnPlat.startPoint = Vector3.MoveTowards(spawnPlat.startPoint, CalculateAdjPos(spawnPlat.startPoint), step);
+        spawnPlat.endPoint = Vector3.MoveTowards(spawnPlat.endPoint, CalculateAdjPos(spawnPlat.endPoint), step);
         player.startPosition = Vector3.MoveTowards(player.startPosition, CalculateAdjPos(player.startPosition), step);
         player.spawnEndPoint = Vector3.MoveTowards(player.spawnEndPoint, CalculateAdjPos(player.spawnEndPoint), step);
     }
@@ -134,6 +137,10 @@ public class MapDisplacementController : MonoBehaviour
         player.SetLayer(waterLayer);
         
         foreach(GameObject stageObj in stageObjects) {
+            if(stageObj.tag != "Platforms" && stageObj.tag != "PlayArea") {
+                stageObj.SetActive(false);
+            }
+
             stageObj.transform.position = CalculateAdjPos(stageObj.transform.position);  
         }
     }
@@ -142,6 +149,13 @@ public class MapDisplacementController : MonoBehaviour
     {
         GameObject wallObject = GameObject.FindGameObjectWithTag("Walls");
         wallObject.SetActive(false);
+        mainCamera.SetInitialShakePos();
         DestroyPlatforms();
+
+        foreach(GameObject stageObj in stageObjects) {
+            if(stageObj.tag != "Platforms" && stageObj.tag != "PlayArea") {
+                stageObj.SetActive(true);
+            }
+        }
     }
 }

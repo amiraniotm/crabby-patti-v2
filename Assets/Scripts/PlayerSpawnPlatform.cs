@@ -23,9 +23,7 @@ public class PlayerSpawnPlatform : MonoBehaviour
 
     private void Update()
     {
-        if (player.masterController.scrollPhase) {
-            endPoint = new Vector3(transform.position.x, transform.position.y - spawnGap, transform.position.z);
-            
+        if (player.masterController.scrollPhase) {            
             if(currentRespawnTime > 0) {
                 currentRespawnTime -= Time.deltaTime;
             }
