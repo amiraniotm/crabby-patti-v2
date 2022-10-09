@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [SerializeField] private GameObject[] enemyPrefabs;
+    //[SerializeField] private GameObject[] enemyPrefabs;
+    [SerializeField] private EnemyPool enemyPool;
 
     protected EnemyCounter enemyCounter;
     public bool lastSpawned;
@@ -30,33 +31,21 @@ public class SpawnPoint : MonoBehaviour
         readyToSpawn = false;
 
         StartCoroutine(GetReadyRoutine());
+
+        currentEnemyObject = enemyPool.GetPooledEnemy(enemyType);
         
-        if(enemyType == "Crabcatcher"){
-            currentEnemyObject = Instantiate(enemyPrefabs[0],transform.position,Quaternion.identity);
-        }else if(enemyType == "CrabcatcherPlus"){
-            currentEnemyObject = Instantiate(enemyPrefabs[1],transform.position,Quaternion.identity);
-        }else if(enemyType == "ReptAgent"){
-            currentEnemyObject = Instantiate(enemyPrefabs[2],transform.position,Quaternion.identity);
-        }else if(enemyType == "ReptBaby"){
-            currentEnemyObject = Instantiate(enemyPrefabs[3],transform.position,Quaternion.identity);
-        }else if(enemyType == "Flamey"){
-            currentEnemyObject = Instantiate(enemyPrefabs[4],transform.position,Quaternion.identity);
-        }else if(enemyType == "ReptLizard"){
-            currentEnemyObject = Instantiate(enemyPrefabs[5],transform.position,Quaternion.identity);
-        }else if(enemyType == "Icey"){
-            currentEnemyObject = Instantiate(enemyPrefabs[6],transform.position,Quaternion.identity);
-        }else if(enemyType == "Gooey"){
-            currentEnemyObject = Instantiate(enemyPrefabs[7],transform.position,Quaternion.identity);
-        }else {
-            return;
+        if(currentEnemyObject != null) {
+            currentEnemyObject.SetActive(true);
+            currentEnemyObject.transform.position = transform.position;
+            
+            Enemy enemyScript = currentEnemyObject.GetComponent<Enemy>();
+            enemyScript.originPosition = transform.position;
+            enemyScript.type = enemyType;
+            enemyScript.spawnPoint = gameObject.GetComponent<SpawnPoint>();
+            enemyScript.Start();
+
+            lastSpawned = !lastSpawned;
         }
-
-        Enemy enemyScript = currentEnemyObject.GetComponent<Enemy>();
-        enemyScript.originPosition = transform.position;
-        enemyScript.type = enemyType;
-        enemyScript.spawnPoint = gameObject.GetComponent<SpawnPoint>();
-
-        lastSpawned = !lastSpawned;
     }
 
     private IEnumerator GetReadyRoutine()

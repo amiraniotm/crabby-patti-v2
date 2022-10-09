@@ -38,7 +38,7 @@ public class Enemy : Character
         collider = GetComponent<BoxCollider2D>();
     }
 
-    protected void Start()
+    public void Start()
     {      
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
         
@@ -49,6 +49,9 @@ public class Enemy : Character
     {
         spawnPoint.spawning = true;
         readyToSpawn = false;
+        collider.enabled = true;
+        isDead = false;
+        flippedVertical = false;
 
         if(!enemyCounter.currentEnemies.Contains(gameObject)){
             enemyCounter.currentEnemies.Add(gameObject);
@@ -223,7 +226,8 @@ public class Enemy : Character
     public void Vanish()
     {
         enemyCounter.currentEnemies.Remove(gameObject);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
         enemyCounter.EnemyDied();
         enemyCounter.masterController.AddPoints(bounty);
     }

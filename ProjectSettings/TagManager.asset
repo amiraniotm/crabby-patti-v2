@@ -27,6 +27,7 @@ TagManager:
   - FloatController
   - DisplacementController
   - PlayArea
+  - ObjectPool
   layers:
   - Default
   - TransparentFX

@@ -201,19 +201,8 @@ public class MasterController : MonoBehaviour
         currentLevelKey = 0;
         
         levelDisplay.gameOverPanel.SetActive(false);
-        Destroy(player.spawnPlatformObject);
-        Destroy(player.gameObject);
-        Destroy(enemyCounter.gameObject);
-        Destroy(pauseController.gameObject);
         Destroy(soundController.gameObject);
-        Destroy(levelDisplay.gameObject);
-        Destroy(tileManager.gameObject);
-        Destroy(itemController.gameObject);
         Destroy(mainCamera.gameObject);
-
-        foreach(SpawnPoint spawnPt in enemyCounter.spawnPoints) {
-            Destroy(spawnPt.gameObject);
-        }
 
         Time.timeScale = 1;
         SceneManager.LoadScene(currentLevelKey);

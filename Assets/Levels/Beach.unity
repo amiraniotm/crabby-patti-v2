@@ -183,6 +183,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &38240321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38240323}
+  - component: {fileID: 38240322}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: ObjectPool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &38240322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38240321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b15fee3fae17a57ac1f8a719640baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 3649463691514519964, guid: 9798ce5998a16534389eef2e60b46125, type: 3}
+  - {fileID: 4538005230055126212, guid: 9d304557939d83456935f402deb5cfde, type: 3}
+  - {fileID: 4742577209595566228, guid: 272888606cec8fab1b4b430a5ea9ef85, type: 3}
+  - {fileID: 4742577209595566228, guid: 91b9f4bb94646eeb58c77775a6436ed1, type: 3}
+  - {fileID: 4742577209595566228, guid: f1ce3bd564833dc3985c2e566de1d40b, type: 3}
+  - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
+  - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
+  - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
+--- !u!4 &38240323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38240321}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2324407, y: 0.3837943, z: -10.362535}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &56411447
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,15 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d19590dafb53ebf1bfa025d03abc6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 3649463691514519964, guid: 9798ce5998a16534389eef2e60b46125, type: 3}
-  - {fileID: 4538005230055126212, guid: 9d304557939d83456935f402deb5cfde, type: 3}
-  - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
-  - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
-  - {fileID: 4742577209595566228, guid: 272888606cec8fab1b4b430a5ea9ef85, type: 3}
-  - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
-  - {fileID: 4742577209595566228, guid: f1ce3bd564833dc3985c2e566de1d40b, type: 3}
-  - {fileID: 4742577209595566228, guid: 91b9f4bb94646eeb58c77775a6436ed1, type: 3}
+  enemyPool: {fileID: 38240322}
   lastSpawned: 0
   spawning: 0
   readyToSpawn: 1
@@ -9599,15 +9644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d19590dafb53ebf1bfa025d03abc6fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 3649463691514519964, guid: 9798ce5998a16534389eef2e60b46125, type: 3}
-  - {fileID: 4538005230055126212, guid: 9d304557939d83456935f402deb5cfde, type: 3}
-  - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
-  - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
-  - {fileID: 4742577209595566228, guid: 272888606cec8fab1b4b430a5ea9ef85, type: 3}
-  - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
-  - {fileID: 4742577209595566228, guid: f1ce3bd564833dc3985c2e566de1d40b, type: 3}
-  - {fileID: 4742577209595566228, guid: 91b9f4bb94646eeb58c77775a6436ed1, type: 3}
+  enemyPool: {fileID: 38240322}
   lastSpawned: 0
   spawning: 0
   readyToSpawn: 1
