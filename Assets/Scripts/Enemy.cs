@@ -226,7 +226,6 @@ public class Enemy : Character
     public void Vanish()
     {
         enemyCounter.currentEnemies.Remove(gameObject);
-        //Destroy(gameObject);
         gameObject.SetActive(false);
         enemyCounter.EnemyDied();
         enemyCounter.masterController.AddPoints(bounty);

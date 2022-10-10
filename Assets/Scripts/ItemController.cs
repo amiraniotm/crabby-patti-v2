@@ -5,20 +5,18 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-    [SerializeField] private LevelDisplay levelDisplay;
     [SerializeField] private PauseController pauseController;
     [SerializeField] private TileManager tileManager;
     [SerializeField] private LayerMask platformMask;
-    [SerializeField] private GameObject[] itemPrefabs;
+    [SerializeField] private string[] itemNames;
     [SerializeField] private Inventory playerInventory;
-    [SerializeField] private AudioClip itemGotSound;
-    [SerializeField] private AudioClip enemyCollisionSound;
-    [SerializeField] private AudioClip itemAppearSound;
+    [SerializeField] private AudioClip itemGotSound, enemyCollisionSound, itemAppearSound;
+    [SerializeField] private ObjectPool itemPool;
 
     private BoxCollider2D itemZone;
-    private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
-    private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
     private MasterController masterController;
+    private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
+    private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
     private float spawnTime = 10.0f;
     
     public int itemLimit = 5;
@@ -31,11 +29,11 @@ public class ItemController : MonoBehaviour
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
         masterController.SetItemController(this);
 
-        itemWeights.Add("life", 80);
-        itemWeights.Add("time", 80);
-        itemWeights.Add("attack_pincer", 50);
-        itemWeights.Add("hard_shell", 50);
-        itemWeights.Add("boomerang_pincer", 40);
+        itemWeights.Add("ExtraLife", 80);
+        itemWeights.Add("ExtraTime", 80);
+        itemWeights.Add("AttackPincer", 50);
+        itemWeights.Add("HardShell", 50);
+        itemWeights.Add("BoomerangPincer", 40);
 
         StartItems(5.0f);
     }
@@ -56,19 +54,24 @@ public class ItemController : MonoBehaviour
                 bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
 
                 if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
-                    currentItem = Instantiate(itemPrefabs[itemIndex], newItemPos,Quaternion.identity);
-                    currentItemScript = currentItem.GetComponent<Item>();
-                    masterController.soundController.PlaySound(itemAppearSound, 0.3f);
-                    itemSet = true;
-                    itemLimit -= 1;
+                    currentItem = itemPool.GetPooledObject(itemNames[itemIndex]);
 
-                    if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
-                        spawnedItems.Add(currentItemScript.itemName, 1);
-                    } else {
-                        spawnedItems[currentItemScript.itemName] += 1;
+                    if(currentItem != null) {
+                        currentItem.SetActive(true);
+                        currentItem.transform.position = newItemPos;
+                        currentItemScript = currentItem.GetComponent<Item>();
+                        masterController.soundController.PlaySound(itemAppearSound, 0.3f);
+                        itemSet = true;
+                        itemLimit -= 1;
+
+                        if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
+                            spawnedItems.Add(currentItemScript.itemName, 1);
+                        } else {
+                            spawnedItems[currentItemScript.itemName] += 1;
+                        }
+
+                        StartCoroutine(currentItemScript.VanishCoroutine());
                     }
-
-                    StartCoroutine(currentItemScript.VanishCoroutine());
                 }
             }
         }  

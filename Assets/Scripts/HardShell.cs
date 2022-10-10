@@ -34,6 +34,6 @@ public class HardShell : UsableItem
     {
         yield return new WaitForSeconds(useTime);
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

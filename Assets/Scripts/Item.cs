@@ -27,7 +27,7 @@ public abstract class Item : MonoBehaviour
 
     protected virtual void Vanish()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public virtual IEnumerator VanishCoroutine()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnPoint : MonoBehaviour
 {
     //[SerializeField] private GameObject[] enemyPrefabs;
-    [SerializeField] private EnemyPool enemyPool;
+    [SerializeField] private ObjectPool enemyPool;
 
     protected EnemyCounter enemyCounter;
     public bool lastSpawned;
@@ -32,7 +32,7 @@ public class SpawnPoint : MonoBehaviour
 
         StartCoroutine(GetReadyRoutine());
 
-        currentEnemyObject = enemyPool.GetPooledEnemy(enemyType);
+        currentEnemyObject = enemyPool.GetPooledObject(enemyType);
         
         if(currentEnemyObject != null) {
             currentEnemyObject.SetActive(true);
