@@ -18,7 +18,7 @@ public class MasterController : MonoBehaviour
     public LevelDisplay levelDisplay;
     public EnemyCounter enemyCounter;
     public ItemController itemController;
-    public GameObject entryPoint, walls, backgroundObject, playerObject, MDCObject;
+    public GameObject entryPoint, backgroundObject, playerObject, MDCObject;
     public TileManager tileManager;
     public SpriteRenderer backgroundRenderer;
     private MapDisplacementController mapDisController;
@@ -36,6 +36,7 @@ public class MasterController : MonoBehaviour
     private float phaseChangeDuration = 1.5f;    
     private float phaseChangeTimer;
     public float timeCount;
+    public bool startingDisplacement;
 
     private void Awake()
     {
@@ -170,11 +171,11 @@ public class MasterController : MonoBehaviour
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
             if(currentPhaseKey < currentLevel.levelPhases) {
-                scrollPhase = true;
+                phaseChangeTimer = phaseChangeDuration;
                 itemController.StopItems();
                 levelDisplay.timePanel.SetActive(false);
-                mapDisController.StartDisplacement();
-                currentPhaseKey += 1;
+                startingDisplacement = true;
+                StartCoroutine(StartDisplacementCoroutine());
             } else {
                 soundController.StopMusic();
                 levelStarted = false;
@@ -258,9 +259,8 @@ public class MasterController : MonoBehaviour
 
     private IEnumerator SetLevelObjectsCoroutine()
     {
-        while(entryPoint == null || walls == null || backgroundObject == null || playerObject == null || MDCObject == null) {
+        while(entryPoint == null || backgroundObject == null || playerObject == null || MDCObject == null) {
             entryPoint = GameObject.FindGameObjectWithTag("EntryPoint");
-            walls = GameObject.FindGameObjectWithTag("Walls");
             backgroundObject = GameObject.FindGameObjectWithTag("Background");
             playerObject = GameObject.FindGameObjectWithTag("Player");
             MDCObject = GameObject.FindGameObjectWithTag("DisplacementController");
@@ -268,7 +268,6 @@ public class MasterController : MonoBehaviour
             yield return 0;
         }
 
-        walls.SetActive(false);
         backgroundRenderer = backgroundObject.GetComponent<SpriteRenderer>();
         player = playerObject.GetComponent<PlayerMovement>();
         mapDisController = MDCObject.GetComponent<MapDisplacementController>();
@@ -289,4 +288,19 @@ public class MasterController : MonoBehaviour
         phaseChangeTimer = 0.0f;
     }
 
+    private IEnumerator StartDisplacementCoroutine()
+    {
+        while (phaseChangeTimer > 0)
+        {
+            phaseChangeTimer -= Time.unscaledDeltaTime;
+            
+            yield return 0;
+        }
+
+        scrollPhase = true;
+        mapDisController.StartDisplacement();
+        currentPhaseKey += 1;
+        phaseChangeTimer = 0.0f;
+        startingDisplacement = false;
+    }
 }

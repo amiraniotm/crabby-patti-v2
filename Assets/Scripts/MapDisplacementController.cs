@@ -26,6 +26,14 @@ public class MapDisplacementController : MonoBehaviour
         platHeight = platRenderer.bounds.size.y;
     }
 
+    private void Update()
+    {
+        if(masterController != null && masterController.scrollPhase) {
+            MoveWalls();
+            MoveSpawnPoint();
+        }
+    }
+
     public void SetDisplacementObjects(MasterController MCRef)
     {
         masterController = MCRef;
@@ -49,6 +57,7 @@ public class MapDisplacementController : MonoBehaviour
         } else {
             Vector3 newPlatPos = GetRandomPlatPos();
             latestPlat = Instantiate(platPrefab, newPlatPos, Quaternion.identity);
+            ChangePlatSize(latestPlat);
         }
 
         spawnedPlats.Add(latestPlat);
@@ -73,6 +82,16 @@ public class MapDisplacementController : MonoBehaviour
         return randPos;
     }
 
+    private void ChangePlatSize(GameObject plat)
+    {
+        float lengthMod = Random.Range(1 , 5);
+        Vector3 newScale = new Vector3(plat.transform.localScale.x * lengthMod,
+                                        plat.transform.localScale.y,
+                                        plat.transform.localScale.z);
+
+        plat.transform.localScale = newScale;
+    }
+
     public void StopPlatforms()
     {
         CancelInvoke();
@@ -87,18 +106,10 @@ public class MapDisplacementController : MonoBehaviour
         initialPlat = true;
     }
 
-    private void Update()
-    {
-        if(masterController != null && masterController.scrollPhase) {
-            MoveWalls();
-            MoveSpawnPoint();
-        }
-    }
-
     private void MoveWalls()
     {
         if(!wallObject.activeSelf) {
-            wallObject.SetActive(true); 
+            wallObject.SetActive(true);
         }
         
         Vector3 newWallPos = new Vector3 (wallObject.transform.position.x,
@@ -147,7 +158,6 @@ public class MapDisplacementController : MonoBehaviour
 
     public void EndDisplacement()
     {
-        GameObject wallObject = GameObject.FindGameObjectWithTag("Walls");
         wallObject.SetActive(false);
         mainCamera.SetInitialShakePos();
         DestroyPlatforms();
