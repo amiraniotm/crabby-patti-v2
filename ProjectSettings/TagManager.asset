@@ -27,7 +27,11 @@ TagManager:
   - FloatController
   - DisplacementController
   - PlayArea
-  - ObjectPool
+  - ItemPool
+  - EnemyPool
+  - ProjectilePool
+  - Obstacles
+  - Waves
   layers:
   - Default
   - TransparentFX

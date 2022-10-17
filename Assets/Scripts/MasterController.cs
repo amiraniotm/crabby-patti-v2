@@ -145,7 +145,6 @@ public class MasterController : MonoBehaviour
             currentLevel = availableLevels[currentLevelKey - 1];
             timeCount = currentLevel.levelTime;
             currentLevel.SetEnemies();
-            mainCamera.GetBackgroundImage();
             entryPoint = null;
             if(currentLevelKey > 1) {    
                 backgroundRenderer.sprite = bgList[currentLevelKey - 1];
@@ -213,7 +212,7 @@ public class MasterController : MonoBehaviour
     public void EndScrollPhase()
     {
         scrollPhase = false;
-        itemController.StartItems(5.0f);
+        //itemController.StartItems(5.0f);
         levelDisplay.timePanel.SetActive(true);
         //EXTRA TIME PER PHASE
         timeCount += 30;

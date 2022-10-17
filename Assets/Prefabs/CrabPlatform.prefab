@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7999476940603648424}
   - component: {fileID: 7999476940603648423}
   - component: {fileID: 7999476940603648422}
+  - component: {fileID: -9211433461062556069}
   m_Layer: 0
   m_Name: CrabPlatform
   m_TagString: FloatingPlatform
@@ -95,7 +96,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7999476940603648421}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 551f61aa741396f4dac5b9d7861a80bf, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
@@ -131,3 +132,15 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 0
+--- !u!114 &-9211433461062556069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999476940603648421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ad575efe733ca98b92696dfe1096bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -42,12 +42,13 @@ public class Enemy : Character
     {      
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
         
-        Spawn();
+        if(!spawned) {
+            Spawn();
+        }
     }
 
     protected virtual void Spawn()
     {
-        spawnPoint.spawning = true;
         readyToSpawn = false;
         collider.enabled = true;
         isDead = false;
@@ -67,7 +68,10 @@ public class Enemy : Character
         }
 
         spawning = true;
-        StartCoroutine(SpawnCoroutine());
+        if(!spawned) {
+            spawnPoint.spawning = true;
+            StartCoroutine(SpawnCoroutine());
+        }
     }
 
     protected void Update()

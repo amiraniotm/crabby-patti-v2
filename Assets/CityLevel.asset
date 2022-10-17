@@ -15,4 +15,6 @@ MonoBehaviour:
   levelType: city
   levelTime: 90
   levelPhases: 3
+  maxObstacles: 3
+  obstacleName: Lava
   enemyCount: 

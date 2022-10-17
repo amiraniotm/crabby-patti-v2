@@ -2224,8 +2224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dc1134af80a7a5781f623184748833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 8
-  panMultiplier: 10
+  panSpeed: 12
+  panMultiplier: 8
   masterController: {fileID: 1993788447}
   currentPanTime: 0
   screenWidth: 0
@@ -5852,7 +5852,6 @@ MonoBehaviour:
   enemyCounter: {fileID: 0}
   itemController: {fileID: 0}
   entryPoint: {fileID: 0}
-  walls: {fileID: 0}
   backgroundObject: {fileID: 0}
   playerObject: {fileID: 0}
   MDCObject: {fileID: 0}

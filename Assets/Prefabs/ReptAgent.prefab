@@ -126,6 +126,7 @@ MonoBehaviour:
   runSpeed: 15
   topJumpSpeed: 6
   enemyCounter: {fileID: 0}
+  masterController: {fileID: 0}
   originPosition: {x: 0, y: 0}
   isDead: 0
   flippedVertical: 0
@@ -133,10 +134,11 @@ MonoBehaviour:
   spawned: 0
   onGround: 0
   spawning: 1
+  collider: {fileID: 0}
+  body: {fileID: 0}
   type: ReptAgent
   bounty: 75
   spawnPoint: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!95 &1353883205929038035
 Animator:
   serializedVersion: 4
@@ -170,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GhostPrefab: {fileID: 2496966096221258697, guid: cd6393f0742eb87118c1a8ef95e4973c, type: 3}
+  hasGhosts: 1
   isVisible: 1
   screenWidth: 0
   screenHeight: 0

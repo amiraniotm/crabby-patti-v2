@@ -2,38 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public abstract class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed, maxMoveTime, aimingTime;
-    [SerializeField] private int maxAttacks;
+    [SerializeField] protected float moveSpeed, maxMoveTime, aimingTime;
+    [SerializeField] protected int maxAttacks;
+    [SerializeField] public bool isSided;
 
-    private CameraMovement mainCamera;
-    protected new BoxCollider2D collider;
-    private string side = "left";
-    private int attackCount;
-    private float moveCount, aimCount;
-    private bool doAttack, attacking, doMove, moving, doLeave, leaving;
+    protected CameraMovement mainCamera;
+    protected MapDisplacementController mapDisController;
+    protected Renderer mainRenderer; 
+    public string side = "left";
+    protected float moveCount, aimCount;
+    protected bool doAttack, attacking, doMove, moving, doLeave, attackSet;
+    public int attackCount;
+    public bool leaving, forceLeave;
 
-    protected void Start()
+    protected virtual void Awake()
     {
-        collider = GetComponent<BoxCollider2D>();
+        mainRenderer = GetComponent<Renderer>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
-        
-        SetSide();
+        mapDisController = GameObject.FindGameObjectWithTag("DisplacementController").GetComponent<MapDisplacementController>();
     }
 
-    protected void SetSide()
+    public virtual void SetSide()
     {
-        int randSide = Random.Range(0,1);
+        int randSide = Random.Range(0,100);
 
-        if(randSide == 1) {
+        if(randSide >= 50) {
             side = "right";
-        } else {
+        } else if(randSide < 50) {
             side = "left";
         }
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         if(!moving && !attacking && !leaving){ 
             if (attackCount < maxAttacks ) {
@@ -43,18 +45,17 @@ public class Obstacle : MonoBehaviour
             }
         } 
         
-        if (doMove && (moveCount < maxMoveTime)) {
+        if (doMove && (moveCount < maxMoveTime) && !forceLeave) {
             Move();
-        } else if (doAttack && (aimCount < aimingTime)) {
+        } else if ((doAttack && (aimCount < aimingTime) && !forceLeave)) {
             Attack();
-        } else if(doLeave) {
+        } else if(doLeave || forceLeave) {
             leaving = true;
-            CancelInvoke();
             StartCoroutine(LeavingCoroutine());
         } 
     }
 
-    protected void MoveOrAction(string action)
+    protected virtual void MoveOrAction(string action)
     {
         ResetMoveProps();
         int rand = Random.Range(0,100);
@@ -68,7 +69,7 @@ public class Obstacle : MonoBehaviour
         doMove = rand <= 50;
     }
 
-    protected void ResetMoveProps()
+    protected virtual void ResetMoveProps()
     {
         doAttack = false;
         attacking = false;
@@ -76,29 +77,26 @@ public class Obstacle : MonoBehaviour
         moving = false;
         doLeave = false;
         leaving = false;
+        forceLeave = false;
     }
 
-    protected void Attack()
-    {
-        attacking = true;
+    protected abstract void Attack();
 
-        aimCount += Time.deltaTime;
+    public abstract void DropAttack();
 
-        if(aimCount >= aimingTime) {
-            attackCount += 1;
-            aimCount = 0;
-            ResetMoveProps();
-        } 
-    }
+    public abstract void AdjustPosToSide();
 
-    protected void Move()
+    protected virtual void Move()
     {
         moving = true; 
 
         float nextY = transform.position.y + (moveSpeed * Time.deltaTime);
 
-        if(nextY + (collider.bounds.size.y / 2) > (mainCamera.gameObject.transform.position.y + mainCamera.screenHeight / 2) ||
-            nextY - (collider.bounds.size.y / 2) < (mainCamera.gameObject.transform.position.y - mainCamera.screenHeight / 2)) {
+        Vector3 lowerCorner = mainCamera.GetCurrentCorner("lowerleft");
+        Vector3 upperCorner = mainCamera.GetCurrentCorner("upperright");
+
+        if(nextY + (mainRenderer.bounds.size.y / 2) > (upperCorner.y) ||
+            nextY - (mainRenderer.bounds.size.y / 2) < (lowerCorner.y)) {
                 moveSpeed *= -1;
             }
 
@@ -116,18 +114,31 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    protected IEnumerator LeavingCoroutine()
+    protected virtual IEnumerator LeavingCoroutine()
     {        
         float leaveCount = 0.0f;
+        forceLeave = false;
+        doLeave = false;
 
         while (leaveCount < 1) {
-            Debug.Log("LEaving!");
             leaveCount += Time.deltaTime;
 
             yield return 0;
         }
 
         ResetMoveProps();
+        attackCount = 0;
+        mapDisController.currentObstacles.Remove(this);
         gameObject.SetActive(false);
+    }
+
+    protected void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if(otherCollider.gameObject.tag == "Player") {
+            forceLeave = true;
+            PlayerMovement player = otherCollider.gameObject.GetComponent<PlayerMovement>();
+
+            player.Kick(); 
+        }
     }
 }

@@ -8,16 +8,18 @@ public class MapDisplacementController : MonoBehaviour
     [SerializeField] private GameObject[] stageObjects;
     [SerializeField] private GameObject wallObject, spawnPlatObject,platPrefab,entryPoint;
     [SerializeField] private PlayerMovement player;
-    [SerializeField] private float spawnInterval;
+    [SerializeField] private float spawnInterval, obstacleChance;
+    [SerializeField] private ObjectPool displacementPool;
     [SerializeField] private PlayerSpawnPlatform spawnPlat;
-
+ 
     private MasterController masterController;
     private CameraMovement mainCamera;
     private GameObject latestPlat;
     private List<GameObject> spawnedPlats = new List<GameObject>();
+    public List<Obstacle> currentObstacles = new List<Obstacle>();
+    private Vector3 originalPlatScale = Vector3.zero;
     private bool initialPlat = true;
-    private float platWidth;
-    private float platHeight;
+    private float platWidth, platHeight;
 
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class MapDisplacementController : MonoBehaviour
             MoveWalls();
             MoveSpawnPoint();
         }
+
+        CheckPlatforms();
     }
 
     public void SetDisplacementObjects(MasterController MCRef)
@@ -46,6 +50,7 @@ public class MapDisplacementController : MonoBehaviour
         entryPoint.transform.position = CalculateAdjPos(entryPoint.transform.position);
 
         InvokeRepeating("SetPlatform", 0f, spawnInterval);
+        InvokeRepeating("CheckForObstacle", 0f, spawnInterval);
     }
 
 
@@ -56,17 +61,25 @@ public class MapDisplacementController : MonoBehaviour
             initialPlat = false;
         } else {
             Vector3 newPlatPos = GetRandomPlatPos();
-            latestPlat = Instantiate(platPrefab, newPlatPos, Quaternion.identity);
+            latestPlat = displacementPool.GetPooledObject("CrabPlatform");
+            latestPlat.transform.position = newPlatPos;
+            if(originalPlatScale.x == 0) {
+                originalPlatScale = latestPlat.transform.localScale;
+            }
+
             ChangePlatSize(latestPlat);
+            latestPlat.SetActive(true);
         }
 
-        spawnedPlats.Add(latestPlat);
+        if(!spawnedPlats.Contains(latestPlat)){
+            spawnedPlats.Add(latestPlat);
+        }
     }
 
     private Vector3 GetRandomPlatPos()
     {
-        float randX = Random.Range(latestPlat.transform.position.x - (3 * platWidth), 
-                                    latestPlat.transform.position.x + (3 * platWidth));
+        float randX = Random.Range(latestPlat.transform.position.x - (5 * platWidth), 
+                                    latestPlat.transform.position.x + (5 * platWidth));
         
         if(randX < -(mainCamera.screenWidth / 2)) {
             randX = (-mainCamera.screenWidth / 2) + platWidth;
@@ -84,25 +97,35 @@ public class MapDisplacementController : MonoBehaviour
 
     private void ChangePlatSize(GameObject plat)
     {
-        float lengthMod = Random.Range(1 , 5);
-        Vector3 newScale = new Vector3(plat.transform.localScale.x * lengthMod,
+        float lengthMod = Random.Range(3 , 7);
+        Vector3 newScale = new Vector3(originalPlatScale.x * lengthMod,
                                         plat.transform.localScale.y,
                                         plat.transform.localScale.z);
 
         plat.transform.localScale = newScale;
     }
 
-    public void StopPlatforms()
-    {
-        CancelInvoke();
-    }
-
-    public void DestroyPlatforms()
+    private void CheckPlatforms()
     {
         foreach(GameObject plat in spawnedPlats) {
-            Destroy(plat);
-        }
+            Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft");
 
+            if(plat.transform.position.y < (cameraCorner.y - platHeight)) {
+                plat.SetActive(false);
+            }
+        }
+    }
+
+    public void StopPlatformsAndObstacles()
+    {
+        CancelInvoke();
+        foreach(Obstacle obs in currentObstacles ) {
+            if(!obs.leaving) {
+                obs.forceLeave = true;
+                obs.DropAttack();
+            }    
+        }
+        
         initialPlat = true;
     }
 
@@ -160,11 +183,36 @@ public class MapDisplacementController : MonoBehaviour
     {
         wallObject.SetActive(false);
         mainCamera.SetInitialShakePos();
-        DestroyPlatforms();
 
         foreach(GameObject stageObj in stageObjects) {
             if(stageObj.tag != "Platforms" && stageObj.tag != "PlayArea") {
                 stageObj.SetActive(true);
+            }
+        }
+    }
+
+    private void CheckForObstacle()
+    {
+        if(currentObstacles.Count < masterController.currentLevel.maxObstacles) {
+            int rand = Random.Range(0,100);
+
+            if(rand < obstacleChance) {
+                GameObject obstacleObj = displacementPool.GetPooledObject(masterController.currentLevel.obstacleName);
+                Obstacle obstacleScript = obstacleObj.GetComponent<Obstacle>();
+                obstacleScript.SetSide();
+
+                if(obstacleScript.isSided && (obstacleScript.side == "left")) {
+                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft"); 
+                    obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z );
+                } else {
+                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("upperright"); 
+                    obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z);
+                }
+
+                obstacleObj.transform.SetParent(wallObject.transform);
+                obstacleObj.SetActive(true);
+                obstacleScript.AdjustPosToSide();
+                currentObstacles.Add(obstacleScript);
             }
         }
     }

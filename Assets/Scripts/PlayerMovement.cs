@@ -31,7 +31,7 @@ public class PlayerMovement : Character
     private float currentJumpTimer;
     private float upwardGravity = 5.0f;
     private float downwardGravity = 12.0f;
-    private bool onIce;
+    private bool onIce, tripped;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
 
@@ -57,7 +57,7 @@ public class PlayerMovement : Character
 
     private void Update()
     {      
-        if(!pauseController.gamePaused) {
+        if(!pauseController.gamePaused && !tripped) {
             if(!spawning){            
                 CheckRespawnCondition();
 
@@ -182,7 +182,7 @@ public class PlayerMovement : Character
 
             if(collidingEnemy.flippedVertical) {
                 KillEnemy(collidingEnemy);
-                animator.SetTrigger("kick");
+                Kick();
             }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
                 if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
                     inventory.currentItem.UseEffect();
@@ -191,9 +191,23 @@ public class PlayerMovement : Character
                 }
             }
         } else if ( collision.gameObject.tag == "Projectiles" ) {
-            Die();
-            
-        }
+            Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
+
+            if(!hitProj.grounded && hitProj.thrown && !hitProj.trippable) {
+                Die(); 
+            } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
+                hitProj.myCollider.enabled = false;
+                tripped = true;
+                StartCoroutine(UntripCoroutine());  
+            } else {    
+                hitProj.grounded = false;
+                hitProj.body.velocity = body.velocity;
+                Kick();
+            }
+
+        } else if ( collision.gameObject.tag == "Waves" ) {
+            Die(); 
+        } 
     }
 
     public void KillEnemy(Enemy enemy)
@@ -287,6 +301,11 @@ public class PlayerMovement : Character
         gameObject.layer = layer;
     }
 
+    public void Kick()
+    {
+        animator.SetTrigger("kick");
+    }
+
     public IEnumerator SpawnPlatformCoroutine()
     {
         yield return new WaitForSeconds(spawnPlatformTimer);
@@ -294,6 +313,19 @@ public class PlayerMovement : Character
         if(!spawned && !spawning) {
             HideRespawnPlatform();
         }
+    }
+
+    public IEnumerator UntripCoroutine()
+    {
+        float tripCount = 0.5f;
+
+        while(tripCount > 0){
+            tripCount -= Time.deltaTime;
+
+            yield return 0;
+        }
+
+        tripped = false;
     }
 
 }

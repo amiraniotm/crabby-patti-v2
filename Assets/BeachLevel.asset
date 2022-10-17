@@ -15,4 +15,6 @@ MonoBehaviour:
   levelType: beach
   levelTime: 50
   levelPhases: 3
+  maxObstacles: 3
+  obstacleName: MercMonke
   enemyCount: 

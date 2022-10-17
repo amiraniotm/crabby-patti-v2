@@ -9,18 +9,14 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private MasterController masterController;
     
     private Vector3 initialPosition;
-    private float panDistance;
     private float shakeDuration = 0.3f;
     private float currentShakeTime = 0f;
     public float currentPanTime = 0f;
     private float shakeMagnitude = 0.7f;
     private float dampingSpeed = 1.0f;
     private Camera cam;
-    private Renderer backgroundRenderer;
     public float screenWidth;
     public float screenHeight;
-    private GameObject backgroundImage;
-    private GameObject nextBackground;
     private bool nextImageSet = false;
     public Vector3 panningEndPoint;
     private bool doPanUp;
@@ -46,8 +42,6 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        panDistance = transform.position.y - initialPosition.y;
-
         if(currentShakeTime != 0f) {
             Shake();
         }
@@ -85,11 +79,6 @@ public class CameraMovement : MonoBehaviour
 
         if(panningEndPoint != transform.position) {
             transform.position = Vector3.MoveTowards(transform.position, panningEndPoint, step);
-            if(panDistance > 0) {
-                SetNextBackground();
-                Vector3 newInitialPos = new Vector3(initialPosition.x, initialPosition.y + backgroundRenderer.bounds.size.y, initialPosition.z);
-                initialPosition = newInitialPos;                
-            } 
         } else {
             doPanUp = false;
             panningEndPoint = transform.position;
@@ -97,35 +86,25 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void GetBackgroundImage()
-    {
-        backgroundImage = null;
-        StartCoroutine(BackgroundImageCoroutine());
-    }
-    
-    private void SetNextBackground()
-    {
-        nextBackground = Instantiate(backgroundImage,
-                                    new Vector3(backgroundImage.transform.position.x, 
-                                                backgroundImage.transform.position.y + backgroundRenderer.bounds.size.y,
-                                                backgroundImage.transform.position.z ),
-                                    Quaternion.identity);
-        backgroundImage = nextBackground;
-        nextImageSet = true;
-    }
-
     public void SetInitialShakePos()
     {
         initialPosition = transform.position;
     }
 
-    private IEnumerator BackgroundImageCoroutine() 
+    public Vector3 GetCurrentCorner(string corner)
     {
-        while(backgroundImage == null) {
-            backgroundImage = GameObject.FindGameObjectWithTag("Background");
-            yield return 0;
+        Vector3 cornerPos = Vector3.zero;
+
+        if(corner == "lowerleft") {
+            cornerPos = new Vector3(transform.position.x - (screenWidth / 2),
+                                    transform.position.y - (screenHeight / 2),
+                                    transform.position.z);
+        } else {
+            cornerPos = new Vector3(transform.position.x + (screenWidth / 2),
+                                    transform.position.y + (screenHeight / 2),
+                                    transform.position.z);
         }
-        
-        backgroundRenderer = backgroundImage.GetComponent<Renderer>();
-    }
+
+        return cornerPos;
+    } 
 }

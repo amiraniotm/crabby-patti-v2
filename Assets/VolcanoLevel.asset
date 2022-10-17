@@ -15,4 +15,6 @@ MonoBehaviour:
   levelType: volcano
   levelTime: 75
   levelPhases: 3
+  maxObstacles: 3
+  obstacleName: Laser
   enemyCount: 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 180128466074761918}
   m_Layer: 6
   m_Name: Goowave
-  m_TagString: Projectiles
+  m_TagString: Waves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

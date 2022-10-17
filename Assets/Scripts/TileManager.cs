@@ -39,7 +39,7 @@ public class TileManager : MonoBehaviour
                 mapDisController.MoveStage();
             } else if(platformsVisible && platformsMoved) {
                 platformsMoved = false;
-                mapDisController.StopPlatforms();
+                mapDisController.StopPlatformsAndObstacles();
             }
         }
     }
