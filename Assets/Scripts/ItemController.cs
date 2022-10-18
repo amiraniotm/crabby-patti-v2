@@ -60,6 +60,7 @@ public class ItemController : MonoBehaviour
                         currentItem.SetActive(true);
                         currentItem.transform.position = newItemPos;
                         currentItemScript = currentItem.GetComponent<Item>();
+                        currentItemScript.SetInitialPosition();
                         masterController.soundController.PlaySound(itemAppearSound, 0.3f);
                         itemSet = true;
                         itemLimit -= 1;

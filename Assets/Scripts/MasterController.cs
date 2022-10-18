@@ -212,7 +212,7 @@ public class MasterController : MonoBehaviour
     public void EndScrollPhase()
     {
         scrollPhase = false;
-        //itemController.StartItems(5.0f);
+        itemController.StartItems(5.0f);
         levelDisplay.timePanel.SetActive(true);
         //EXTRA TIME PER PHASE
         timeCount += 30;

@@ -44,7 +44,7 @@ public class Level : ScriptableObject
                 levelEnemies[i]["Gooey"] = 0;
             } else if(levelType == "volcano") {
                 levelEnemies[i]["Crabcatcher"] = 1;
-                levelEnemies[i]["CrabcatcherPlus"] = 2;
+                levelEnemies[i]["CrabcatcherPlus"] = 0;
                 levelEnemies[i]["ReptAgent"] = 0;
                 levelEnemies[i]["Flamey"] = 0;
                 levelEnemies[i]["ReptLizard"] = 0;
@@ -86,6 +86,7 @@ public class Level : ScriptableObject
                 levelEnemies["Gooey"] = 2;
                 levelEnemies["ReptBaby"] = 2;
             }**/
+
             
             foreach(KeyValuePair<string,int> enemy in levelEnemies[i]){
                 enemyCount[i] += enemy.Value;

@@ -18,6 +18,11 @@ public class LaserObstacle : Obstacle
         } 
     }
 
+    protected override void Move()
+    {
+        Debug.Log("Move");
+    }
+
     public override void AdjustPosToSide()
     {
         if(side == "left") {
@@ -30,5 +35,30 @@ public class LaserObstacle : Obstacle
     public override void DropAttack()
     {
         return;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if(otherCollider.gameObject.tag == "Player") {
+            forceLeave = true;
+            PlayerMovement player = otherCollider.gameObject.GetComponent<PlayerMovement>();
+
+            player.Kick(); 
+        }
+    }
+
+    protected override IEnumerator LeavingCoroutine()
+    {        
+        float leaveCount = 0.0f;
+        forceLeave = false;
+        doLeave = false;
+
+        while (leaveCount < 1) {
+            leaveCount += Time.deltaTime;
+
+            yield return 0;
+        }
+
+        Leave();
     }
 }

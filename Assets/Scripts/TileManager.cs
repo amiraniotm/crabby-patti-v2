@@ -135,8 +135,6 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
-
-        wallObject.SetActive(false);
     }
 
     public bool ArePlatformsVisible()

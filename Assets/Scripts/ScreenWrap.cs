@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScreenWrap : MonoBehaviour
 {
     [SerializeField] private Transform GhostPrefab;
+    [SerializeField] private bool hasGhosts, autoLeave;
 
     public bool isVisible = true;
     protected Camera cam;
@@ -30,12 +31,14 @@ public class ScreenWrap : MonoBehaviour
         screenWidth = screenTopRight.x - screenBottomLeft.x;
         screenHeight = screenTopRight.y - screenBottomLeft.y;
 
-        CreateGhosts();
+        if(hasGhosts) {
+            CreateGhosts();
+        }
     }
 
     void Update()
     {
-        if(!characterScript.spawning) {
+        if(characterScript == null || !characterScript.spawning) {
             CheckScreenWrap();
         }
     }
@@ -45,15 +48,19 @@ public class ScreenWrap : MonoBehaviour
         isVisible = CheckRenderers();
 
         if(!isVisible){
-            if(characterScript.isDead && gameObject.tag == "Enemies") {
+            if(characterScript != null && characterScript.isDead && gameObject.tag == "Enemies") {
                 characterScript.enemyCounter.currentEnemies.Remove(gameObject);
                 Enemy enemyScript = GetComponent<Enemy>();
                 enemyScript.Vanish();
             } else if(gameObject.transform.position.y < (cam.gameObject.transform.position.y - (screenHeight / 2)) && gameObject.tag == "Player") {
                 PlayerMovement playerScript = GetComponent<PlayerMovement>();
                 playerScript.Die();
-            } else if(!characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
-                GhostSwap();
+            } else if(characterScript!= null && !characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
+                if(hasGhosts) {
+                    GhostSwap();
+                }
+            } else if(!hasGhosts && !autoLeave) {
+                gameObject.SetActive(false);
             }
             
         }

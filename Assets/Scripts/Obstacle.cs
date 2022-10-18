@@ -13,9 +13,9 @@ public abstract class Obstacle : MonoBehaviour
     protected Renderer mainRenderer; 
     public string side = "left";
     protected float moveCount, aimCount;
-    protected bool doAttack, attacking, doMove, moving, doLeave, attackSet;
-    public int attackCount;
-    public bool leaving, forceLeave;
+    protected bool doAttack, attacking, doMove, moving, attackSet;
+    protected int attackCount;
+    public bool leaving, forceLeave, doLeave;
 
     protected virtual void Awake()
     {
@@ -86,59 +86,17 @@ public abstract class Obstacle : MonoBehaviour
 
     public abstract void AdjustPosToSide();
 
-    protected virtual void Move()
+    protected abstract void Move();
+
+    protected abstract void OnTriggerEnter2D(Collider2D otherCollider);
+
+    protected virtual void Leave()
     {
-        moving = true; 
-
-        float nextY = transform.position.y + (moveSpeed * Time.deltaTime);
-
-        Vector3 lowerCorner = mainCamera.GetCurrentCorner("lowerleft");
-        Vector3 upperCorner = mainCamera.GetCurrentCorner("upperright");
-
-        if(nextY + (mainRenderer.bounds.size.y / 2) > (upperCorner.y) ||
-            nextY - (mainRenderer.bounds.size.y / 2) < (lowerCorner.y)) {
-                moveSpeed *= -1;
-            }
-
-        Vector3 newPos = new Vector3(transform.position.x,
-                                    transform.position.y + (moveSpeed * Time.deltaTime),
-                                    transform.position.z);
-
-        transform.position = newPos;
-
-        moveCount += Time.deltaTime;
-
-        if(moveCount >= maxMoveTime) {
-            moveCount = 0;
-            ResetMoveProps();
-        }
-    }
-
-    protected virtual IEnumerator LeavingCoroutine()
-    {        
-        float leaveCount = 0.0f;
-        forceLeave = false;
-        doLeave = false;
-
-        while (leaveCount < 1) {
-            leaveCount += Time.deltaTime;
-
-            yield return 0;
-        }
-
         ResetMoveProps();
         attackCount = 0;
         mapDisController.currentObstacles.Remove(this);
         gameObject.SetActive(false);
     }
 
-    protected void OnTriggerEnter2D(Collider2D otherCollider)
-    {
-        if(otherCollider.gameObject.tag == "Player") {
-            forceLeave = true;
-            PlayerMovement player = otherCollider.gameObject.GetComponent<PlayerMovement>();
-
-            player.Kick(); 
-        }
-    }
+    protected abstract IEnumerator LeavingCoroutine();
 }

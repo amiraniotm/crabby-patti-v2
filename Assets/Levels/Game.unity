@@ -239,7 +239,7 @@ MonoBehaviour:
   - {fileID: 5381646757120596627, guid: 9c9704feeffdb83e99f4ac04b2422bfd, type: 3}
   - {fileID: 2715594807978894049, guid: 5367bf07da083fb3bbfc15e74a807678, type: 3}
   - {fileID: 7418721950284044320, guid: 8fa10d82f9807d013a181256258ebdcc, type: 3}
-  objectsToPool: 1
+  objectsToPool: 2
 --- !u!1 &56411447
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GhostPrefab: {fileID: 2496966096221258697, guid: cd6393f0742eb87118c1a8ef95e4973c, type: 3}
+  hasGhosts: 1
   isVisible: 1
   screenWidth: 0
   screenHeight: 0
@@ -1343,6 +1344,7 @@ MonoBehaviour:
   objectPrefabs:
   - {fileID: 7999476940603648421, guid: 5c71f917087a0a2dc8436e41a38ed5b4, type: 3}
   - {fileID: 8086462200004521887, guid: 81f8d4119545612e78cdcb4b2d287369, type: 3}
+  - {fileID: 8881931755443490184, guid: eb92fb44b1e28f4d9a9f8ef36b836c0d, type: 3}
   objectsToPool: 4
 --- !u!1 &435796125
 GameObject:

@@ -20,7 +20,7 @@ public abstract class Item : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         itemController = GameObject.FindGameObjectWithTag("ItemController").GetComponent<ItemController>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
-        initialPosition = transform.position;
+        SetInitialPosition();
     }
 
     protected abstract void OnTriggerEnter2D(Collider2D otherCollider);
@@ -30,11 +30,16 @@ public abstract class Item : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public virtual void SetInitialPosition()
+    {
+        initialPosition = transform.position;
+    }
+
     public virtual IEnumerator VanishCoroutine()
     {
         yield return new WaitForSeconds(vanishTime);
 
-        if(this != null && transform.position == initialPosition) {
+        if(transform.position == initialPosition) {
             Vanish();
         }
     }

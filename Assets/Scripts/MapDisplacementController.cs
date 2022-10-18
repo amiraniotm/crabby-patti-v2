@@ -199,14 +199,20 @@ public class MapDisplacementController : MonoBehaviour
             if(rand < obstacleChance) {
                 GameObject obstacleObj = displacementPool.GetPooledObject(masterController.currentLevel.obstacleName);
                 Obstacle obstacleScript = obstacleObj.GetComponent<Obstacle>();
-                obstacleScript.SetSide();
 
-                if(obstacleScript.isSided && (obstacleScript.side == "left")) {
-                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft"); 
-                    obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z );
+                if(obstacleScript.isSided) {
+                    obstacleScript.SetSide();
+
+                    if(obstacleScript.side == "left") {
+                        Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft"); 
+                        obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z );
+                    } else {
+                        Vector3 cameraCorner = mainCamera.GetCurrentCorner("upperright"); 
+                        obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z);
+                    }
                 } else {
-                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("upperright"); 
-                    obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z);
+                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft");
+                    obstacleObj.transform.position = new Vector3( transform.position.x, cameraCorner.y, transform.position.z );
                 }
 
                 obstacleObj.transform.SetParent(wallObject.transform);
