@@ -129,8 +129,10 @@ MonoBehaviour:
   aimingTime: 3
   maxAttacks: 2
   isSided: 1
+  attackChance: 60
+  leaveChance: 70
   side: left
-  attackCount: 0
   leaving: 0
   forceLeave: 0
+  doLeave: 0
   throwMg: 1.5

@@ -874,6 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GhostPrefab: {fileID: 2496966096221258697, guid: cd6393f0742eb87118c1a8ef95e4973c, type: 3}
   hasGhosts: 1
+  autoLeave: 0
   isVisible: 1
   screenWidth: 0
   screenHeight: 0
@@ -10189,6 +10190,7 @@ MonoBehaviour:
   objectPrefabs:
   - {fileID: 6663677110472072382, guid: 8ee35922a18c14e67bb6763167e9736e, type: 3}
   - {fileID: 8637420521858045061, guid: af5636b5499c8f3f7b98e2d6f29eb145, type: 3}
+  - {fileID: 2517605933339128684, guid: c9e34405bdebcfe1a93359c82745f283, type: 3}
   objectsToPool: 6
 --- !u!4 &1925931139
 Transform:

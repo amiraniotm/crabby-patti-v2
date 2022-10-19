@@ -147,7 +147,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trippable: 1
+  throwable: 1
+  expands: 0
   body: {fileID: 0}
   myCollider: {fileID: 0}
   thrown: 0
   grounded: 0
+  growSpeed: 0
+  parentObstacle: {fileID: 0}
+  originalScale: {x: 0, y: 0, z: 0}
+  growing: 0

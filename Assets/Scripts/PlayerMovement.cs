@@ -193,7 +193,7 @@ public class PlayerMovement : Character
         } else if ( collision.gameObject.tag == "Projectiles" ) {
             Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
 
-            if(!hitProj.grounded && hitProj.thrown && !hitProj.trippable) {
+            if((!hitProj.grounded && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
                 Die(); 
             } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
                 hitProj.myCollider.enabled = false;

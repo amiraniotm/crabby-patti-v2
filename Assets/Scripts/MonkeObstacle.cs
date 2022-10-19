@@ -6,19 +6,8 @@ public class MonkeObstacle : Obstacle
 {
     [SerializeField] private float throwMg;
 
-    private ObjectPool projectilePool;
-    private GameObject player;
     private GameObject currentProjectile;
-    private Vector3 playerPos;
     private Projectile projScript;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        projectilePool = GameObject.FindGameObjectWithTag("ProjectilePool").GetComponent<ObjectPool>();
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
 
     protected override void Move()
     {

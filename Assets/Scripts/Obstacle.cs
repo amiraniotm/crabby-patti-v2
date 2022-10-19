@@ -4,13 +4,18 @@ using UnityEngine;
 
 public abstract class Obstacle : MonoBehaviour
 {
-    [SerializeField] protected float moveSpeed, maxMoveTime, aimingTime;
+    [SerializeField] public float moveSpeed;
+    [SerializeField] protected float maxMoveTime, aimingTime;
     [SerializeField] protected int maxAttacks;
     [SerializeField] public bool isSided;
-
+    [SerializeField] protected float attackChance, leaveChance;
+    
+    protected ObjectPool projectilePool;
     protected CameraMovement mainCamera;
     protected MapDisplacementController mapDisController;
     protected Renderer mainRenderer; 
+    protected Vector3 playerPos;
+    protected GameObject player;
     public string side = "left";
     protected float moveCount, aimCount;
     protected bool doAttack, attacking, doMove, moving, attackSet;
@@ -22,6 +27,8 @@ public abstract class Obstacle : MonoBehaviour
         mainRenderer = GetComponent<Renderer>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
         mapDisController = GameObject.FindGameObjectWithTag("DisplacementController").GetComponent<MapDisplacementController>();
+        projectilePool = GameObject.FindGameObjectWithTag("ProjectilePool").GetComponent<ObjectPool>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public virtual void SetSide()
@@ -61,12 +68,12 @@ public abstract class Obstacle : MonoBehaviour
         int rand = Random.Range(0,100);
 
         if(action == "attack") {
-            doAttack = rand > 50;
+            doAttack = rand < attackChance;
+            doMove = !doAttack;
         } else if(action == "leave") {
-            doLeave = rand > 50;
-        }
-        
-        doMove = rand <= 50;
+            doLeave = rand < leaveChance;
+            doMove = !doLeave;            
+        }   
     }
 
     protected virtual void ResetMoveProps()
