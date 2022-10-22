@@ -16,6 +16,8 @@ public abstract class Obstacle : MonoBehaviour
     protected Renderer mainRenderer; 
     protected Vector3 playerPos;
     protected GameObject player;
+    protected Vector3 originalScale;
+    protected ScreenWrap screenWrap;
     public string side = "left";
     protected float moveCount, aimCount;
     protected bool doAttack, attacking, doMove, moving, attackSet;
@@ -29,6 +31,8 @@ public abstract class Obstacle : MonoBehaviour
         mapDisController = GameObject.FindGameObjectWithTag("DisplacementController").GetComponent<MapDisplacementController>();
         projectilePool = GameObject.FindGameObjectWithTag("ProjectilePool").GetComponent<ObjectPool>();
         player = GameObject.FindGameObjectWithTag("Player");
+        originalScale = transform.localScale;
+        screenWrap = GetComponent<ScreenWrap>();
     }
 
     public virtual void SetSide()
@@ -93,7 +97,33 @@ public abstract class Obstacle : MonoBehaviour
 
     public abstract void AdjustPosToSide();
 
-    protected abstract void Move();
+    protected virtual void Move()
+    {
+        moving = true; 
+
+        float nextY = transform.position.y + (moveSpeed * Time.deltaTime);
+
+        Vector3 lowerCorner = mainCamera.GetCurrentCorner("lowerleft");
+        Vector3 upperCorner = mainCamera.GetCurrentCorner("upperright");
+
+        if(nextY + (mainRenderer.bounds.size.y / 2) > (upperCorner.y) ||
+            nextY - (mainRenderer.bounds.size.y / 2) < (lowerCorner.y)) {
+                moveSpeed *= -1;
+            }
+
+        Vector3 newPos = new Vector3(transform.position.x,
+                                    transform.position.y + (moveSpeed * Time.deltaTime),
+                                    transform.position.z);
+
+        transform.position = newPos;
+
+        moveCount += Time.deltaTime;
+
+        if(moveCount >= maxMoveTime) {
+            moveCount = 0;
+            ResetMoveProps();
+        }
+    }
 
     protected abstract void OnTriggerEnter2D(Collider2D otherCollider);
 

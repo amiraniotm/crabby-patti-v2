@@ -1346,6 +1346,7 @@ MonoBehaviour:
   - {fileID: 7999476940603648421, guid: 5c71f917087a0a2dc8436e41a38ed5b4, type: 3}
   - {fileID: 8086462200004521887, guid: 81f8d4119545612e78cdcb4b2d287369, type: 3}
   - {fileID: 8881931755443490184, guid: eb92fb44b1e28f4d9a9f8ef36b836c0d, type: 3}
+  - {fileID: 8086462200004521887, guid: 7f192e7304a50aa599c86f2ed0642d28, type: 3}
   objectsToPool: 4
 --- !u!1 &435796125
 GameObject:
@@ -10191,6 +10192,7 @@ MonoBehaviour:
   - {fileID: 6663677110472072382, guid: 8ee35922a18c14e67bb6763167e9736e, type: 3}
   - {fileID: 8637420521858045061, guid: af5636b5499c8f3f7b98e2d6f29eb145, type: 3}
   - {fileID: 2517605933339128684, guid: c9e34405bdebcfe1a93359c82745f283, type: 3}
+  - {fileID: 2517605933339128684, guid: 3eea017ec3cbaa25196650c943c2f8e2, type: 3}
   objectsToPool: 6
 --- !u!4 &1925931139
 Transform:

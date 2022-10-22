@@ -2225,7 +2225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 12
-  panMultiplier: 20
+  panMultiplier: 6
   masterController: {fileID: 1993788447}
   currentPanTime: 0
   screenWidth: 0

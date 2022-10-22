@@ -176,38 +176,39 @@ public class PlayerMovement : Character
     {
         base.OnCollisionEnter2D(collision);
         
-        if( collision.gameObject.tag == "Enemies" ) {
-            Enemy collidingEnemy = collision.gameObject.GetComponent<Enemy>();
-            masterController.soundController.PlaySound(enemyCollisionSound, 0.4f);
+        if(!spawning) {
+            if( collision.gameObject.tag == "Enemies" ) {
+                Enemy collidingEnemy = collision.gameObject.GetComponent<Enemy>();
+                masterController.soundController.PlaySound(enemyCollisionSound, 0.4f);
 
-            if(collidingEnemy.flippedVertical) {
-                KillEnemy(collidingEnemy);
-                Kick();
-            }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
-                if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
-                    inventory.currentItem.UseEffect();
-                } else {
-                    Die();
+                if(collidingEnemy.flippedVertical) {
+                    KillEnemy(collidingEnemy);
+                    Kick();
+                }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
+                    if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
+                        inventory.currentItem.UseEffect();
+                    } else {
+                        Die();
+                    }
                 }
-            }
-        } else if ( collision.gameObject.tag == "Projectiles" ) {
-            Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
+            } else if ( collision.gameObject.tag == "Projectiles" ) {
+                Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
 
-            if((!hitProj.grounded && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
+                if((!hitProj.grounded && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
+                    Die(); 
+                } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
+                    hitProj.myCollider.enabled = false;
+                    tripped = true;
+                    StartCoroutine(UntripCoroutine());  
+                } else {    
+                    hitProj.grounded = false;
+                    hitProj.body.velocity = body.velocity;
+                    Kick();
+                }
+            } else if ( collision.gameObject.tag == "Waves" ) {
                 Die(); 
-            } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
-                hitProj.myCollider.enabled = false;
-                tripped = true;
-                StartCoroutine(UntripCoroutine());  
-            } else {    
-                hitProj.grounded = false;
-                hitProj.body.velocity = body.velocity;
-                Kick();
-            }
-
-        } else if ( collision.gameObject.tag == "Waves" ) {
-            Die(); 
-        } 
+            } 
+        }
     }
 
     public void KillEnemy(Enemy enemy)

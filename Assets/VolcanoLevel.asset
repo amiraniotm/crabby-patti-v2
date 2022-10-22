@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: volcano
   levelTime: 75
-  levelPhases: 3
+  levelPhases: 2
   maxObstacles: 1
   obstacleName: LavaObstacle
-  enemyCount: 000000000300000003000000
+  enemyCount: 00000000

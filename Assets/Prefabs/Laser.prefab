@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7408558093742573519}
   - component: {fileID: -7131675402705391556}
   m_Layer: 4
-  m_Name: LavaPillar
+  m_Name: Laser
   m_TagString: Projectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2517605933339128684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.7, y: -12.16, z: 0}
-  m_LocalScale: {x: 2.9703562, y: 1.8927, z: 1.8927}
+  m_LocalScale: {x: 73.905754, y: 3.3569078, z: 1.8927}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -130,7 +130,6 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   thrown: 0
   grounded: 0
-  growSpeed: 0
   parentObstacle: {fileID: 0}
   originalScale: {x: 0, y: 0, z: 0}
   growing: 0

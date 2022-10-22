@@ -9,34 +9,6 @@ public class MonkeObstacle : Obstacle
     private GameObject currentProjectile;
     private Projectile projScript;
 
-    protected override void Move()
-    {
-        moving = true; 
-
-        float nextY = transform.position.y + (moveSpeed * Time.deltaTime);
-
-        Vector3 lowerCorner = mainCamera.GetCurrentCorner("lowerleft");
-        Vector3 upperCorner = mainCamera.GetCurrentCorner("upperright");
-
-        if(nextY + (mainRenderer.bounds.size.y / 2) > (upperCorner.y) ||
-            nextY - (mainRenderer.bounds.size.y / 2) < (lowerCorner.y)) {
-                moveSpeed *= -1;
-            }
-
-        Vector3 newPos = new Vector3(transform.position.x,
-                                    transform.position.y + (moveSpeed * Time.deltaTime),
-                                    transform.position.z);
-
-        transform.position = newPos;
-
-        moveCount += Time.deltaTime;
-
-        if(moveCount >= maxMoveTime) {
-            moveCount = 0;
-            ResetMoveProps();
-        }
-    }
-
     protected override void Attack()
     {
         attacking = true;
@@ -48,14 +20,7 @@ public class MonkeObstacle : Obstacle
         if (aimCount > (2 * aimingTime / 3) && !attackSet) {
             AttackOrSlack();
         } else if(aimCount >= aimingTime) {
-            attackCount += 1;
-            Vector3 adjForce = throwMg * (playerPos - transform.position); 
-            Rigidbody2D projBody = currentProjectile.GetComponent<Rigidbody2D>();
-            projScript.thrown = true;
-            projBody.AddForce(adjForce, ForceMode2D.Impulse);
-            attackSet = false;            
-            aimCount = 0;
-            ResetMoveProps();
+            ThrowAttack();
         }     
     }
 
@@ -131,6 +96,18 @@ public class MonkeObstacle : Obstacle
 
             player.Kick(); 
         }
+    }
+
+    protected void ThrowAttack()
+    {
+        attackCount += 1;
+        Vector3 adjForce = throwMg * (playerPos - transform.position); 
+        Rigidbody2D projBody = currentProjectile.GetComponent<Rigidbody2D>();
+        projScript.thrown = true;
+        projBody.AddForce(adjForce, ForceMode2D.Impulse);
+        attackSet = false;            
+        aimCount = 0;
+        ResetMoveProps();
     }
 
     protected override IEnumerator LeavingCoroutine()

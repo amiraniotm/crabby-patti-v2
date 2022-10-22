@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: city
   levelTime: 90
-  levelPhases: 3
+  levelPhases: 2
   maxObstacles: 3
-  obstacleName: Lava
-  enemyCount: 
+  obstacleName: LaserObstacle
+  enemyCount: 000000000000000000000000

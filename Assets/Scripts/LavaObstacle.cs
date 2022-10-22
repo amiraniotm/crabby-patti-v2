@@ -7,17 +7,7 @@ public class LavaObstacle : Obstacle
 {
     [SerializeField] protected int maxPillars;
 
-    protected Vector3 originalScale;
-    protected ScreenWrap screenWrap;
     protected int pillarNumber;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        originalScale = transform.localScale;
-        screenWrap = GetComponent<ScreenWrap>();
-    }
     
     protected override void Attack()
     {
@@ -114,8 +104,7 @@ public class LavaObstacle : Obstacle
             newPillar.transform.position = new Vector3(newPillarX, transform.position.y, transform.position.z);
             newPillar.SetActive(true);
 
-            float gTime = UnityEngine.Random.Range(1, 3);
-            StartCoroutine(GrowPillarCoroutine(pillarProj, gTime));
+            pillarProj.StartGrowing();
         }
     }
 
@@ -137,21 +126,5 @@ public class LavaObstacle : Obstacle
         Leave();
     }
 
-    protected IEnumerator GrowPillarCoroutine(Projectile pillar, float growthTime)
-    {
-        yield return new WaitForSeconds(growthTime);
-
-        pillar.growing = true;
-        
-        StartCoroutine(StopPillarGrowth(pillar, growthTime));
-    }
-
-    protected IEnumerator StopPillarGrowth(Projectile pillar, float growthTime)
-    {
-        yield return new WaitForSeconds(growthTime);
-
-        pillar.growing = false;
-        pillar.gameObject.transform.localScale = pillar.originalScale;
-        pillar.gameObject.SetActive(false);
-    }
+    
 }

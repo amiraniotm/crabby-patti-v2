@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelType: beach
   levelTime: 50
-  levelPhases: 1
+  levelPhases: 2
   maxObstacles: 3
   obstacleName: MercMonke
   enemyCount: 00000000

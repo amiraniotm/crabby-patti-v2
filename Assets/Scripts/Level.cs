@@ -51,8 +51,8 @@ public class Level : ScriptableObject
                 levelEnemies[i]["Icey"] = 0;
                 levelEnemies[i]["Gooey"] = 0;
             } else if(levelType == "city") {
-                levelEnemies[i]["Crabcatcher"] = 2;
-                levelEnemies[i]["CrabcatcherPlus"] = 3;
+                levelEnemies[i]["Crabcatcher"] = 1;
+                levelEnemies[i]["CrabcatcherPlus"] = 0;
                 levelEnemies[i]["ReptAgent"] = 0;
                 levelEnemies[i]["ReptBaby"] = 0;
                 levelEnemies[i]["Flamey"] = 0;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2517605933339128684
+--- !u!1 &8086462200004521887
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8519625617707427277}
-  - component: {fileID: 7079353541870036721}
-  - component: {fileID: 7408558093742573519}
-  - component: {fileID: -7131675402705391556}
+  - component: {fileID: 8086462200004521874}
+  - component: {fileID: 8086462200004521873}
+  - component: {fileID: 8086462200004521876}
+  - component: {fileID: -8576371938967260432}
+  - component: {fileID: -1049646140220451072}
   m_Layer: 4
-  m_Name: LavaPillar
-  m_TagString: Projectiles
+  m_Name: LaserObstacle
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8519625617707427277
+--- !u!4 &8086462200004521874
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517605933339128684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.7, y: -12.16, z: 0}
-  m_LocalScale: {x: 2.9703562, y: 1.8927, z: 1.8927}
+  m_GameObject: {fileID: 8086462200004521887}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.21, y: -14.27002, z: -3.7}
+  m_LocalScale: {x: 1.7006098, y: 4.2037473, z: 1.6074884}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7079353541870036721
+--- !u!212 &8086462200004521873
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517605933339128684}
+  m_GameObject: {fileID: 8086462200004521887}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -86,17 +87,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7408558093742573519
+--- !u!61 &8086462200004521876
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517605933339128684}
+  m_GameObject: {fileID: 8086462200004521887}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -112,25 +113,44 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-7131675402705391556
+--- !u!114 &-8576371938967260432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517605933339128684}
+  m_GameObject: {fileID: 8086462200004521887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc765bb551b4d1e6e8ce69adabf82546, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a7ea302fe815be918e3eb700fbefb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trippable: 0
-  throwable: 0
-  body: {fileID: 0}
-  myCollider: {fileID: 0}
-  thrown: 0
-  grounded: 0
-  growSpeed: 0
-  parentObstacle: {fileID: 0}
-  originalScale: {x: 0, y: 0, z: 0}
-  growing: 0
+  GhostPrefab: {fileID: 2496966096221258697, guid: cd6393f0742eb87118c1a8ef95e4973c, type: 3}
+  hasGhosts: 0
+  autoLeave: 1
+  isVisible: 1
+  screenWidth: 0
+  screenHeight: 0
+--- !u!114 &-1049646140220451072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8086462200004521887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac90e2ac708073d508df5fc8c27ed22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 8
+  maxMoveTime: 5
+  aimingTime: 2
+  maxAttacks: 4
+  isSided: 1
+  attackChance: 60
+  leaveChance: 60
+  side: left
+  leaving: 0
+  forceLeave: 0
+  doLeave: 0
