@@ -2225,7 +2225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 12
-  panMultiplier: 6
+  panMultiplier: 2
   masterController: {fileID: 1993788447}
   currentPanTime: 0
   screenWidth: 0
@@ -5862,12 +5862,13 @@ MonoBehaviour:
   gameOver: 0
   timeUp: 0
   scrollPhase: 0
+  startingDisplacement: 0
+  bossPhase: 0
   currentLevelKey: 0
   currentPhaseKey: 0
   livesCount: 3
   pointsCount: 0
   timeCount: 0
-  startingDisplacement: 0
 --- !u!4 &1993788448
 Transform:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class PauseController : MonoBehaviour
                 Time.timeScale = 0;
                 gamePaused = true;
             } else {
-                itemController.StartItems(2.0f);
+                //itemController.StartItems(2.0f);
                 levelDisplay.HidePause();
                 soundController.UnPauseMusic();
                 Time.timeScale = 1;

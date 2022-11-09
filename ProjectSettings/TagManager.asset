@@ -32,6 +32,9 @@ TagManager:
   - ProjectilePool
   - Obstacles
   - Waves
+  - Bosses
+  - TopArea
+  - MidArea
   layers:
   - Default
   - TransparentFX

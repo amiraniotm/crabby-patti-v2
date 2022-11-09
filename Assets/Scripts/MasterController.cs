@@ -23,20 +23,11 @@ public class MasterController : MonoBehaviour
     public SpriteRenderer backgroundRenderer;
     private MapDisplacementController mapDisController;
 
-    public bool changingLevel = false;
-    public bool levelStarted;
-    public bool gameOver = false;
-    public bool timeUp = false;
-    public bool scrollPhase = false;
-    public int currentLevelKey;
-    public int currentPhaseKey;
-    public int livesCount = 1;
-    public int pointsCount = 0;    
+    public bool changingLevel, levelStarted, gameOver, timeUp, scrollPhase, startingDisplacement, bossPhase;
+    public int currentLevelKey, currentPhaseKey, livesCount = 1, pointsCount = 0;    
     private int levelTransitionTime = 1;
-    private float phaseChangeDuration = 1.5f;    
-    private float phaseChangeTimer;
+    private float phaseChangeDuration = 1.5f, phaseChangeTimer;
     public float timeCount;
-    public bool startingDisplacement;
 
     private void Awake()
     {
@@ -212,12 +203,21 @@ public class MasterController : MonoBehaviour
     public void EndScrollPhase()
     {
         scrollPhase = false;
-        itemController.StartItems(5.0f);
+        //itemController.StartItems(5.0f);
         levelDisplay.timePanel.SetActive(true);
         //EXTRA TIME PER PHASE
         timeCount += 30;
+
+        if(currentPhaseKey == currentLevel.levelPhases) {
+            bossPhase = true;
+            enemyCounter.SpawnBoss();
+        }
+
         mapDisController.EndDisplacement();
-        enemyCounter.Start();
+        
+        if(!bossPhase) {
+            enemyCounter.Start();
+        }
 
         Time.timeScale = 0;
         phaseChangeTimer = phaseChangeDuration;

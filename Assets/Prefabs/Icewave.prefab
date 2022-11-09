@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1352143885917667048}
   - component: {fileID: 31663646}
   - component: {fileID: 180128466074761918}
+  - component: {fileID: -916160495784223684}
   m_Layer: 6
   m_Name: Icewave
   m_TagString: Waves
@@ -168,5 +169,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elementTile: {fileID: 11400000, guid: 431eb139001b5b2d6a5c26b4f5c516b0, type: 2}
-  direction: right
+  edgeChecker: {fileID: 0}
   status: 
+--- !u!114 &-916160495784223684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352143885917667049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9491858ebaff2649867110d78565ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastXGap: 0.1
+  raycastYMod: 2
+  frontRaycastOrigin: {x: 0, y: 0}
+  backRaycastOrigin: {x: 0, y: 0}
+  raycastDirection: {x: 0, y: 0}
+  frontFace: 0
+  backFace: 0
+  raycastMaxDistance: 0
+  direction: right
+  platChecked: 0

@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyCounter : MonoBehaviour
 {
     [SerializeField] public SpawnPoint[] spawnPoints;
-    
+    [SerializeField] public GameObject[] availableBosses; 
     
     private Level currentLevel;
-    private int currentPhase;
     public MasterController masterController;
     public List<GameObject> currentEnemies = new List<GameObject>();
 
+    private int currentPhase;
     public float spawnInterval = 2.5f;
     public bool stillSpawing;
 
@@ -73,6 +73,14 @@ public class EnemyCounter : MonoBehaviour
                 enemyScript.FlipVertical();
             }
         }
+    }
+
+    public void SpawnBoss()
+    {
+        int bossKey = masterController.currentLevelKey - 1;
+        GameObject currentBoss = availableBosses[bossKey];
+
+        currentBoss.SetActive(true); 
     }
 
 }

@@ -31,13 +31,6 @@ public class Enemy : Character
     
     public SpawnPoint spawnPoint;
     
-    new protected void Awake()
-    {
-        base.Awake();
-
-        collider = GetComponent<BoxCollider2D>();
-    }
-
     public void Start()
     {      
         enemyCounter = GameObject.FindGameObjectWithTag("EnemyCounter").GetComponent<EnemyCounter>();
@@ -87,7 +80,7 @@ public class Enemy : Character
             body.gravityScale = 10.0f;
         }
 
-        if(!screenWrapScript.isVisible && onGround){
+        if(!screenWrap.isVisible && onGround){
             Respawn();
         }
 
@@ -132,7 +125,6 @@ public class Enemy : Character
     protected void Respawn()
     {
         transform.position = originPosition;
-        onGround = false;
         
         Hold();
 

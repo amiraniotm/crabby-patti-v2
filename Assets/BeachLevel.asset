@@ -17,4 +17,5 @@ MonoBehaviour:
   levelPhases: 2
   maxObstacles: 3
   obstacleName: MercMonke
+  bossName: MercGorilla
   enemyCount: 00000000

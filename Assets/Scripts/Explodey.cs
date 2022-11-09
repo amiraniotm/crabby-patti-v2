@@ -51,7 +51,7 @@ public class Explodey : Enemy
         GameObject waveR = Instantiate(projectile, transform.position, Quaternion.identity);
         GameObject waveL = Instantiate(projectile, transform.position, Quaternion.identity);
         ElementWave waveScript = waveL.GetComponent<ElementWave>();
-        waveScript.direction = "left";
+        waveScript.edgeChecker.direction = "left";
         base.Vanish();
     }
 

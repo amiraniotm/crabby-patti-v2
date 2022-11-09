@@ -40,7 +40,6 @@ public class PlayerMovement : Character
         base.Awake();
 
         spawnPlatform = spawnPlatformObject.GetComponent<PlayerSpawnPlatform>();
-        collider = GetComponent<BoxCollider2D>();
         inventory = GetComponent<Inventory>();
         startPosition = transform.position;
     }
@@ -119,7 +118,7 @@ public class PlayerMovement : Character
 
     protected void CheckRespawnCondition()
     {
-        if(!screenWrapScript.isVisible && isDead){
+        if(!screenWrap.isVisible && isDead){
             masterController.PlayerDied();
             PlayerSpawn();
 
@@ -289,7 +288,7 @@ public class PlayerMovement : Character
         StartCoroutine(SpawnPlatformCoroutine());
     }
 
-    private void OnTriggerEnter2D(Collider2D otherCollider)
+    private new void OnTriggerEnter2D(Collider2D otherCollider)
     {
         if(otherCollider.gameObject.tag == "PlayArea") {
             int defaultLayer = LayerMask.NameToLayer("Default"); 

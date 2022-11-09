@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapDisplacementController : MonoBehaviour
 {
     [SerializeField] private GameObject[] stageObjects;
-    [SerializeField] private GameObject wallObject, spawnPlatObject,platPrefab,entryPoint;
+    [SerializeField] private GameObject wallObject, spawnPlatObject, platPrefab, entryPoint;
     [SerializeField] private PlayerMovement player;
     [SerializeField] private float spawnInterval, obstacleChance;
     [SerializeField] private ObjectPool displacementPool;
@@ -185,7 +185,7 @@ public class MapDisplacementController : MonoBehaviour
         mainCamera.SetInitialShakePos();
 
         foreach(GameObject stageObj in stageObjects) {
-            if(stageObj.tag != "Platforms" && stageObj.tag != "PlayArea") {
+            if(stageObj.tag != "SpawnPoint" && stageObj.tag != "PowBlock") {
                 stageObj.SetActive(true);
             }
         }

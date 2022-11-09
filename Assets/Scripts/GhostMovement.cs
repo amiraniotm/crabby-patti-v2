@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostMovement : MonoBehaviour
 {
     public GameObject originalObject;
-    public ScreenWrap screenWrapScript;
+    public ScreenWrap screenWrap;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer originalSpriteRenderer;
     public Character originalObjectScript;
@@ -36,9 +36,9 @@ public class GhostMovement : MonoBehaviour
 
         if(!originalObjectScript.onGround) {
             if(transform.position.x > originalObject.transform.position.x){
-                newPosition.x = originalObject.transform.position.x + screenWrapScript.screenWidth;
+                newPosition.x = originalObject.transform.position.x + screenWrap.screenWidth;
             } else if(transform.position.x < originalObject.transform.position.x){
-                newPosition.x = originalObject.transform.position.x - screenWrapScript.screenWidth;
+                newPosition.x = originalObject.transform.position.x - screenWrap.screenWidth;
             }
         
             newPosition.y = originalObject.transform.position.y;

@@ -7,7 +7,7 @@ public class ScreenWrap : MonoBehaviour
     [SerializeField] private Transform GhostPrefab;
     [SerializeField] private bool hasGhosts, autoLeave;
 
-    public bool isVisible = true;
+    public bool isVisible = false;
     protected Camera cam;
     protected Renderer[] renderers;
     protected Transform[] ghosts = new Transform[2];
@@ -38,6 +38,8 @@ public class ScreenWrap : MonoBehaviour
 
     void Update()
     {
+        isVisible = CheckRenderers();
+
         if(characterScript == null || !characterScript.spawning) {
             CheckScreenWrap();
         }
@@ -45,8 +47,6 @@ public class ScreenWrap : MonoBehaviour
 
     protected void CheckScreenWrap()
     {
-        isVisible = CheckRenderers();
-
         if(!isVisible){
             if(characterScript != null && characterScript.isDead && gameObject.tag == "Enemies") {
                 characterScript.enemyCounter.currentEnemies.Remove(gameObject);
@@ -55,7 +55,7 @@ public class ScreenWrap : MonoBehaviour
             } else if(gameObject.transform.position.y < (cam.gameObject.transform.position.y - (screenHeight / 2)) && gameObject.tag == "Player") {
                 PlayerMovement playerScript = GetComponent<PlayerMovement>();
                 playerScript.Die();
-            } else if(characterScript!= null && !characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
+            } else if(characterScript != null && !characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
                 if(hasGhosts) {
                     GhostSwap();
                 }
@@ -88,7 +88,7 @@ public class ScreenWrap : MonoBehaviour
             ghosts[i] = Instantiate(GhostPrefab, transform.position, Quaternion.identity);
             GhostMovement newGhost = ghosts[i].GetComponent<GhostMovement>();
             newGhost.originalObject = gameObject;
-            newGhost.screenWrapScript = this;
+            newGhost.screenWrap = this;
         }
 
         PositionGhosts();

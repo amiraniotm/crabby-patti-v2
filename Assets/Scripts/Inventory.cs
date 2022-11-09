@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
     public void LoseItem()
     {
         if(currentItem != null) {
-            Destroy(currentItem.gameObject);
+            currentItem.gameObject.SetActive(false);
         }
     }
 }

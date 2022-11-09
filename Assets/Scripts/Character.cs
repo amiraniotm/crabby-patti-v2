@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     protected Animator animator;
     protected Renderer mainRenderer;
     protected SpriteRenderer spriteRenderer;
-    protected ScreenWrap screenWrapScript;
+    protected ScreenWrap screenWrap;
     protected float adjustedJumpSpeed;
     public MasterController masterController;
     public Vector2 originPosition;
@@ -26,7 +26,7 @@ public class Character : MonoBehaviour
     public bool spawned = false;
     protected float currentJumpSpeed = 0.0f;
     
-    public bool onGround = false;
+    public bool onGround = false, onTop = false, onMid = false;
     public bool spawning = true;
     new public BoxCollider2D collider; 
     public Rigidbody2D body;  
@@ -35,12 +35,14 @@ public class Character : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        screenWrapScript = GetComponent<ScreenWrap>();
-        platforms = GameObject.FindGameObjectWithTag("Platforms").GetComponent<PlatformCollision>();
-        adjustedJumpSpeed = topJumpSpeed;
+        screenWrap = GetComponent<ScreenWrap>();
         mainRenderer = GetComponent<Renderer>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        platforms = GameObject.FindGameObjectWithTag("Platforms").GetComponent<PlatformCollision>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
+        collider = GetComponent<BoxCollider2D>();
+        
+        adjustedJumpSpeed = topJumpSpeed;
     }
 
     protected void Jump()
@@ -69,10 +71,41 @@ public class Character : MonoBehaviour
     
     protected void OnCollisionExit2D(Collision2D collision) 
     {
-        if(collision.gameObject.tag == "Platforms" || collision.gameObject.tag == "SpawnPlatform")
+        if(collision.gameObject.tag == "Platforms" || collision.gameObject.tag == "SpawnPlatform") {
             grounded = false;    
+        }
     }
 
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if(otherCollider.gameObject.tag == "Ground" && gameObject.tag != "Player") {
+            onGround = true;
+        }
+
+        if(otherCollider.gameObject.tag == "TopArea") {
+            onTop = true;
+        }
+
+        if(otherCollider.gameObject.tag == "MidArea") {
+            onMid = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D otherCollider) 
+    {
+        if(otherCollider.gameObject.tag == "Ground" && gameObject.tag != "Player") {
+            onGround = false;
+        }
+
+        if(otherCollider.gameObject.tag == "TopArea") {
+            onTop = false;
+        }   
+
+        if(otherCollider.gameObject.tag == "MidArea") {
+            onMid = false;
+        }
+    }
+    
     protected void Stop()
     {
         body.velocity = new Vector2(0, body.velocity.y);

@@ -8,13 +8,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] public bool trippable;
     [SerializeField] public bool throwable;
 
+    private PlayerMovement player;
+    private float distToPlayer;
+
     public Rigidbody2D body;
     public BoxCollider2D myCollider;
     public Renderer mainRenderer;
-    public bool thrown, grounded;
+    public bool thrown, grounded, growing, telegraphed;
     public Obstacle parentObstacle;
     public Vector3 originalScale;
-    public bool growing;
 
     protected void Awake()
     {
@@ -22,13 +24,21 @@ public class Projectile : MonoBehaviour
         myCollider = GetComponent<BoxCollider2D>();
         originalScale = transform.localScale;
         mainRenderer = GetComponent<Renderer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     protected void Update()
     {
         if (throwable) {
+            distToPlayer = Vector3.Distance(player.transform.position, transform.position);
+
             if(thrown) {
                 body.gravityScale = 5.0f;
+                Debug.Log(distToPlayer);
+                if(telegraphed && distToPlayer < 0.5f) {
+                    Debug.Log("ACTIVATE");
+                    myCollider.enabled = true;
+                }
             } else {
                 body.gravityScale = 0.0f;
             }
@@ -49,12 +59,16 @@ public class Projectile : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D other)
     {
-        if (throwable && other.gameObject.tag == "FloatingPlatform") {
+        if (throwable && (other.gameObject.tag == "FloatingPlatform" || other.gameObject.tag == "Platforms")) {
             HittableBlock platHit = other.gameObject.GetComponent<HittableBlock>(); 
             string collSide = platHit.DetectCollisionDirection(other);
 
             if(collSide == "upper") {
                 grounded = true;
+
+                if(trippable) {
+                    StartCoroutine(VanishCoroutine());
+                }
             }
         }
     }
@@ -76,6 +90,11 @@ public class Projectile : MonoBehaviour
     public void StartFading()
     {
         StartCoroutine(YFadeCoroutine());
+    }
+
+    public void SetCollider()
+    {
+        StartCoroutine(ColliderOnCoroutine());
     }
 
     protected IEnumerator GrowPillarCoroutine(float growthTime)
@@ -110,4 +129,18 @@ public class Projectile : MonoBehaviour
         gameObject.transform.localScale = originalScale;
         gameObject.SetActive(false);
     }
+
+    protected IEnumerator VanishCoroutine()
+    {
+        yield return new WaitForSeconds(5);
+
+        gameObject.SetActive(false);
+    } 
+
+    protected IEnumerator ColliderOnCoroutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        myCollider.enabled = true;
+    }  
 }

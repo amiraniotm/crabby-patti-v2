@@ -35,7 +35,7 @@ public class ItemController : MonoBehaviour
         itemWeights.Add("HardShell", 50);
         itemWeights.Add("BoomerangPincer", 40);
 
-        StartItems(5.0f);
+        //StartItems(5.0f);
     }
 
     private void SpawnItem()

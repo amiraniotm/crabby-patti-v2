@@ -7,20 +7,17 @@ using UnityEngine.Tilemaps;
 public class PlatformCollision : HittableBlock
 {
     private Tilemap tilemap;
-    private GridLayout gridLayout;
     private TileManager tileManager;
 
     private void Awake()
     {
         tilemap = GetComponent<Tilemap>();
-        gridLayout = GetComponentInParent<GridLayout>();
         tileManager = GameObject.Find("TileManager").GetComponent<TileManager>();
     }
 
     private void FlipTiles(Collision2D collision)
     {
-        tileManager.FlipEnemies(collision);
-        
+        tileManager.FlipEnemies(collision);      
     }
 
     private void OnCollisionEnter2D(Collision2D collision) 

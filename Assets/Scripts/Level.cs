@@ -9,7 +9,7 @@ public class Level : ScriptableObject
     [SerializeField] public string levelType; 
     [SerializeField] public float levelTime;
     [SerializeField] public int levelPhases, maxObstacles;
-    [SerializeField] public string obstacleName;
+    [SerializeField] public string obstacleName, bossName;
 
     public List<Dictionary<string,int>> levelEnemies = new List<Dictionary<string, int>>();
     public List<int> enemyCount = new List<int>();
