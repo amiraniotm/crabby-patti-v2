@@ -149,14 +149,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trippable: 1
   throwable: 1
+  vanishTime: 10
+  boss: {fileID: 0}
   body: {fileID: 0}
   myCollider: {fileID: 0}
   mainRenderer: {fileID: 0}
   thrown: 0
   grounded: 0
+  growing: 0
+  telegraphed: 0
+  deactivated: 0
   parentObstacle: {fileID: 0}
   originalScale: {x: 0, y: 0, z: 0}
-  growing: 0
 --- !u!114 &671127155096991173
 MonoBehaviour:
   m_ObjectHideFlags: 0

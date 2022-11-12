@@ -104,6 +104,7 @@ public class MonkeObstacle : Obstacle
         Vector3 adjForce = throwMg * (playerPos - transform.position); 
         Rigidbody2D projBody = currentProjectile.GetComponent<Rigidbody2D>();
         projScript.thrown = true;
+        projScript.deactivated = false;
         projBody.AddForce(adjForce, ForceMode2D.Impulse);
         attackSet = false;            
         aimCount = 0;

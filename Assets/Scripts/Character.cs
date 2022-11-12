@@ -18,16 +18,10 @@ public class Character : MonoBehaviour
     public MasterController masterController;
     public Vector2 originPosition;
 
-    protected bool canJump;
-    protected bool flippedHorizontal;
-    public bool isDead = false;
-    public bool flippedVertical = false;
-    public bool grounded;
-    public bool spawned = false;
+    protected bool canJump, flippedHorizontal, tripped;
+    public bool isDead = false, flippedVertical = false, grounded, spawned = false, onGround = false, onTop = false, onMid = false, spawning = true;
     protected float currentJumpSpeed = 0.0f;
-    
-    public bool onGround = false, onTop = false, onMid = false;
-    public bool spawning = true;
+
     new public BoxCollider2D collider; 
     public Rigidbody2D body;  
     
@@ -114,6 +108,19 @@ public class Character : MonoBehaviour
     protected void Hold()
     {
         body.velocity = new Vector2(0, 0);
+    }
+
+    protected IEnumerator UntripCoroutine()
+    {
+        float tripCount = 0.5f;
+
+        while(tripCount > 0){
+            tripCount -= Time.deltaTime;
+
+            yield return 0;
+        }
+
+        tripped = false;
     }
 
 }

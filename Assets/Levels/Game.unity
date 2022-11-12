@@ -10671,9 +10671,9 @@ MonoBehaviour:
   body: {fileID: 0}
   maxHitPoints: 5
   leapTime: 1
-  attackTime: 5
+  attackTime: 2
   choiceTime: 0.5
-  attackChance: 65
+  attackChance: 50
   moveChance: 100
   bananaChance: 100
   projPool: {fileID: 1925931138}

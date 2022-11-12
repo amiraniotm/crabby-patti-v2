@@ -7,14 +7,16 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] public bool trippable;
     [SerializeField] public bool throwable;
+    [SerializeField] private float vanishTime;
 
     private PlayerMovement player;
-    private float distToPlayer;
+    public MercGorillaBoss boss;
+    private float distToPlayer, distToBoss;
 
     public Rigidbody2D body;
     public BoxCollider2D myCollider;
     public Renderer mainRenderer;
-    public bool thrown, grounded, growing, telegraphed;
+    public bool thrown, grounded, growing, telegraphed, deactivated;
     public Obstacle parentObstacle;
     public Vector3 originalScale;
 
@@ -32,14 +34,18 @@ public class Projectile : MonoBehaviour
         if (throwable) {
             distToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
+            if(boss) {
+                distToBoss = Vector3.Distance(boss.transform.position, transform.position);
+            }
+
             if(thrown) {
                 body.gravityScale = 5.0f;
-                Debug.Log(distToPlayer);
-                if(telegraphed && distToPlayer < 0.5f) {
-                    Debug.Log("ACTIVATE");
+
+                if((!deactivated && telegraphed && distToPlayer < 5) || (deactivated && distToBoss < 5)) {
                     myCollider.enabled = true;
                 }
             } else {
+                Stop();
                 body.gravityScale = 0.0f;
             }
         }
@@ -65,6 +71,7 @@ public class Projectile : MonoBehaviour
 
             if(collSide == "upper") {
                 grounded = true;
+                deactivated = true;
 
                 if(trippable) {
                     StartCoroutine(VanishCoroutine());
@@ -73,9 +80,16 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if(otherCollider.gameObject.tag == "Ground") {
+            myCollider.enabled = true;
+        }
+    }
+
     protected void Stop()
     {
-        Vector2 newVel = new Vector2( 0.0f, body.velocity.y);
+        Vector2 newVel = new Vector2( 0.0f, 0.0f );
 
         body.velocity = newVel;
     }
@@ -132,7 +146,7 @@ public class Projectile : MonoBehaviour
 
     protected IEnumerator VanishCoroutine()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(vanishTime);
 
         gameObject.SetActive(false);
     } 

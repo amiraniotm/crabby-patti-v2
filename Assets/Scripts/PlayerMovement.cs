@@ -31,7 +31,7 @@ public class PlayerMovement : Character
     private float currentJumpTimer;
     private float upwardGravity = 5.0f;
     private float downwardGravity = 12.0f;
-    private bool onIce, tripped;
+    private bool onIce;
     private PlayerSpawnPlatform spawnPlatform;
     private Inventory inventory; 
 
@@ -193,7 +193,7 @@ public class PlayerMovement : Character
             } else if ( collision.gameObject.tag == "Projectiles" ) {
                 Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
 
-                if((!hitProj.grounded && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
+                if((!hitProj.deactivated && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
                     Die(); 
                 } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
                     hitProj.myCollider.enabled = false;
@@ -201,7 +201,8 @@ public class PlayerMovement : Character
                     StartCoroutine(UntripCoroutine());  
                 } else {    
                     hitProj.grounded = false;
-                    hitProj.body.velocity = body.velocity;
+                    hitProj.myCollider.enabled = false;
+                    hitProj.body.velocity = 3.0f * body.velocity;
                     Kick();
                 }
             } else if ( collision.gameObject.tag == "Waves" ) {
@@ -314,18 +315,4 @@ public class PlayerMovement : Character
             HideRespawnPlatform();
         }
     }
-
-    public IEnumerator UntripCoroutine()
-    {
-        float tripCount = 0.5f;
-
-        while(tripCount > 0){
-            tripCount -= Time.deltaTime;
-
-            yield return 0;
-        }
-
-        tripped = false;
-    }
-
 }

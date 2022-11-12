@@ -15,7 +15,7 @@ public class MercGorillaBoss : Boss
     private EdgeChecker edgeChecker;
     protected CameraMovement mainCamera;
     protected Rigidbody2D currentProjBody;
-    protected Vector3 playerPos;
+    protected Vector3 playerPos, vectToPlayer;
     protected float attackCount, swMult;
 
     new protected void Awake()
@@ -33,6 +33,10 @@ public class MercGorillaBoss : Boss
 
         if(grounded && forceMove) {
             Move();
+        }
+
+        if(tripped) {
+            Hold();
         }
 
         if(!spawned && spawning) {            
@@ -109,47 +113,65 @@ public class MercGorillaBoss : Boss
     protected void SetProjectile(string projName)
     {
         currentProj = projPool.GetPooledObject(projName);
-        currentProj.transform.SetParent(transform.parent);
         projScript = currentProj.GetComponent<Projectile>();
+        currentProj.SetActive(true);
+        projScript.deactivated = false;
+        projScript.grounded = false;
+        projScript.myCollider.enabled = false;
+        currentProj.transform.SetParent(transform.parent);
         currentProj.transform.position = new Vector3(mainRenderer.bounds.center.x, 
                                                     mainRenderer.bounds.max.y, 
                                                     currentProj.transform.position.z);
-        currentProj.SetActive(true);
+        projScript.boss = this;
         projScript.thrown = false;
         currentProj.layer = 0;
-        projScript.myCollider.enabled = false;
         currentProjBody = currentProj.GetComponent<Rigidbody2D>();
     }
 
     protected void Attack()
     {
         attacking = true;
-
         attackCount += Time.deltaTime;
 
-        playerPos = player.transform.position;
-        Vector3 posDif = playerPos - transform.position;
+        SetDistToPlayer();
 
-        if((posDif.x <= 0 && !flippedHorizontal) || (posDif.x > 0 && flippedHorizontal)) {
+        if(attackCount >= attackTime / 3 && !attackSet) {
+            SetProjectile("Coconut");
+            attackSet = true;
+        } else if(attackCount >= attackTime) {
+            ThrowProjectile();
+            attackCount = 0;
+            ResetMoveProps();
+            Invoke("MoveOrAttack", choiceTime);
+        }   
+    }
+
+    private void SetDistToPlayer()
+    {
+        playerPos = player.transform.position;
+        vectToPlayer = playerPos - transform.position;
+
+        if((vectToPlayer.x <= 0 && !flippedHorizontal) || (vectToPlayer.x > 0 && flippedHorizontal)) {
             flippedHorizontal = !flippedHorizontal;
             transform.localScale *= -1;
             walkSpeed *= -1;
             runSpeed *= -1;
         } 
-        
-        if(attackCount >= attackTime / 3 && !attackSet) {
-            SetProjectile("Coconut");
-            attackSet = true;
-        } else if(attackCount >= attackTime) {
-            attackSet = false;
-            Vector3 adjForce = 2.0f * posDif;
-            projScript.telegraphed = true;
-            currentProjBody.AddForce(adjForce, ForceMode2D.Impulse);
-            projScript.thrown = true;
-            attackCount = 0;
-            ResetMoveProps();
-            Invoke("MoveOrAttack", choiceTime);
-        }   
+    }
+
+    private void ThrowProjectile()
+    {
+        attackSet = false;
+        float forceMult = 2.0f;
+        Vector3 adjForce = forceMult * vectToPlayer;
+
+        if(adjForce.magnitude < 35) {
+            forceMult = 4.0f;
+            adjForce = forceMult * vectToPlayer;
+        } 
+        projScript.telegraphed = true;
+        currentProjBody.AddForce(adjForce, ForceMode2D.Impulse);
+        projScript.thrown = true;
     }
 
     protected void Leap()
@@ -168,6 +190,19 @@ public class MercGorillaBoss : Boss
             if(!spawning && spawned && !forceMove) {
                 ResetMoveProps();
                 Invoke("MoveOrAttack", choiceTime);
+            }
+        } else if(collision.gameObject.tag == "Projectiles") {
+            Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
+
+            if(hitProj.grounded) {
+                collision.gameObject.SetActive(false);
+            }    
+
+            if(hitProj.trippable && hitProj.grounded) {
+                tripped = true;
+                StartCoroutine(UntripCoroutine());
+            } else if(!hitProj.trippable && hitProj.deactivated && !hitProj.grounded) {
+                Debug.Log("take damage");
             }
         }
     }

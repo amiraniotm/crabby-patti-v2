@@ -135,7 +135,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &9213420564262868349
 Animator:
   serializedVersion: 4
@@ -170,15 +170,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trippable: 0
   throwable: 1
-  expands: 0
+  boss: {fileID: 0}
   body: {fileID: 0}
   myCollider: {fileID: 0}
+  mainRenderer: {fileID: 0}
   thrown: 0
   grounded: 0
-  growSpeed: 0
+  growing: 0
+  telegraphed: 0
+  deactivated: 0
   parentObstacle: {fileID: 0}
   originalScale: {x: 0, y: 0, z: 0}
-  growing: 0
 --- !u!114 &-3457191902388783759
 MonoBehaviour:
   m_ObjectHideFlags: 0
