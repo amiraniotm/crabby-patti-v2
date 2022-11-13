@@ -30,10 +30,17 @@ public class HardShell : UsableItem
         }
     }
 
+    public override void FinishUse()
+    {
+        onUse = false;
+        gameObject.SetActive(false);
+        StopAllCoroutines();
+    }
+
     protected override IEnumerator UsageCoroutine()
     {
         yield return new WaitForSeconds(useTime);
 
-        gameObject.SetActive(false);
+        FinishUse();
     }
 }

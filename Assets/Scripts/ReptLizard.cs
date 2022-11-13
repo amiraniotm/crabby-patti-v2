@@ -6,7 +6,6 @@ public class ReptLizard : Enemy
 {
     private float runTime = 0.0f;
     private float tripTime = 4.0f;
-    private bool tripped = false;
 
     new private void Awake()
     {

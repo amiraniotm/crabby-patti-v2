@@ -127,13 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: AttackPincer
   player: {fileID: 0}
-  useCounter: 3
+  maxUses: 3
   useTime: 0.3
   hasEffect: 1
   itemType: pincer
   onInventory: 0
   flippedHorizontal: 0
   onUse: 0
+  usesLeft: 0
   playerInventory: {fileID: 0}
 --- !u!95 &8155952653239142891
 Animator:

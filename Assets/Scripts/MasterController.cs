@@ -143,6 +143,7 @@ public class MasterController : MonoBehaviour
                 player.PlayerSpawn();
                 enemyCounter.Start();
                 itemController.FlushItems();
+                itemController.StartItems(5.0f);
             } else {
                 SceneManager.LoadScene(currentLevelKey);
             }
@@ -160,9 +161,10 @@ public class MasterController : MonoBehaviour
     public void CheckEnemies()
     {
         if(enemyCounter.currentEnemies.Count == 0 && !enemyCounter.stillSpawing){
+            itemController.StopItems();
+
             if(currentPhaseKey < currentLevel.levelPhases) {
                 phaseChangeTimer = phaseChangeDuration;
-                itemController.StopItems();
                 levelDisplay.timePanel.SetActive(false);
                 startingDisplacement = true;
                 StartCoroutine(StartDisplacementCoroutine());
@@ -203,7 +205,7 @@ public class MasterController : MonoBehaviour
     public void EndScrollPhase()
     {
         scrollPhase = false;
-        //itemController.StartItems(5.0f);
+        
         levelDisplay.timePanel.SetActive(true);
         //EXTRA TIME PER PHASE
         timeCount += 30;
@@ -211,14 +213,17 @@ public class MasterController : MonoBehaviour
         if(currentPhaseKey == currentLevel.levelPhases) {
             bossPhase = true;
             enemyCounter.SpawnBoss();
+            itemController.SetItemsForBoss(currentLevelKey);
         }
 
         mapDisController.EndDisplacement();
         
         if(!bossPhase) {
             enemyCounter.Start();
+            itemController.FlushItems();
         }
 
+        itemController.StartItems(5.0f);
         Time.timeScale = 0;
         phaseChangeTimer = phaseChangeDuration;
         levelStarted = false;

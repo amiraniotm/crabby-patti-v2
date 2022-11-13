@@ -102,13 +102,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BoomerangPincer
   player: {fileID: 0}
-  useCounter: 2
+  maxUses: 2
   useTime: 2
   hasEffect: 1
   itemType: pincer
   onInventory: 0
   flippedHorizontal: 0
   onUse: 0
+  usesLeft: 0
   playerInventory: {fileID: 0}
 --- !u!61 &1816883248888768577
 BoxCollider2D:

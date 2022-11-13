@@ -23,7 +23,6 @@ public class PlayerMovement : Character
     protected Vector2 raycastOrigin;
     protected Vector2 raycastDirection;
     protected float raycastMaxDistance;
-    protected float adjustedWalkSpeed;
     public bool isJumping;
     protected bool isFalling;
     
@@ -184,17 +183,13 @@ public class PlayerMovement : Character
                     KillEnemy(collidingEnemy);
                     Kick();
                 }else if(!collidingEnemy.flippedVertical && !collidingEnemy.isDead) {
-                    if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
-                        inventory.currentItem.UseEffect();
-                    } else {
-                        Die();
-                    }
+                    CheckForShell();
                 }
             } else if ( collision.gameObject.tag == "Projectiles" ) {
                 Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
 
                 if((!hitProj.deactivated && hitProj.thrown && !hitProj.trippable) || !hitProj.throwable) {
-                    Die(); 
+                    CheckForShell(); 
                 } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
                     hitProj.myCollider.enabled = false;
                     tripped = true;
@@ -202,11 +197,11 @@ public class PlayerMovement : Character
                 } else {    
                     hitProj.grounded = false;
                     hitProj.myCollider.enabled = false;
-                    hitProj.body.velocity = 3.0f * body.velocity;
+                    hitProj.body.velocity = 2.0f * body.velocity;
                     Kick();
                 }
-            } else if ( collision.gameObject.tag == "Waves" ) {
-                Die(); 
+            } else if ( collision.gameObject.tag == "Waves" || collision.gameObject.tag == "Bosses" ) {
+                CheckForShell(); 
             } 
         }
     }
@@ -305,6 +300,15 @@ public class PlayerMovement : Character
     public void Kick()
     {
         animator.SetTrigger("kick");
+    }
+
+    private void CheckForShell()
+    {
+        if(inventory.currentItem != null && inventory.currentItem.itemType == "shell") {
+            inventory.currentItem.UseEffect();
+        } else {
+            Die();
+        }
     }
 
     public IEnumerator SpawnPlatformCoroutine()

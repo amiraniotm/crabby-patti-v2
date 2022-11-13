@@ -139,13 +139,6 @@ public class Enemy : Character
             SlowDown();
         }
 
-    }
-
-    protected void FlipHorizontal()
-    {
-        walkSpeed *= -1;
-        runSpeed *= -1;
-        transform.localScale *= new Vector2(-1,1);
     }   
 
     public virtual void FlipVertical()

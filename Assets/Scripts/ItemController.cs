@@ -8,18 +8,21 @@ public class ItemController : MonoBehaviour
     [SerializeField] private PauseController pauseController;
     [SerializeField] private TileManager tileManager;
     [SerializeField] private LayerMask platformMask;
-    [SerializeField] private string[] itemNames;
+    [SerializeField] private List<string> itemNames = new List<string>();
     [SerializeField] private Inventory playerInventory;
     [SerializeField] private AudioClip itemGotSound, enemyCollisionSound, itemAppearSound;
     [SerializeField] private ObjectPool itemPool;
+    [SerializeField] private float spawnTime;
 
     private BoxCollider2D itemZone;
     private MasterController masterController;
     private Dictionary<string,int> itemWeights = new Dictionary<string, int>();
+    private Dictionary<string,int> originalWeights = new Dictionary<string, int>();
     private Dictionary<string,int> spawnedItems = new Dictionary<string, int>();
-    private float spawnTime = 10.0f;
     
-    public int itemLimit = 5;
+    private int itemLimit = 5;
+    private float originalSpawnTime;
+    private List<string> originalItemNames = new List<string>();
     public GameObject currentItem;
     public Item currentItemScript;
 
@@ -35,46 +38,17 @@ public class ItemController : MonoBehaviour
         itemWeights.Add("HardShell", 50);
         itemWeights.Add("BoomerangPincer", 40);
 
-        //StartItems(5.0f);
+        originalSpawnTime = spawnTime;
+        originalWeights = itemWeights;
+        originalItemNames = itemNames;
+
+        StartItems(5.0f);
     }
 
     private void SpawnItem()
     {    
         if(itemLimit > 0) {
-            bool itemSet = false;
-
-            int itemIndex = GetWeightedRandomItem();
-
-            while(!itemSet){
-                float randomX = Random.Range(itemZone.bounds.min.x, itemZone.bounds.max.x);
-                float randomY = Random.Range(itemZone.bounds.min.y, itemZone.bounds.max.y);
-
-                Vector2 newItemPos = new Vector2(randomX, randomY);
-
-                bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
-
-                if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
-                    currentItem = itemPool.GetPooledObject(itemNames[itemIndex]);
-
-                    if(currentItem != null) {
-                        currentItem.SetActive(true);
-                        currentItem.transform.position = newItemPos;
-                        currentItemScript = currentItem.GetComponent<Item>();
-                        currentItemScript.SetInitialPosition();
-                        masterController.soundController.PlaySound(itemAppearSound, 0.3f);
-                        itemSet = true;
-                        itemLimit -= 1;
-
-                        if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
-                            spawnedItems.Add(currentItemScript.itemName, 1);
-                        } else {
-                            spawnedItems[currentItemScript.itemName] += 1;
-                        }
-
-                        StartCoroutine(currentItemScript.VanishCoroutine());
-                    }
-                }
-            }
+            StartCoroutine(SetNewItemCoroutine());
         }  
     }
 
@@ -113,6 +87,9 @@ public class ItemController : MonoBehaviour
 
     public void FlushItems()
     {
+        itemNames = originalItemNames;
+        spawnTime = originalSpawnTime;
+        itemWeights = originalWeights;
         spawnedItems = new Dictionary<string, int>();
         itemLimit = 5;
     }
@@ -135,5 +112,64 @@ public class ItemController : MonoBehaviour
     public void StopItems()
     {
         CancelInvoke();
+    }
+
+    public void SetItemsForBoss(int levelKey) 
+    {
+        spawnedItems = new Dictionary<string, int>();
+        
+        if(levelKey == 1){
+            itemWeights.Remove("ExtraLife");
+            itemWeights.Remove("ExtraTime");
+            itemNames.Remove("ExtraLife");
+            itemNames.Remove("ExtraTime");
+            itemLimit = 50;
+            spawnTime = 7.0f;
+        }
+    }
+
+    private IEnumerator SetNewItemCoroutine()
+    {
+        int runCount = 0;
+        bool itemSet = false;
+
+        while(!itemSet) {
+            int itemIndex = GetWeightedRandomItem();
+
+            float randomX = Random.Range(itemZone.bounds.min.x, itemZone.bounds.max.x);
+            float randomY = Random.Range(itemZone.bounds.min.y, itemZone.bounds.max.y);
+
+            Vector2 newItemPos = new Vector2(randomX, randomY);
+
+            bool isColliding = Physics.CheckSphere(newItemPos, 4f, platformMask);
+
+            if(itemZone.bounds.Contains(newItemPos) && !isColliding && !tileManager.CheckForTile(newItemPos)) {
+                currentItem = itemPool.GetPooledObject(itemNames[itemIndex]);
+
+                if(currentItem != null) {
+                    currentItem.SetActive(true);
+                    currentItem.transform.position = newItemPos;
+                    currentItemScript = currentItem.GetComponent<Item>();
+                    currentItemScript.SetInitialPosition();
+                    masterController.soundController.PlaySound(itemAppearSound, 0.3f);
+                    itemSet = true;
+                    itemLimit -= 1;
+
+                    if(!spawnedItems.ContainsKey(currentItemScript.itemName)){
+                        spawnedItems.Add(currentItemScript.itemName, 1);
+                    } else {
+                        spawnedItems[currentItemScript.itemName] += 1;
+                    }
+                }
+            }
+
+            runCount += 1;
+
+            if(runCount > 1000) {
+                itemSet = true;
+            }
+
+            yield return 0;
+        }
     }
 }

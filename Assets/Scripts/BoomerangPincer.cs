@@ -32,7 +32,7 @@ public class BoomerangPincer : UsableItem
         }
         animator.SetBool("attacking", true);
         collider.enabled = true;
-        useCounter -= 1;
+        usesLeft -= 1;
     }
 
     protected override void OnTriggerEnter2D(Collider2D otherCollider)
@@ -40,7 +40,7 @@ public class BoomerangPincer : UsableItem
         base.OnTriggerEnter2D(otherCollider);
 
         if(otherCollider.gameObject.tag == "Player" && onUse && comeBack) {
-            EndEffect();
+            FinishUse();
         }
     }
 
@@ -89,7 +89,7 @@ public class BoomerangPincer : UsableItem
         }
     }
 
-    private void EndEffect()
+    public override void FinishUse()
     {
         onUse = false;
         collider.enabled = false;
@@ -97,6 +97,7 @@ public class BoomerangPincer : UsableItem
         hold = false;
         animator.SetBool("attacking", false);
         CheckUses();
+        StopAllCoroutines();
     }
 
     protected override IEnumerator UsageCoroutine()

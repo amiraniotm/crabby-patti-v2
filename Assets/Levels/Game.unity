@@ -289,7 +289,7 @@ MonoBehaviour:
   enemyCollisionSound: {fileID: 8300000, guid: 5c8e4e1a434e054e8bc63fff73f5c73e, type: 3}
   itemAppearSound: {fileID: 8300000, guid: 240b8688e2d9bc745b19efeac9df38fd, type: 3}
   itemPool: {fileID: 777416775}
-  itemLimit: 5
+  spawnTime: 10
   currentItem: {fileID: 0}
   currentItemScript: {fileID: 0}
 --- !u!4 &56411449
@@ -4994,7 +4994,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.8294983, y: 0.45942163}
+  m_Offset: {x: -0.3117237, y: 0.45942163}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5005,7 +5005,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 67.07492, y: 7.6944323}
+  m_Size: {x: 79.84677, y: 7.6944323}
   m_EdgeRadius: 0
 --- !u!4 &1046283833
 Transform:
@@ -10532,7 +10532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9491858ebaff2649867110d78565ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raycastXGap: 2
+  raycastXGap: 3
   raycastYMod: 1.5
   frontRaycastOrigin: {x: 0, y: 0}
   backRaycastOrigin: {x: 0, y: 0}
@@ -10673,9 +10673,10 @@ MonoBehaviour:
   leapTime: 1
   attackTime: 2
   choiceTime: 0.5
-  attackChance: 50
-  moveChance: 100
-  bananaChance: 100
+  tantrumTime: 4
+  attackChance: 30
+  moveChance: 75
+  bananaChance: 25
   projPool: {fileID: 1925931138}
   player: {fileID: 129525982}
 --- !u!114 &7582144073347787837

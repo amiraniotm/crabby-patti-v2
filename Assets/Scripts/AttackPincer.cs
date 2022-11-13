@@ -8,8 +8,9 @@ public class AttackPincer : UsableItem
     {
         onUse = true;
         animator.SetTrigger("attack");
+        transform.localScale *= 2.0f;
         collider.enabled = true;
-        useCounter -= 1;
+        usesLeft -= 1;
         StartCoroutine(UsageCoroutine());
     }
 
@@ -28,13 +29,20 @@ public class AttackPincer : UsableItem
         }
     }
 
+    public override void FinishUse()
+    {
+        onUse = false;
+        transform.localScale /= 2.0f;
+        collider.enabled = false;
+        CheckUses();
+        StopAllCoroutines();
+    }
+
     protected override IEnumerator UsageCoroutine()
     {
         yield return new WaitForSeconds(useTime);
 
-        onUse = false;
-        collider.enabled = false;
-        CheckUses();
+        FinishUse();
     }
 
 }

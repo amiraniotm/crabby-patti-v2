@@ -20,7 +20,6 @@ public abstract class Item : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         itemController = GameObject.FindGameObjectWithTag("ItemController").GetComponent<ItemController>();
         masterController = GameObject.FindGameObjectWithTag("MasterController").GetComponent<MasterController>();
-        SetInitialPosition();
     }
 
     protected abstract void OnTriggerEnter2D(Collider2D otherCollider);
@@ -33,6 +32,7 @@ public abstract class Item : MonoBehaviour
     public virtual void SetInitialPosition()
     {
         initialPosition = transform.position;
+        StartCoroutine(VanishCoroutine());
     }
 
     public virtual IEnumerator VanishCoroutine()

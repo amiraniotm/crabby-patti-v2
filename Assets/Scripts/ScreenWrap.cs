@@ -55,7 +55,7 @@ public class ScreenWrap : MonoBehaviour
             } else if(gameObject.transform.position.y < (cam.gameObject.transform.position.y - (screenHeight / 2)) && gameObject.tag == "Player") {
                 PlayerMovement playerScript = GetComponent<PlayerMovement>();
                 playerScript.Die();
-            } else if(characterScript != null && !characterScript.isDead && !characterScript.onGround && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
+            } else if(characterScript != null && !characterScript.isDead && !characterScript.spawning && !characterScript.masterController.scrollPhase) {
                 if(hasGhosts) {
                     GhostSwap();
                 }

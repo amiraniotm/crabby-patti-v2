@@ -9,4 +9,6 @@ public abstract class Boss : Character
     protected int currentHitPoints;
 
     protected abstract void Move();
+
+    public abstract void TakeDamage();
 }   

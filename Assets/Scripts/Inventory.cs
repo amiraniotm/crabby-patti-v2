@@ -22,6 +22,10 @@ public class Inventory : MonoBehaviour
     public void LoseItem()
     {
         if(currentItem != null) {
+            if(currentItem.onUse) {
+                currentItem.FinishUse();
+            }
+            currentItem.onInventory = false;
             currentItem.gameObject.SetActive(false);
         }
     }

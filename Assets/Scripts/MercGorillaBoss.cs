@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class MercGorillaBoss : Boss
 {
-    [SerializeField] private float leapTime, attackTime, choiceTime;
+    [SerializeField] private float leapTime, attackTime, choiceTime, tantrumTime;
     [SerializeField] private int attackChance, moveChance, bananaChance;
     [SerializeField] private ObjectPool projPool;
     [SerializeField] private PlayerMovement player;
 
-    private bool doRage, raging, doAttack, attacking, doMove, moving, doLeap, leaping, doSwitch, switching, switchUp, switchDown, offCam, forceMove, attackSet;
+    private bool doRage, raging, doAttack, attacking, doMove, moving, doLeap, leaping, doSwitch, switching, isHurt;
+    private bool switchUp, switchDown, offCam, forceMove, attackSet;
     private GameObject currentProj;
     private Projectile projScript;
     private EdgeChecker edgeChecker;
     protected CameraMovement mainCamera;
     protected Rigidbody2D currentProjBody;
     protected Vector3 playerPos, vectToPlayer;
-    protected float attackCount, swMult;
+    protected float attackCount, swMult, adjustedChoiceTime;
 
     new protected void Awake()
     {
@@ -24,6 +25,9 @@ public class MercGorillaBoss : Boss
 
         edgeChecker = GetComponent<EdgeChecker>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>();
+        adjustedChoiceTime = choiceTime;
+        adjustedWalkSpeed = walkSpeed;
+        currentHitPoints = maxHitPoints;
     }
 
     private void Update()
@@ -32,7 +36,11 @@ public class MercGorillaBoss : Boss
         forceMove = HasToMove();
 
         if(grounded && forceMove) {
-            Move();
+            if((!flippedHorizontal && edgeChecker.frontEdgeHit) || (flippedHorizontal && edgeChecker.backEdgeHit)) {
+                Move();
+            } else {
+                Leap();
+            }
         }
 
         if(tripped) {
@@ -69,7 +77,7 @@ public class MercGorillaBoss : Boss
     protected override void Move()
     {
         moving = true;
-        body.velocity = new Vector2(walkSpeed, topJumpSpeed);
+        body.velocity = new Vector2(adjustedWalkSpeed, topJumpSpeed);
 
         int rand = Random.Range(0,100);
 
@@ -142,7 +150,7 @@ public class MercGorillaBoss : Boss
             ThrowProjectile();
             attackCount = 0;
             ResetMoveProps();
-            Invoke("MoveOrAttack", choiceTime);
+            Invoke("MoveOrAttack", adjustedChoiceTime);
         }   
     }
 
@@ -152,10 +160,7 @@ public class MercGorillaBoss : Boss
         vectToPlayer = playerPos - transform.position;
 
         if((vectToPlayer.x <= 0 && !flippedHorizontal) || (vectToPlayer.x > 0 && flippedHorizontal)) {
-            flippedHorizontal = !flippedHorizontal;
-            transform.localScale *= -1;
-            walkSpeed *= -1;
-            runSpeed *= -1;
+            FlipHorizontal();
         } 
     }
 
@@ -189,7 +194,7 @@ public class MercGorillaBoss : Boss
             Hold();
             if(!spawning && spawned && !forceMove) {
                 ResetMoveProps();
-                Invoke("MoveOrAttack", choiceTime);
+                Invoke("MoveOrAttack", adjustedChoiceTime);
             }
         } else if(collision.gameObject.tag == "Projectiles") {
             Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
@@ -202,8 +207,10 @@ public class MercGorillaBoss : Boss
                 tripped = true;
                 StartCoroutine(UntripCoroutine());
             } else if(!hitProj.trippable && hitProj.deactivated && !hitProj.grounded) {
-                Debug.Log("take damage");
+                TakeDamage();
             }
+        } else if (collision.gameObject.tag == "Player") {
+            Hold();
         }
     }
 
@@ -256,11 +263,39 @@ public class MercGorillaBoss : Boss
 
     protected bool HasToMove()
     {
-        if((!spawned && spawning) || offCam || (onMid && !onTop)) {
+        if((!spawned && spawning) || offCam || (onMid && !onTop) || isHurt) {
             return true;
         }
 
         return false;
+    }
+
+    public override void TakeDamage()
+    {
+        Hold();
+        ResetMoveProps();
+        DropAttack();
+        currentHitPoints -= 1;
+        isHurt = true;
+
+        if(currentHitPoints > 0) {
+            StartCoroutine(TantrumCoroutine());
+        } else {
+            Jump();
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        collider.enabled = false;
+    }
+
+    private void DropAttack()
+    {
+        if(currentProj != null) {
+            currentProj.SetActive(false);
+        }
     }
 
     private IEnumerator ColliderBackCoroutine()
@@ -287,5 +322,31 @@ public class MercGorillaBoss : Boss
         adjustedJumpSpeed = topJumpSpeed;
         collider.enabled = true;
         ResetMoveProps();
+    }
+
+    private IEnumerator TantrumCoroutine()
+    {
+        float startTime = 1.5f;
+
+        while(startTime > 0) {
+            Hold();
+            startTime -= Time.deltaTime;
+
+            yield return 0;
+        }
+
+        adjustedWalkSpeed = 1.5f * walkSpeed;
+        adjustedChoiceTime = 0.0f;
+
+        StartCoroutine(EndTantrumCoroutine());
+    }
+
+    private IEnumerator EndTantrumCoroutine()
+    {
+        yield return new WaitForSeconds(tantrumTime);
+
+        adjustedChoiceTime = choiceTime;
+        adjustedWalkSpeed = walkSpeed;
+        isHurt = false;
     }
 }

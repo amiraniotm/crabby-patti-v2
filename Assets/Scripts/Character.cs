@@ -14,7 +14,7 @@ public class Character : MonoBehaviour
     protected Renderer mainRenderer;
     protected SpriteRenderer spriteRenderer;
     protected ScreenWrap screenWrap;
-    protected float adjustedJumpSpeed;
+    protected float adjustedJumpSpeed, adjustedWalkSpeed;
     public MasterController masterController;
     public Vector2 originPosition;
 
@@ -48,6 +48,14 @@ public class Character : MonoBehaviour
         }
 
         grounded = false;
+    }
+
+    protected void FlipHorizontal()
+    {
+        flippedHorizontal = !flippedHorizontal;
+        walkSpeed *= -1;
+        runSpeed *= -1;
+        transform.localScale *= new Vector2(-1,1);
     }
     
     protected void OnCollisionEnter2D(Collision2D collision)

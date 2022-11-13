@@ -127,13 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: HardShell
   player: {fileID: 0}
-  useCounter: 0
+  maxUses: 1
   useTime: 0.4
   hasEffect: 0
   itemType: shell
   onInventory: 0
   flippedHorizontal: 0
   onUse: 0
+  usesLeft: 0
   playerInventory: {fileID: 0}
 --- !u!95 &1554753278
 Animator:
