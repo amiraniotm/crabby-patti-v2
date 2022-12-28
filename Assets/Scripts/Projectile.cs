@@ -106,7 +106,7 @@ public class Projectile : MonoBehaviour
         StartCoroutine(YFadeCoroutine());
     }
 
-    public void SetCollider()
+    public void SetColliderOnFall()
     {
         StartCoroutine(ColliderOnCoroutine());
     }
@@ -153,7 +153,9 @@ public class Projectile : MonoBehaviour
 
     protected IEnumerator ColliderOnCoroutine()
     {
-        yield return new WaitForSeconds(0.25f);
+        while(body.velocity.y > 0){
+            yield return 0;
+        }
 
         myCollider.enabled = true;
     }  

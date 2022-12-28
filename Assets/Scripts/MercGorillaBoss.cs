@@ -93,7 +93,7 @@ public class MercGorillaBoss : Boss
             if(!isHurt) {
                 SetProjectile("Banana");
                 currentProjBody.AddForce(20.0f * Vector3.up, ForceMode2D.Impulse);
-                projScript.SetCollider();
+                projScript.SetColliderOnFall();
             } else {
                 SetProjectile("choose");
                 currentProjBody.AddForce(20.0f * Vector3.up, ForceMode2D.Impulse);
