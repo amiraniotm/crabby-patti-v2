@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trippable: 1
   throwable: 1
-  vanishTime: 10
+  vanishTime: 5
   boss: {fileID: 0}
   body: {fileID: 0}
   myCollider: {fileID: 0}

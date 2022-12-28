@@ -120,11 +120,9 @@ public class ItemController : MonoBehaviour
         
         if(levelKey == 1){
             itemWeights.Remove("ExtraLife");
-            itemWeights.Remove("ExtraTime");
             itemNames.Remove("ExtraLife");
-            itemNames.Remove("ExtraTime");
             itemLimit = 50;
-            spawnTime = 7.0f;
+            spawnTime = 6.0f;
         }
     }
 

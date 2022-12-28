@@ -192,12 +192,13 @@ public class PlayerMovement : Character
                     CheckForShell(); 
                 } else if (hitProj.grounded && hitProj.thrown && hitProj.trippable) {
                     hitProj.myCollider.enabled = false;
+                    hitProj.grounded = false;
                     tripped = true;
                     StartCoroutine(UntripCoroutine());  
                 } else {    
                     hitProj.grounded = false;
                     hitProj.myCollider.enabled = false;
-                    hitProj.body.velocity = 2.0f * body.velocity;
+                    hitProj.body.velocity = 4.0f * body.velocity;
                     Kick();
                 }
             } else if ( collision.gameObject.tag == "Waves" || collision.gameObject.tag == "Bosses" ) {

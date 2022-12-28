@@ -34,7 +34,9 @@ public class GhostMovement : MonoBehaviour
     {
         Vector2 newPosition = transform.position;
 
-        if(!originalObjectScript.onGround) {
+        if(originalObjectScript != null && !originalObjectScript.isDead && !originalObjectScript.spawning &&
+            (originalObject.tag != "Enemies" || (originalObject.tag == "Enemies" && !originalObjectScript.onGround))) {
+                
             if(transform.position.x > originalObject.transform.position.x){
                 newPosition.x = originalObject.transform.position.x + screenWrap.screenWidth;
             } else if(transform.position.x < originalObject.transform.position.x){
@@ -47,8 +49,6 @@ public class GhostMovement : MonoBehaviour
             transform.rotation = originalObject.transform.rotation;
             transform.localScale = originalObject.transform.localScale;
             spriteRenderer.sprite = originalSpriteRenderer.sprite;
-        } else {
-            transform.position = originalObjectScript.originPosition;
         }
     }
 }

@@ -5,12 +5,13 @@ using UnityEngine;
 public class MercGorillaBoss : Boss
 {
     [SerializeField] private float leapTime, attackTime, choiceTime, tantrumTime;
-    [SerializeField] private int attackChance, moveChance, bananaChance;
-    [SerializeField] private ObjectPool projPool;
+    [SerializeField] private int attackChance, moveChance, bananaChance, monkeChance;
+    [SerializeField] private ObjectPool projPool, monkePool;
     [SerializeField] private PlayerMovement player;
+    [SerializeField] protected MapDisplacementController mapDisController;
 
     private bool doRage, raging, doAttack, attacking, doMove, moving, doLeap, leaping, doSwitch, switching, isHurt;
-    private bool switchUp, switchDown, offCam, forceMove, attackSet;
+    private bool switchUp, switchDown, offCam, forceMove, attackSet, callTried;
     private GameObject currentProj;
     private Projectile projScript;
     private EdgeChecker edgeChecker;
@@ -18,6 +19,7 @@ public class MercGorillaBoss : Boss
     protected Rigidbody2D currentProjBody;
     protected Vector3 playerPos, vectToPlayer;
     protected float attackCount, swMult, adjustedChoiceTime;
+    protected string lastAction;
 
     new protected void Awake()
     {
@@ -35,7 +37,13 @@ public class MercGorillaBoss : Boss
         offCam = IsOffCamera();
         forceMove = HasToMove();
 
-        if(grounded && forceMove) {
+        if(isHurt) {
+            body.gravityScale = 3.0f;
+        } else {
+            body.gravityScale = 2.0f;
+        }
+
+        if(grounded && forceMove && !moving) {
             if((!flippedHorizontal && edgeChecker.frontEdgeHit) || (flippedHorizontal && edgeChecker.backEdgeHit)) {
                 Move();
             } else {
@@ -81,12 +89,20 @@ public class MercGorillaBoss : Boss
 
         int rand = Random.Range(0,100);
 
-        if(rand < bananaChance && !forceMove) {
-            SetProjectile("Banana");
-            currentProjBody.AddForce(20.0f * Vector3.up, ForceMode2D.Impulse);
+        if((rand < bananaChance && !forceMove) || isHurt) {
+            if(!isHurt) {
+                SetProjectile("Banana");
+                currentProjBody.AddForce(20.0f * Vector3.up, ForceMode2D.Impulse);
+                projScript.SetCollider();
+            } else {
+                SetProjectile("choose");
+                currentProjBody.AddForce(20.0f * Vector3.up, ForceMode2D.Impulse);
+                projScript.deactivated = false;
+                projScript.telegraphed = true;
+            }
+            
             projScript.thrown = true;
-            projScript.SetCollider();
-        }
+        } 
     }
 
     protected void Switch()
@@ -120,6 +136,16 @@ public class MercGorillaBoss : Boss
 
     protected void SetProjectile(string projName)
     {
+        if(projName == "choose") {
+            int rand = Random.Range(0,100);
+
+            if(rand > 50) {
+                projName = "Coconut";
+            } else {
+                projName = "Banana";
+            }
+        }
+        
         currentProj = projPool.GetPooledObject(projName);
         projScript = currentProj.GetComponent<Projectile>();
         currentProj.SetActive(true);
@@ -141,6 +167,10 @@ public class MercGorillaBoss : Boss
         attacking = true;
         attackCount += Time.deltaTime;
 
+        if(!callTried) {
+            AttackOrCall();
+        }
+
         SetDistToPlayer();
 
         if(attackCount >= attackTime / 3 && !attackSet) {
@@ -152,6 +182,20 @@ public class MercGorillaBoss : Boss
             ResetMoveProps();
             Invoke("MoveOrAttack", adjustedChoiceTime);
         }   
+    }
+
+    protected void AttackOrCall()
+    {
+        int rand = Random.Range(0, 100);
+        callTried = true;
+
+        if(rand < monkeChance && (mapDisController.currentObstacles.Count < monkePool.objectsToPool)) {
+            Jump();
+
+            mapDisController.SetObstacle(gameObject);
+
+            attackCount = 0;
+        }
     }
 
     private void SetDistToPlayer()
@@ -167,11 +211,11 @@ public class MercGorillaBoss : Boss
     private void ThrowProjectile()
     {
         attackSet = false;
-        float forceMult = 2.0f;
+        float forceMult = 3.0f;
         Vector3 adjForce = forceMult * vectToPlayer;
 
         if(adjForce.magnitude < 35) {
-            forceMult = 4.0f;
+            forceMult = 5.0f;
             adjForce = forceMult * vectToPlayer;
         } 
         projScript.telegraphed = true;
@@ -195,6 +239,8 @@ public class MercGorillaBoss : Boss
             if(!spawning && spawned && !forceMove) {
                 ResetMoveProps();
                 Invoke("MoveOrAttack", adjustedChoiceTime);
+            } else if(forceMove) {
+                moving = false;
             }
         } else if(collision.gameObject.tag == "Projectiles") {
             Projectile hitProj = collision.gameObject.GetComponent<Projectile>();
@@ -220,7 +266,16 @@ public class MercGorillaBoss : Boss
         int rand = Random.Range(0,100);
 
         doAttack = rand < attackChance;
+
+        if(doAttack && lastAction == "attack") {
+            doAttack = false;
+        }
+        
         doMove = !doAttack;
+
+        if(doAttack) {
+            lastAction = "attack";
+        }
         
         if(doMove && !onMid) {
             MoveOrSwitch();
@@ -232,7 +287,18 @@ public class MercGorillaBoss : Boss
         int rand = Random.Range(0,100);
 
         doMove = rand < moveChance;
+
+        if(doSwitch && lastAction == "switch") {
+            doMove = true;
+        }
+        
         doSwitch = !doMove;
+
+        if(doSwitch) {
+            lastAction = "switch";
+        } else {
+            lastAction = "move";
+        }
     }
 
     protected void ResetMoveProps()
@@ -247,6 +313,8 @@ public class MercGorillaBoss : Boss
         leaping = false;
         switching = false;
         raging = false;
+
+        callTried = false;
     }
 
     protected bool IsOffCamera()
@@ -272,11 +340,11 @@ public class MercGorillaBoss : Boss
 
     public override void TakeDamage()
     {
+        StopAllCoroutines();
         Hold();
-        ResetMoveProps();
         DropAttack();
+        doSwitch = false;
         currentHitPoints -= 1;
-        isHurt = true;
 
         if(currentHitPoints > 0) {
             StartCoroutine(TantrumCoroutine());
@@ -293,6 +361,8 @@ public class MercGorillaBoss : Boss
 
     private void DropAttack()
     {
+        doAttack = false;
+
         if(currentProj != null) {
             currentProj.SetActive(false);
         }
@@ -326,7 +396,7 @@ public class MercGorillaBoss : Boss
 
     private IEnumerator TantrumCoroutine()
     {
-        float startTime = 1.5f;
+        float startTime = 1.0f;
 
         while(startTime > 0) {
             Hold();
@@ -335,8 +405,10 @@ public class MercGorillaBoss : Boss
             yield return 0;
         }
 
-        adjustedWalkSpeed = 1.5f * walkSpeed;
+        adjustedWalkSpeed *= 1.5f;
         adjustedChoiceTime = 0.0f;
+        ResetMoveProps();
+        isHurt = true;
 
         StartCoroutine(EndTantrumCoroutine());
     }
@@ -346,7 +418,17 @@ public class MercGorillaBoss : Boss
         yield return new WaitForSeconds(tantrumTime);
 
         adjustedChoiceTime = choiceTime;
-        adjustedWalkSpeed = walkSpeed;
+
+        if(currentHitPoints <= 4) {
+            adjustedWalkSpeed = 1.3f * walkSpeed;
+            adjustedJumpSpeed = 1.3f * topJumpSpeed;
+            choiceTime = 0.15f;
+        } else if (currentHitPoints <= 2) {
+            adjustedWalkSpeed = 2f * walkSpeed;
+            adjustedJumpSpeed = 1.6f * topJumpSpeed;
+            choiceTime = 0.1f;
+        }
+
         isHurt = false;
     }
 }

@@ -122,7 +122,6 @@ public class MapDisplacementController : MonoBehaviour
         foreach(Obstacle obs in currentObstacles ) {
             if(!obs.leaving) {
                 obs.forceLeave = true;
-                obs.DropAttack();
             }    
         }
         
@@ -197,29 +196,39 @@ public class MapDisplacementController : MonoBehaviour
             int rand = Random.Range(0,100);
 
             if(rand < obstacleChance) {
-                GameObject obstacleObj = displacementPool.GetPooledObject(masterController.currentLevel.obstacleName);
-                Obstacle obstacleScript = obstacleObj.GetComponent<Obstacle>();
-
-                if(obstacleScript.isSided) {
-                    obstacleScript.SetSide();
-
-                    if(obstacleScript.side == "left") {
-                        Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft"); 
-                        obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z );
-                    } else {
-                        Vector3 cameraCorner = mainCamera.GetCurrentCorner("upperright"); 
-                        obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z);
-                    }
-                } else {
-                    Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft");
-                    obstacleObj.transform.position = new Vector3( transform.position.x, cameraCorner.y, transform.position.z );
-                }
-
-                obstacleObj.transform.SetParent(wallObject.transform);
-                obstacleObj.SetActive(true);
-                obstacleScript.AdjustPosToSide();
-                currentObstacles.Add(obstacleScript);
+                SetObstacle();
             }
         }
+    }
+
+    public void SetObstacle(GameObject invoker = null)
+    {
+        GameObject obstacleObj = displacementPool.GetPooledObject(masterController.currentLevel.obstacleName);
+        Obstacle obstacleScript = obstacleObj.GetComponent<Obstacle>();
+
+        if(obstacleScript.isSided) {
+            obstacleScript.SetSide();
+
+            if(obstacleScript.side == "left") {
+                Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft"); 
+                obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z );
+            } else {
+                Vector3 cameraCorner = mainCamera.GetCurrentCorner("upperright"); 
+                obstacleObj.transform.position = new Vector3( cameraCorner.x, cameraCorner.y, transform.position.z);
+            }
+        } else {
+            Vector3 cameraCorner = mainCamera.GetCurrentCorner("lowerleft");
+            obstacleObj.transform.position = new Vector3( transform.position.x, cameraCorner.y, transform.position.z );
+        }
+
+        if(invoker == null) {
+            obstacleObj.transform.SetParent(wallObject.transform);
+        } else {
+            obstacleObj.transform.SetParent(invoker.transform.parent);
+            obstacleObj.layer = invoker.layer;
+        }
+        obstacleObj.SetActive(true);
+        obstacleScript.AdjustPosToSide();
+        currentObstacles.Add(obstacleScript);
     }
 }

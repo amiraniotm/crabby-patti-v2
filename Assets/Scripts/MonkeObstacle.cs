@@ -70,7 +70,7 @@ public class MonkeObstacle : Obstacle
 
     public override void DropAttack()
     {
-        if(currentProjectile != null && currentProjectile.activeSelf) {
+        if(currentProjectile != null) {
             currentProjectile.SetActive(false);
         }
     }
@@ -116,6 +116,7 @@ public class MonkeObstacle : Obstacle
         float leaveCount = 0.0f;
         forceLeave = false;
         doLeave = false;
+        DropAttack();
 
         while (leaveCount < 1) {
             leaveCount += Time.deltaTime;

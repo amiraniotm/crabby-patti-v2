@@ -27,6 +27,7 @@ public class Inventory : MonoBehaviour
             }
             currentItem.onInventory = false;
             currentItem.gameObject.SetActive(false);
+            currentItem = null;
         }
     }
 }

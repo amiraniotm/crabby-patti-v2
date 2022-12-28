@@ -10303,7 +10303,7 @@ MonoBehaviour:
   - {fileID: 8637420521858045061, guid: af5636b5499c8f3f7b98e2d6f29eb145, type: 3}
   - {fileID: 2517605933339128684, guid: c9e34405bdebcfe1a93359c82745f283, type: 3}
   - {fileID: 2517605933339128684, guid: 3eea017ec3cbaa25196650c943c2f8e2, type: 3}
-  objectsToPool: 6
+  objectsToPool: 12
 --- !u!4 &1925931139
 Transform:
   m_ObjectHideFlags: 0
@@ -10653,7 +10653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934c5529dd8fe2db59aa8234455426f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 7
+  walkSpeed: 8
   runSpeed: 25
   topJumpSpeed: 7
   enemyCounter: {fileID: 0}
@@ -10670,15 +10670,18 @@ MonoBehaviour:
   collider: {fileID: 0}
   body: {fileID: 0}
   maxHitPoints: 5
-  leapTime: 1
-  attackTime: 2
-  choiceTime: 0.5
+  leapTime: 0.7
+  attackTime: 1
+  choiceTime: 0.25
   tantrumTime: 4
-  attackChance: 30
-  moveChance: 75
-  bananaChance: 25
+  attackChance: 40
+  moveChance: 70
+  bananaChance: 40
+  monkeChance: 20
   projPool: {fileID: 1925931138}
+  monkePool: {fileID: 424430408}
   player: {fileID: 129525982}
+  mapDisController: {fileID: 2756888}
 --- !u!114 &7582144073347787837
 MonoBehaviour:
   m_ObjectHideFlags: 0

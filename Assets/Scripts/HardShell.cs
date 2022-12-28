@@ -33,8 +33,8 @@ public class HardShell : UsableItem
     public override void FinishUse()
     {
         onUse = false;
-        gameObject.SetActive(false);
         StopAllCoroutines();
+        gameObject.SetActive(false);
     }
 
     protected override IEnumerator UsageCoroutine()
